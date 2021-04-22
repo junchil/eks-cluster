@@ -1,0 +1,88 @@
+# Default values for trs-normalize.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+environment: Default
+
+testBox:
+  enabled: true
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/go-db-kubernetes/testbox
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+reaweb:
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/go-db-kubernetes/godbweb
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+postgresql:
+  enabled: true
+  postgresqlUsername: postgres
+  postgresqlPassword: "changeme"
+  persistence:
+    enabled: false
+    storageClass: "standard"
+
+# More details on:
+# https://github.com/helm/charts/blob/master/incubator/aws-alb-ingress-controller/values.yaml
+albcontroller:
+  enabled: true
+  clusterName: "reaCluster"
+  autoDiscoverAwsRegion: true
+  autoDiscoverAwsVpcID: true
+
+  scope:
+    ingressClass: alb
+    # singleNamespace: true
+    # watchNamespace: "kube-system-ingress"
+
+  podAnnotations:
+    iam.amazonaws.com/role: alb-ingress-controller
+  podLabels: {}
+  # whether configure readinessProbe on controller pod
+  enableReadinessProbe: false
+  # How often (in seconds) to check controller readiness
+  readinessProbeInterval: 60
+  # How long to wait before timeout (in seconds) when checking controller readiness
+  readinessProbeTimeout: 3
+  # How long to wait (in seconds) before checking the readiness probe
+  readinessProbeInitialDelay: 30
+  # whether configure livenessProbe on controller pod
+  enableLivenessProbe: false
+  # How long to wait (in seconds) before checking the liveness probe
+  livenessProbeInitialDelay: 30
+  rbac:
+    create: true
+    serviceAccountName: alb-ingress
+
+externaldns:
+  enabled: true
+  sources:
+    - service
+    - ingress
+  provider: aws
+  domainFilters:
+    # List of the domains that external-dns has to watch, Route 53 should be prepared before setting this up
+    - stevejcliu.com
+  policy: sync
+  rbac:
+    create: true
+
+nginx:
+  enabled: true
+  controller:
+    config:
+      use-forwarded-headers: "true"
+    service:
+      type: NodePort
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      targetPorts:
+        http: 80
+        https: 80
+
+certificateArn: ""

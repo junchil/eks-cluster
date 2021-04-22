@@ -1,0 +1,15 @@
+dependencies:
+- name: postgresql
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 8.6.4
+- name: aws-alb-ingress-controller
+  repository: http://storage.googleapis.com/kubernetes-charts-incubator
+  version: 0.1.13
+- name: external-dns
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 2.20.3
+- name: nginx-ingress
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.33.5
+digest: sha256:8f22a8bbda00de1bd48bfebbfaf96bcb5fbb48306462ea6732ab508779b3e62b
+generated: "2020-06-25T08:28:41.8461992+10:00"

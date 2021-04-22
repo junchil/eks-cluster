@@ -1,0 +1,24 @@
+dist: xenial
+language: python
+
+services:
+  - docker
+
+python:
+  - "3.8"
+  - "pypy3" 
+
+env:
+  global:
+    - LOCAL_BIN=${HOME}/.local/bin # For downloaded tools like terraform and awscli
+    # Retrieve commit tag values for each micro-service folder to be used in tagging and deploying docker images.
+    # Dependency folders are included as well and must be maintained
+    - APP_TAG=$(git log --pretty=format:rc-%h -n 1 -- app)
+    - TESTBOX_TAG=$(git log --pretty=format:rc-%h -n 1 -- app)
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install .
+# command to run tests
+script: pytest
