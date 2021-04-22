@@ -1,9 +1,9 @@
 # APPNAME is used for the generated executable and as part of the docker image name
-APPNAME=rea-web-app
+APPNAME=web-app
 # PREFIX is prepended to the docker image name before NAME
-PREFIX=web-kubernetes/
+PREFIX=tiny-app/
 # PROJECT_PKG is the Go import path of the top level of the project
-PROJECT_PKG=github.com/junchil/web-kubernetes
+PROJECT_PKG=github.com/junchil/tiny-app
 # AWS ECR REPO
 ECR_REPO_NAME=$(PREFIX)$(APPNAME)
 # AWS Region for the ECR
