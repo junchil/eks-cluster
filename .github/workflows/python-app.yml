@@ -6,8 +6,8 @@ on:
 
 name: EKS cluster project `python app` CI on ECR
 jobs:
-  deploy:
-    name: Deploy
+  python-app-build:
+    name: Python App Build
     runs-on: ubuntu-latest
 
     steps:
