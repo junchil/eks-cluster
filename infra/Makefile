@@ -51,7 +51,7 @@ depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
 
 copy-ssh-public-key:
 	cd $(SSH_FOLDER) && \
-	cat stevejc-ec2-test-key-pair.pub && \
+	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub
 
 deploy-terraform: copy-ssh-public-key
