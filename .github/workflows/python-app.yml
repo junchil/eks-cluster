@@ -28,9 +28,6 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: eks-cluster/python-app
-        IMAGE_TAG: latest
         SERVICE_DIR: python-app
       run: |
         cd $SERVICE_DIR
