@@ -1,6 +1,6 @@
 # eks-cluster
 
-[![Build Status](https://travis-ci.com/junchil/eks-cluster.svg?branch=main)](https://travis-ci.com/junchil/eks-cluster)
+[![Build Status](https://travis-ci.com/junchil/tiny-app.svg?branch=main)](https://travis-ci.com/junchil/tiny-app)
 
 API:
 
