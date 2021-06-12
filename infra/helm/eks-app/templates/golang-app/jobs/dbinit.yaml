@@ -7,8 +7,8 @@ spec:
         spec:
             containers:
             - name: dbinit
-              image: "{{ .Values.reaweb.image.repository }}:{{ .Values.reaweb.image.tag }}"
-              imagePullPolicy: {{ .Values.reaweb.image.pullPolicy }}
+              image: "{{ .Values.golangApp.image.repository }}:{{ .Values.golangApp.image.tag }}"
+              imagePullPolicy: {{ .Values.golangApp.image.pullPolicy }}
               command: ["./godbweb"]    # required to stop early exit
               args: ["updatedb"]
               stdin: true               # required to stop early exit
