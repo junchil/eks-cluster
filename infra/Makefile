@@ -1,11 +1,11 @@
-RELEASE_NAME             = servian
-CHART_PATH               = rea-web
-TF_FOLDER            	 = eks
+RELEASE_NAME             = eksapp
+CHART_PATH               = eks-app
+TF_FOLDER            	 = terraform/eks
 APPS                 	 = terraform kubectl helm aws aws-iam-authenticator
 
-TF_VERS                 	?= 0.12.24
+TF_VERS                 	?= 0.15.3
 KUBECTL_VERS            	?= 1.16.0
-HELM_VERS               	?= 3.2.4
+HELM_VERS               	?= 3.6.0
 LOCAL_BIN               	?= $(HOME)/bin
 CURL                     	= curl -fSOL
 
@@ -55,24 +55,25 @@ deploy-terraform:
 	terraform init && \
 	terraform plan && \
 	terraform apply -auto-approve && \
-	terraform output kubeconfig > "$(KUBECONFIG)" && \
-	terraform output config_map_aws_auth > "$(KUBECONFIGMAP)" && \
-	terraform output helm_values > "$(HELM_VALUES)" && \
+	terraform output -raw kubeconfig > "$(KUBECONFIG)" && \
+	terraform output -raw config_map_aws_auth > "$(KUBECONFIGMAP)" && \
+	terraform output -raw helm_values > "$(HELM_VALUES)" && \
 	echo "Terraform changes are applied successfully" \
 	) || exit 1;
 	kubectl apply -f $(KUBECONFIGMAP)
 
-deploy-charts:
-	@echo Deploying charts
-	@cd charts && \
-	helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator && \
+deploy-helm-charts:
+	@echo Deploying helm charts
+	@cd helm && \
+	helm repo add "stable" "https://charts.helm.sh/stable" && \
+	helm repo add "common" https://charts.helm.sh/incubator && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
 
-deploy: deploy-terraform deploy-charts
+deploy: deploy-terraform deploy-helm-charts
 
-destroy-charts:
+destroy-helm-charts:
 	helm uninstall $(RELEASE_NAME) && \
 	echo "Helm changes are destroyed successfully"
 
@@ -81,8 +82,8 @@ destroy-terraform:
 	cd $(TF_FOLDER) && \
 	( \
 		terraform init && \
-		terraform destroy -auto-approve -force && \
+		terraform destroy -auto-approve && \
 		echo "Terraform changes are destroyed successfully" \
 	)
 
-destroy: deploy-terraform destroy-charts destroy-terraform
+destroy: destroy-terraform

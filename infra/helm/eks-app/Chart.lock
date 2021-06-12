@@ -1,0 +1,15 @@
+dependencies:
+- name: postgresql
+  repository: https://charts.helm.sh/stable/
+  version: 8.6.4
+- name: aws-alb-ingress-controller
+  repository: https://charts.helm.sh/incubator
+  version: 0.1.13
+- name: external-dns
+  repository: https://charts.helm.sh/stable/
+  version: 2.20.3
+- name: nginx-ingress
+  repository: https://charts.helm.sh/stable/
+  version: 1.33.5
+digest: sha256:db226f1bc154d46eb957fdbdd0457bcee4c1c468c90041b016ec4a5122d2b394
+generated: "2021-06-07T15:43:42.633738+10:00"

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-golang-app
+spec:
+  replicas: {{ .Values.golang-app.replicas }}
+  selector:
+    matchLabels:
+      app: golang-app
+  template:
+    metadata:
+      labels:
+        app: golang-app
+    spec:
+      containers:
+      - image: "{{ .Values.golang-app.image.repository }}:{{ .Values.golang-app.image.tag }}"
+        imagePullPolicy: {{ .Values.golang-app.image.pullPolicy }}
+        stdin: true               # required to stop early exit
+        name: golang-app
+        ports:
+        - containerPort: 5000

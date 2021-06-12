@@ -1,0 +1,7 @@
+"DbUser" = "postgres"
+"DbPassword" = "changeme"
+"DbName" = "app"
+"DbPort" = "5432"
+"DbHost" = "localhost"
+"ListenHost" = "localhost"
+"ListenPort" = "3000"

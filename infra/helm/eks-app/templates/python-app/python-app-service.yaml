@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-python-app
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: python-app

@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: {{ .Release.Name }}-pi
+spec:
+    template:
+        spec:
+            containers:
+            - name: dbinit
+              image: "{{ .Values.reaweb.image.repository }}:{{ .Values.reaweb.image.tag }}"
+              imagePullPolicy: {{ .Values.reaweb.image.pullPolicy }}
+              command: ["./godbweb"]    # required to stop early exit
+              args: ["updatedb"]
+              stdin: true               # required to stop early exit
+            initContainers:
+            - name: init-postgresql
+              image: busybox
+              command: ['sh', '-c', 'until nslookup servian-postgresql; do echo waiting for servian-postgresql; sleep 2; done;']
+            restartPolicy: Never
+    backoffLimit: 4
