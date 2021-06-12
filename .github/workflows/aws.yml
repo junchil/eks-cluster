@@ -105,10 +105,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Apply changes to aws infrastructure
       id: build-image
       env:
-        SERVICE_DIR: testbox
+        SERVICE_DIR: infra
       run: |
         cd $SERVICE_DIR
         make depend
