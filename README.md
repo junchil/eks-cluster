@@ -1,6 +1,6 @@
 # eks-cluster
 
-[![Build Status](https://travis-ci.com/junchil/tiny-app.svg?branch=main)](https://travis-ci.com/junchil/tiny-app)
+[![.github/workflows/aws.yml](https://github.com/junchil/eks-cluster/actions/workflows/aws.yml/badge.svg?branch=main)](https://github.com/junchil/eks-cluster/actions/workflows/aws.yml)
 
 API:
 
