@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-python-app
 spec:
-  replicas: {{ .Values.python-app.replicas }}
+  replicas: {{ .Values.pythonApp.replicas }}
   selector:
     matchLabels:
       app: python-app
@@ -13,8 +13,8 @@ spec:
         app: python-app
     spec:
       containers:
-      - image: "{{ .Values.python-app.image.repository }}:{{ .Values.python-app.image.tag }}"
-        imagePullPolicy: {{ .Values.python-app.image.pullPolicy }}
+      - image: "{{ .Values.pythonApp.image.repository }}:{{ .Values.pythonApp.image.tag }}"
+        imagePullPolicy: {{ .Values.pythonApp.image.pullPolicy }}
         stdin: true               # required to stop early exit
         name: python-app
         ports:

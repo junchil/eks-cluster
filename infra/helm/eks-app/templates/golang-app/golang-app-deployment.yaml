@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-golang-app
 spec:
-  replicas: {{ .Values.golang-app.replicas }}
+  replicas: {{ .Values.golangApp.replicas }}
   selector:
     matchLabels:
       app: golang-app
@@ -13,8 +13,8 @@ spec:
         app: golang-app
     spec:
       containers:
-      - image: "{{ .Values.golang-app.image.repository }}:{{ .Values.golang-app.image.tag }}"
-        imagePullPolicy: {{ .Values.golang-app.image.pullPolicy }}
+      - image: "{{ .Values.golangApp.image.repository }}:{{ .Values.golangApp.image.tag }}"
+        imagePullPolicy: {{ .Values.golangApp.image.pullPolicy }}
         stdin: true               # required to stop early exit
         name: golang-app
         ports:
