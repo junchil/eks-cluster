@@ -89,9 +89,9 @@ jobs:
   #       make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
   #       make publish
 
-  terraform-apply:
+  aws-deploy:
     #needs: [python-app-build, golang-app-build, testbox-build]
-    name: Terraform apply
+    name: AWS Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -112,5 +112,6 @@ jobs:
       run: |
         cd $SERVICE_DIR
         make depend
+        make deploy
 
   
