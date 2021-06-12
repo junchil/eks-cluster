@@ -8,15 +8,14 @@ env:
     - LOCAL_BIN=${HOME}/.local/bin # For downloaded tools like terraform and awscli
     # Retrieve commit tag values for each micro-service folder to be used in tagging and deploying docker images.
     # Dependency folders are included as well and must be maintained
-    - APP_TAG=$(git log --pretty=format:rc-%h -n 1 -- app)
-    - TESTBOX_TAG=$(git log --pretty=format:rc-%h -n 1 -- app)
+    - GOLANG_TAG=$(git log --pretty=format:rc-%h -n 1 -- golang-app)
+    - PYTHON_TAG=$(git log --pretty=format:rc-%h -n 1 -- python-app)
+    - TESTBOX_TAG=$(git log --pretty=format:rc-%h -n 1 -- testbox)
 
 before_install:
   - mkdir -p ${LOCAL_BIN}
   - export PATH=${PATH}:${LOCAL_BIN}    # Put aws in the path
-  - git config --global url.git@github.com:.insteadOf https://github.com/
   - make common-deps                    # install dependencies from Makefile in the root
-
 
 script:
   - set -e               # Stop script immediately on error
@@ -33,9 +32,54 @@ stages:
 jobs:
   include:
     - stage: build
-      name: "✍️ REA WEB SERVER: Build, test and publish the image"
+      name: "✍️ Golang App Build: Build, test and publish the image"
       env:
-        - SERVICE_DIR=app
+        - SERVICE_DIR=golang-app
         - TARGET_AWS_PROFILE=AWS_STEVE
-        - COMMIT_HASH=${REA_APP_TAG}
+        - COMMIT_HASH=${GOLANG_TAG}
       if: (branch = tag AND tag =~ /v\d+.\d+(.\d+)?/) OR (branch != tag)
+
+    - stage: build
+      name: "✍️ Python App Build: Build, test and publish the image"
+      env:
+        - SERVICE_DIR=python-app
+        - TARGET_AWS_PROFILE=AWS_STEVE
+        - COMMIT_HASH=${PYTHON_TAG}
+      if: (branch = tag AND tag =~ /v\d+.\d+(.\d+)?/) OR (branch != tag)
+
+    - stage: build
+      name: "✍️ TESTBOX: Build, test and publish the image"
+      env:
+        - SERVICE_DIR=testbox
+        - TARGET_AWS_PROFILE=AWS_STEVE
+        - COMMIT_HASH=${TESTBOX_TAG}
+      if: (branch = tag AND tag =~ /v\d+.\d+(.\d+)?/) OR (branch != tag)
+
+    # Deploy the infrastructure, use for main
+    - stage: terraform deployment
+      name: "🏖️ Main deploy to AWS: Apply changes to kubernetes infrastructure and update container images"
+      env:
+        - SERVICE_DIR=infra
+        - REGION=ap-southeast-2
+        - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      script:
+        - set -e # Stop script immediately on error
+        - cd $SERVICE_DIR
+        - make depend
+        - make deploy
+      if: branch = main AND type != pull_request AND commit_message ="aws" AND commit_message !="destroy"
+
+    - stage: terraform deployment
+      name: "♨️ Branch manual destroy AWS: Destroy changes in aws"
+      env:
+        - SERVICE_DIR=infra
+        - REGION=ap-southeast-2
+        - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      script:
+        - set -e # Stop script immediately on error
+        - cd $SERVICE_DIR
+        - make depend
+        - make destroy
+      if: commit_message ="destroy" AND type != pull_request
