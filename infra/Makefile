@@ -71,8 +71,7 @@ deploy-helm-charts:
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
 
-#deploy: deploy-terraform deploy-helm-charts
-deploy: @echo test
+deploy: deploy-terraform deploy-helm-charts
 
 destroy-helm-charts:
 	helm uninstall $(RELEASE_NAME) && \
