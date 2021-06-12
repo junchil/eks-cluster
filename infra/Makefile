@@ -51,7 +51,7 @@ depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
 
 copy-ssh-public-key:
 	cd $(SSH_FOLDER) && \
-	mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub
+	ls
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
