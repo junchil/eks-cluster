@@ -6,8 +6,8 @@ on:
 
 name: Testbox CI Build to ECR
 jobs:
-  Testbox-app-build:
-    name: Testbox App Build
+  Testbox-build:
+    name: Testbox Build
     runs-on: ubuntu-latest
 
     steps:
