@@ -43,7 +43,7 @@ depend-aws-iam-authenticator:
 	@echo "Installing aws-iam-authenticator"
 	$(CURL) https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator && \
 	chmod +x aws-iam-authenticator && \
-	mv aws-iam-authenticator /usr/local/bin/
+	sudo mv aws-iam-authenticator /usr/local/bin/
 
 depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
 	@for bin in $(APPS); do which $$bin; done
