@@ -48,7 +48,10 @@ depend-aws-iam-authenticator:
 depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
 	@for bin in $(APPS); do which $$bin; done
 
-deploy-terraform:
+copy-ssh-public-key:
+	mv ssh-key/stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub
+
+deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
 	cd $(TF_FOLDER) && \
 	( \
