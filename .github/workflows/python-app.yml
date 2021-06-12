@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ master ]
 
-name: Tiny app project `python app` CI on ECR
+name: EKS cluster project `python app` CI on ECR
 jobs:
   deploy:
     name: Deploy
