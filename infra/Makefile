@@ -1,6 +1,7 @@
 RELEASE_NAME             = eksapp
 CHART_PATH               = eks-app
 TF_FOLDER            	 = terraform/eks
+SSH_FOLDER               = terraform/ssh-key
 APPS                 	 = terraform kubectl helm aws aws-iam-authenticator
 
 TF_VERS                 	?= 0.15.3
@@ -49,7 +50,7 @@ depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
 	@for bin in $(APPS); do which $$bin; done
 
 copy-ssh-public-key:
-	mv ssh-key/stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub
+	mv $(SSH_FOLDER)/stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
