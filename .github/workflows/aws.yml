@@ -56,6 +56,7 @@ jobs:
       id: build-image
       env:
         SERVICE_DIR: golang-app
+        COMMIT_HASH: $(shell git log --pretty=format:%h -n 1 -- ../golang-app)
       run: |
         cd $SERVICE_DIR
         make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
