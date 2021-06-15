@@ -11,14 +11,14 @@ ECR_REPO_NAME=$PREFIX$APPNAME
 # AWS Region for the ECR
 AWS_REGION=ap-southeast-2
 # Commit hash for the service
-COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- .)
+COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- golang-app)
 echo "Commit hash: $COMMIT_HASH"
 # Check ecr repo exists or not
 if ! aws --region $AWS_REGION ecr describe-repositories --repository-names $ECR_REPO_NAME; then 
 	aws --region $AWS_REGION ecr create-repository --repository-name $ECR_REPO_NAME;
 fi
 # ECR login
-aws ecr get-login --no-include-email --region $AWS_REGION
+aws ecr get-login-password --region $AWS_REGION
 AWS_ECR_REPO_URI=$(aws --region=$AWS_REGION ecr describe-repositories --repository-names "$ECR_REPO_NAME" | jq -r '.repositories[0].repositoryUri')
 echo "Using AWS ECR uri $AWS_ECR_REPO_URI"
 # Check image exists or not
