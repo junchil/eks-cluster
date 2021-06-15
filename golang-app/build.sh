@@ -11,7 +11,7 @@ ECR_REPO_NAME=$PREFIX$APPNAME
 # AWS Region for the ECR
 AWS_REGION=ap-southeast-2
 # Commit hash for the service
-COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- ../golang-app)
+COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- .)
 echo "Commit hash: $COMMIT_HASH"
 # Check ecr repo exists or not
 if ! aws --region $AWS_REGION ecr describe-repositories --repository-names $ECR_REPO_NAME; then 
