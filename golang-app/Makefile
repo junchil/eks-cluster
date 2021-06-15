@@ -13,8 +13,6 @@ ECR_REPO_NAME=$(PREFIX)$(APPNAME)
 # AWS Region for the ECR
 AWS_REGION=ap-southeast-2
 
-COMMIT_HASH = $(shell git log --pretty=format:%h -n 1 -- ../golang-app)
-
 ifeq ($(GIT_BRANCH),)
 ifneq ($(TRAVIS_PULL_REQUEST_BRANCH),)
 GIT_BRANCH = $(TRAVIS_PULL_REQUEST_BRANCH)_PR
