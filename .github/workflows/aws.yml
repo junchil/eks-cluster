@@ -28,6 +28,7 @@ jobs:
       id: build-image
       env:
         SERVICE_DIR: python-app
+      working-directory: ./python-app
       run: |
         cd $SERVICE_DIR
         ls
