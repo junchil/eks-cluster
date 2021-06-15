@@ -58,7 +58,7 @@ jobs:
         SERVICE_DIR: golang-app
       run: |
         cd $SERVICE_DIR
-        COMMIT_HASH = $(shell git log --pretty=format:%h -n 1 -- ../golang-app)
+        COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- ../golang-app)
         make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
         make publish
 
