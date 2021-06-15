@@ -13,18 +13,18 @@ AWS_REGION=ap-southeast-2
 # Commit hash for the service
 COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- ../golang-app)
 # Check ecr repo exists or not
-RESULT=$(aws ecr describe-images --repository-name $(ECR_REPO_NAME) --region $(AWS_REGION) --image-ids imageTag=$(COMMIT_HASH) | jq '.imageDetails[0].imageTags')
+RESULT=$(aws ecr describe-images --repository-name $ECR_REPO_NAME --region $AWS_REGION --image-ids imageTag=$COMMIT_HASH | jq '.imageDetails[0].imageTags')
 if [ "$RESULT" = "null" ] || [ -z "$RESULT" ]; then 
     exit 1;
 fi
-if ! aws --region $(AWS_REGION) ecr describe-repositories --repository-names $(ECR_REPO_NAME); then 
-	aws --region $(AWS_REGION) ecr create-repository --repository-name $(ECR_REPO_NAME);
+if ! aws --region $AWS_REGION ecr describe-repositories --repository-names $ECR_REPO_NAME; then 
+	aws --region $AWS_REGION ecr create-repository --repository-name $ECR_REPO_NAME;
 fi
 # ECR login
-aws ecr get-login --no-include-email --region $(AWS_REGION)
-AWS_ECR_REPO_URI=$(aws --region=$(AWS_REGION) ecr describe-repositories --repository-names "$(ECR_REPO_NAME)" | jq -r '.repositories[0].repositoryUri')
-echo "Using AWS ECR uri $(AWS_ECR_REPO_URI)"
-docker build -t $(ECR_REPO_NAME):$(COMMIT_HASH) .
-docker tag $(ECR_REPO_NAME):$(COMMIT_HASH) $(ECR_REPO_NAME):latest
-docker tag $(ECR_REPO_NAME):$(COMMIT_HASH) $(AWS_ECR_REPO_URI):$(COMMIT_HASH)
-docker push $(AWS_ECR_REPO_URI):$(COMMIT_HASH)
+aws ecr get-login --no-include-email --region $AWS_REGION
+AWS_ECR_REPO_URI=$(aws --region=$AWS_REGION ecr describe-repositories --repository-names "$ECR_REPO_NAME" | jq -r '.repositories[0].repositoryUri')
+echo "Using AWS ECR uri $AWS_ECR_REPO_URI"
+docker build -t $ECR_REPO_NAME:$COMMIT_HASH .
+docker tag $ECR_REPO_NAME:$COMMIT_HASH $ECR_REPO_NAME:latest
+docker tag $ECR_REPO_NAME:$COMMIT_HASH $AWS_ECR_REPO_URI:$COMMIT_HASH
+docker push $AWS_ECR_REPO_URI:$COMMIT_HASH
