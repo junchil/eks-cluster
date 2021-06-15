@@ -30,8 +30,6 @@ jobs:
         SERVICE_DIR: python-app
       run: |
         cd $SERVICE_DIR
-        make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
-        make publish
 
   golang-app-build:
     name: Golang App Build
@@ -86,8 +84,6 @@ jobs:
         SERVICE_DIR: testbox
       run: |
         cd $SERVICE_DIR
-        make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
-        make publish
 
   aws-deploy:
     needs: [python-app-build, golang-app-build, testbox-build]
