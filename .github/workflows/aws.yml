@@ -30,6 +30,8 @@ jobs:
         SERVICE_DIR: python-app
       run: |
         cd $SERVICE_DIR
+        COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- .)
+        echo "Commit hash: $COMMIT_HASH"
 
   golang-app-build:
     name: Golang App Build
