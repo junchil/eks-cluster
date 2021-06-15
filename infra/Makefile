@@ -52,13 +52,15 @@ depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
 copy-ssh-public-key:
 	cd $(SSH_FOLDER) && \
 	sudo mkdir ~/.ssh && \
-	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub
+	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
 	cd $(TF_FOLDER) && \
 	( \
+	terraform fmt -check && \
 	terraform init && \
+	terraform validate && \
 	terraform plan && \
 	terraform apply -auto-approve && \
 	terraform output -raw kubeconfig > "$(KUBECONFIG)" && \

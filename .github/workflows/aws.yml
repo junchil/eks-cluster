@@ -5,92 +5,92 @@ on:
     branches: [ main ]
 
 jobs:
-  # python-app-build:
-  #   name: Python App Build
-  #   runs-on: ubuntu-latest
+  python-app-build:
+    name: Python App Build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
-  #   - name: Configure AWS credentials
-  #     uses: aws-actions/configure-aws-credentials@v1
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #       aws-region: ${{ secrets.AWS_REGION }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-  #   - name: Login to Amazon ECR
-  #     id: login-ecr
-  #     uses: aws-actions/amazon-ecr-login@v1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
-  #   - name: Build, tag, and push image to Amazon ECR
-  #     id: build-image
-  #     env:
-  #       SERVICE_DIR: python-app
-  #     run: |
-  #       cd $SERVICE_DIR
-  #       make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
-  #       make publish
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        SERVICE_DIR: python-app
+      run: |
+        cd $SERVICE_DIR
+        make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
+        make publish
 
-  # golang-app-build:
-  #   name: Golang App Build
-  #   runs-on: ubuntu-latest
+  golang-app-build:
+    name: Golang App Build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
-  #   - name: Configure AWS credentials
-  #     uses: aws-actions/configure-aws-credentials@v1
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #       aws-region: ${{ secrets.AWS_REGION }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-  #   - name: Login to Amazon ECR
-  #     id: login-ecr
-  #     uses: aws-actions/amazon-ecr-login@v1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
-  #   - name: Build, tag, and push image to Amazon ECR
-  #     id: build-image
-  #     env:
-  #       SERVICE_DIR: golang-app
-  #     run: |
-  #       cd $SERVICE_DIR
-  #       make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
-  #       make publish
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        SERVICE_DIR: golang-app
+      run: |
+        cd $SERVICE_DIR
+        make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
+        make publish
 
-  # testbox-build:
-  #   name: Testbox Build
-  #   runs-on: ubuntu-latest
+  testbox-build:
+    name: Testbox Build
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
-  #   - name: Configure AWS credentials
-  #     uses: aws-actions/configure-aws-credentials@v1
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #       aws-region: ${{ secrets.AWS_REGION }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-  #   - name: Login to Amazon ECR
-  #     id: login-ecr
-  #     uses: aws-actions/amazon-ecr-login@v1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
-  #   - name: Build, tag, and push image to Amazon ECR
-  #     id: build-image
-  #     env:
-  #       SERVICE_DIR: testbox
-  #     run: |
-  #       cd $SERVICE_DIR
-  #       make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
-  #       make publish
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        SERVICE_DIR: testbox
+      run: |
+        cd $SERVICE_DIR
+        make check-image-exists && travis_terminate 0 || echo "Image doesn't exist, continue with build process";
+        make publish
 
   aws-deploy:
-    #needs: [python-app-build, golang-app-build, testbox-build]
+    needs: [python-app-build, golang-app-build, testbox-build]
     name: AWS Deploy
     runs-on: ubuntu-latest
 
@@ -111,7 +111,7 @@ jobs:
         SERVICE_DIR: infra
       run: |
         cd $SERVICE_DIR
-        make depend
-        make deploy
+        make depend  
+      #make deploy
 
   
