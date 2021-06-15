@@ -58,6 +58,7 @@ jobs:
         SERVICE_DIR: golang-app
       run: |
         cd $SERVICE_DIR
+        sudo chmod +x build.sh
         ./build.sh
 
   testbox-build:
