@@ -8,7 +8,6 @@ https://web.stevejcliu.com/python
 
 https://web.stevejcliu.com/golang
 
-
 Host web application inside AWS EKS cluster using ALB + NGINX.
 
 This repo builds a CICD pipeline for depolying golang and python web application into EKS cluster. 
