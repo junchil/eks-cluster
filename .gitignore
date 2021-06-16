@@ -49,3 +49,4 @@ override.tf.json
 /app/dist/
 /infra/charts/local-ecr/
 *.tgz
+/infra/terraform/eks/kubeconfig.yaml

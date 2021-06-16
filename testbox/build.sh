@@ -27,5 +27,5 @@ if [ "$RESULT" = "null" ] || [ -z "$RESULT" ]; then
     docker build -t $ECR_REPO_NAME:$COMMIT_HASH .
     docker tag $ECR_REPO_NAME:$COMMIT_HASH $ECR_REPO_NAME:latest
     docker tag $ECR_REPO_NAME:$COMMIT_HASH $AWS_ECR_REPO_URI:$COMMIT_HASH
-    docker push $AWS_ECR_REPO_URI:$COMMIT_HASH
+    docker push $AWS_ECR_REPO_URI:$COMMIT_HASH && docker push $AWS_ECR_REPO_URI:latest
 fi

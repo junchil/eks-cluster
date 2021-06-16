@@ -8,21 +8,21 @@ testBox:
   enabled: true
   image:
     repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/testbox
-    tag: main
+    tag: latest
     pullPolicy: Always
   replicas: 1
 
 pythonApp:
   image:
     repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/python-app
-    tag: main
+    tag: latest
     pullPolicy: Always
   replicas: 1
 
 golangApp:
   image:
     repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app
-    tag: main
+    tag: latest
     pullPolicy: Always
   replicas: 1
 
