@@ -94,4 +94,4 @@ destroy-terraform:
 		echo "Terraform changes are destroyed successfully" \
 	)
 
-destroy: destroy-terraform
+destroy: deploy-terraform destroy-helm-charts destroy-terraform
