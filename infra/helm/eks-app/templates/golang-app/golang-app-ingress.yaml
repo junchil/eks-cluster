@@ -10,6 +10,7 @@ spec:
   - http:
       paths:
       - path: /golang
+        pathType: Prefix
         backend:
           service:
             name: {{ .Release.Name }}-golang-app

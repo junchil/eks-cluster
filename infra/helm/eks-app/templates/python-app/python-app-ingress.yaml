@@ -10,6 +10,7 @@ spec:
   - http:
       paths:
       - path: /python
+        pathType: Prefix
         backend:
           service:
             name: {{ .Release.Name }}-python-app
