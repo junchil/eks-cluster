@@ -136,7 +136,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Apply changes to aws infrastructure
+    - name: Destroy changes in aws
       id: build-image
       env:
         SERVICE_DIR: infra
@@ -144,5 +144,6 @@ jobs:
         cd $SERVICE_DIR
         make depend  
         make destroy
-
-  
+        aws ecr delete-repository --repository-name eks-cluster/golang-app --force
+        aws ecr delete-repository --repository-name eks-cluster/python-app --force
+        aws ecr delete-repository --repository-name eks-cluster/testbox --force
