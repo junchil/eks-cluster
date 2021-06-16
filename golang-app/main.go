@@ -28,7 +28,7 @@
 // swagger:meta
 package main
 
-import "github.com/junchil/eks-cluster/app/cmd"
+import "github.com/junchil/eks-cluster/golang-app/cmd"
 
 func main() {
 	cmd.Execute()
