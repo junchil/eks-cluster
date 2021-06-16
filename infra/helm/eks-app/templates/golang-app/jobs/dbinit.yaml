@@ -15,6 +15,6 @@ spec:
             initContainers:
             - name: init-postgresql
               image: busybox
-              command: ['sh', '-c', 'until nslookup servian-postgresql; do echo waiting for servian-postgresql; sleep 2; done;']
+              command: ['sh', '-c', 'until nslookup eksapp-postgresql; do echo waiting for eksapp-postgresql; sleep 2; done;']
             restartPolicy: Never
     backoffLimit: 4
