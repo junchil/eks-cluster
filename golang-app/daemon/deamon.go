@@ -27,7 +27,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/junchil/eks-cluster/app/ui"
+	"github.com/junchil/eks-cluster/golang-app/ui"
 )
 
 // Config - configuration for daemon package

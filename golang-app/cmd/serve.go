@@ -24,7 +24,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/junchil/eks-cluster/app/daemon"
+	"github.com/junchil/eks-cluster/golang-app/daemon"
 	"github.com/spf13/cobra"
 )
 

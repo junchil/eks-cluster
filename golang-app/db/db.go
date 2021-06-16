@@ -27,7 +27,7 @@ import (
 
 	"github.com/lib/pq"
 
-	"github.com/junchil/eks-cluster/app/model"
+	"github.com/junchil/eks-cluster/golang-app/model"
 	_ "github.com/lib/pq"
 )
 

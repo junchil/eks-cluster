@@ -23,7 +23,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/junchil/eks-cluster/app/db"
+	"github.com/junchil/eks-cluster/golang-app/db"
 	"github.com/spf13/cobra"
 )
 

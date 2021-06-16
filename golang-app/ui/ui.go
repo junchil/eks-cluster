@@ -27,7 +27,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/junchil/eks-cluster/app/db"
+	"github.com/junchil/eks-cluster/golang-app/db"
 )
 
 // Config configuration for ui package

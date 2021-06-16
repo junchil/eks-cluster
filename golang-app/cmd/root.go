@@ -24,8 +24,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/junchil/eks-cluster/app/config"
-	"github.com/junchil/eks-cluster/app/daemon"
+	"github.com/junchil/eks-cluster/golang-app/config"
+	"github.com/junchil/eks-cluster/golang-app/daemon"
 	"github.com/spf13/cobra"
 )
 

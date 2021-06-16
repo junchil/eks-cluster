@@ -28,8 +28,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/junchil/eks-cluster/app/db"
-	"github.com/junchil/eks-cluster/app/model"
+	"github.com/junchil/eks-cluster/golang-app/db"
+	"github.com/junchil/eks-cluster/golang-app/model"
 )
 
 // TaskID parameter.
