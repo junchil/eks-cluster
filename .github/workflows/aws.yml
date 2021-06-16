@@ -1,8 +1,10 @@
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
   python-app-build:
@@ -28,9 +30,8 @@ jobs:
       id: build-image
       working-directory: ./python-app
       run: |
-        ls
-        COMMIT_HASH=$(git log --pretty=format:%h -n 1 -- .)
-        echo "Commit hash: $COMMIT_HASH"
+        sudo chmod +x build.sh
+        ./build.sh
 
   golang-app-build:
     name: Golang App Build
@@ -53,10 +54,8 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      env:
-        SERVICE_DIR: golang-app
+      working-directory: ./golang-app
       run: |
-        cd $SERVICE_DIR
         sudo chmod +x build.sh
         ./build.sh
 
@@ -81,10 +80,10 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      env:
-        SERVICE_DIR: testbox
+      working-directory: ./testbox
       run: |
-        cd $SERVICE_DIR
+        sudo chmod +x build.sh
+        ./build.sh
 
   aws-deploy:
     needs: [python-app-build, golang-app-build, testbox-build]
