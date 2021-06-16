@@ -9,12 +9,6 @@ spec:
   rules:
   - http:
       paths:
-      - path: /*
-        backend:
-          service:
-            name: ssl-redirect
-            port:
-              number: use-annotation
       - path: /golang
         backend:
           service:

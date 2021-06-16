@@ -17,12 +17,6 @@ spec:
       - path: /*
         backend:
           service:
-            name: ssl-redirect
-            port:
-              number: use-annotation
-      - path: /*
-        backend:
-          service:
             name: {{ .Release.Name }}-nginx-controller
             port:
               number: 80
