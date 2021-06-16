@@ -11,9 +11,13 @@ spec:
       paths:
       - path: /*
         backend:
-          serviceName: ssl-redirect
-          servicePort: use-annotation
+          service:
+            name: ssl-redirect
+            port:
+              number: use-annotation
       - path: /python
         backend:
-          serviceName: {{ .Release.Name }}-python-app
-          servicePort: 5000
+          service:
+            name: {{ .Release.Name }}-python-app
+            port:
+              number: 5000

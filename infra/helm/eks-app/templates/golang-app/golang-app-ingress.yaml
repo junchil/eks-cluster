@@ -11,9 +11,13 @@ spec:
       paths:
       - path: /*
         backend:
-          serviceName: ssl-redirect
-          servicePort: use-annotation
+          service:
+            name: ssl-redirect
+            port:
+              number: use-annotation
       - path: /golang
         backend:
-          serviceName: {{ .Release.Name }}-golang-app
-          servicePort: 3000
+          service:
+            name: {{ .Release.Name }}-golang-app
+            port:
+              number: 3000
