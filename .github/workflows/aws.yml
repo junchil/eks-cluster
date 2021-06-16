@@ -112,7 +112,7 @@ jobs:
 
   aws-destroy:
     needs: [python-app-build, golang-app-build, testbox-build, aws-deploy]
-    name: AWS Deploy
+    name: AWS Destroy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdestroy'
 
