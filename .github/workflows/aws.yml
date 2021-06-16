@@ -108,6 +108,6 @@ jobs:
       run: |
         cd $SERVICE_DIR
         make depend  
-      #make deploy
+        make deploy
 
   
