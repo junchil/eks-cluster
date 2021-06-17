@@ -73,8 +73,9 @@ deploy-terraform: copy-ssh-public-key
 deploy-helm-charts:
 	@echo Deploying helm charts
 	@cd helm && \
-	helm repo add "stable" "https://charts.helm.sh/stable" && \
-	helm repo add "common" https://charts.helm.sh/incubator && \
+	helm repo add bitnami https://charts.bitnami.com/bitnami && \
+	helm repo add stable https://charts.helm.sh/stable && \
+	helm repo add common https://charts.helm.sh/incubator && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)

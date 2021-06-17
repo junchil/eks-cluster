@@ -22,8 +22,8 @@ appVersion: 1.16.0
 
 dependencies:
 - name: postgresql
-  version: 8.6.4
-  repository: https://charts.helm.sh/stable/
+  version: 10.5.0
+  repository: https://charts.bitnami.com/bitnami
   condition: postgresql.enabled
 
 - name: aws-alb-ingress-controller
