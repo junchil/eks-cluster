@@ -81,12 +81,15 @@ externaldns:
 
 nginx:
   enabled: true
-  service:
-    type: NodePort
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
-    targetPorts:
-      http: 80
-      https: 80
+  controller:
+    config:
+      use-forwarded-headers: "true"
+    service:
+      type: NodePort
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      targetPorts:
+        http: 80
+        https: 80
 
 certificateArn: ""
