@@ -1,16 +1,16 @@
-#Run Stage
-FROM ubuntu:bionic
+FROM golang:latest
 
-# copy binaries
-COPY ./godbweb .
-RUN chmod +x godbweb
+WORKDIR /app
 
-# copy configure
-COPY conf.toml .
+COPY go.mod go.sum ./
 
-# copy assets
-COPY assets /assets
+RUN go mod download
+
+COPY . .
+
+# Build the Go app
+RUN go build -o main .
 
 EXPOSE 3000
 
-ENTRYPOINT ["bash"]
+CMD ["./main"]

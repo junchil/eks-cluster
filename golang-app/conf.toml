@@ -1,7 +1,0 @@
-"DbUser" = "postgres"
-"DbPassword" = "changeme"
-"DbName" = "app"
-"DbPort" = "5432"
-"DbHost" = "eksapp-postgresql"
-"ListenHost" = "0.0.0.0"
-"ListenPort" = "3000"
