@@ -83,3 +83,14 @@ variable "wait_for_cluster_cmd" {
   type        = string
   default     = "until wget --no-check-certificate -O - -q $ENDPOINT/healthz >/dev/null; do sleep 4; done"
 }
+
+variable "kubernetes_namespace" {
+  type        = string
+  description = "Kubernetes namespace for selection"
+}
+
+variable "kubernetes_labels" {
+  type        = map(string)
+  description = "Key-value mapping of Kubernetes labels for selection"
+  default     = {}
+}

@@ -20,7 +20,7 @@ module "vpc" {
 }
 
 module "bastion-host" {
-  count                = var.bastion_enable ? 1 : 0
+  count                   = var.bastion_enable ? 1 : 0
   source                  = "./bastion-host"
   instance_type           = var.instance_type
   instance_ami            = var.instance_ami
@@ -32,13 +32,15 @@ module "bastion-host" {
 }
 
 module "eks" {
-  source                        = "./cluster"
-  vpc_id                        = module.vpc.vpc_id
-  cluster_name                  = var.cluster_name
+  source       = "./cluster"
+  vpc_id       = module.vpc.vpc_id
+  cluster_name = var.cluster_name
   #kubernetes_server_instance_sg = module.bastion-host.kubernetes_server_instance_sg
-  eks_subnets                   = flatten([module.vpc.master_subnet])
-  worker_subnet                 = flatten([module.vpc.worker_node_subnet])
-  subnet_ids                    = flatten([module.vpc.master_subnet, module.vpc.worker_node_subnet])
+  eks_subnets          = flatten([module.vpc.master_subnet])
+  worker_subnet        = flatten([module.vpc.worker_node_subnet])
+  subnet_ids           = flatten([module.vpc.master_subnet, module.vpc.worker_node_subnet])
+  kubernetes_namespace = "default"
+  kubernetes_labels    = {}
 }
 
 resource "aws_acm_certificate" "cert" {
