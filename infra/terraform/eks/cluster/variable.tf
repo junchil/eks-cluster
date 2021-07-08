@@ -37,9 +37,9 @@ variable "subnet_ids" {
   description = "List of all subnet in cluster"
 }
 
-variable "kubernetes-server-instance-sg" {
-  description = "Kubenetes control server security group"
-}
+# variable "kubernetes_server_instance_sg" {
+#   description = "Kubenetes control server security group"
+# }
 
 variable "worker_node_instance_type" {
   default = "t2.small"

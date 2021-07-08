@@ -320,15 +320,15 @@ resource "aws_security_group_rule" "worker-node-ingress-cluster" {
   type                     = "ingress"
 }
 
-resource "aws_security_group_rule" "worker-node-for-control-server" {
-  description              = "Allow worker Kubelets and pods to receive communication from the control server"
-  from_port                = 0
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.worker-node-sg.id
-  source_security_group_id = var.kubernetes-server-instance-sg
-  to_port                  = 65535
-  type                     = "ingress"
-}
+# resource "aws_security_group_rule" "worker-node-for-control-server" {
+#   description              = "Allow worker Kubelets and pods to receive communication from the control server"
+#   from_port                = 0
+#   protocol                 = "tcp"
+#   security_group_id        = aws_security_group.worker-node-sg.id
+#   source_security_group_id = var.kubernetes_server_instance_sg
+#   to_port                  = 65535
+#   type                     = "ingress"
+# }
 
 resource "aws_security_group_rule" "worker-node-for-alb" {
   description              = "Allow worker Kubelets and pods to receive communication from alb"

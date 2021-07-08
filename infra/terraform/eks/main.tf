@@ -20,6 +20,7 @@ module "vpc" {
 }
 
 module "bastion-host" {
+  count                = var.bastion_enable ? 1 : 0
   source                  = "./bastion-host"
   instance_type           = var.instance_type
   instance_ami            = var.instance_ami
@@ -34,7 +35,7 @@ module "eks" {
   source                        = "./cluster"
   vpc_id                        = module.vpc.vpc_id
   cluster_name                  = var.cluster_name
-  kubernetes-server-instance-sg = module.bastion-host.kubernetes-server-instance-sg
+  #kubernetes_server_instance_sg = module.bastion-host.kubernetes_server_instance_sg
   eks_subnets                   = flatten([module.vpc.master_subnet])
   worker_subnet                 = flatten([module.vpc.worker_node_subnet])
   subnet_ids                    = flatten([module.vpc.master_subnet, module.vpc.worker_node_subnet])

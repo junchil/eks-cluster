@@ -42,3 +42,7 @@ variable "vpc_name" {
 variable "ingress_url" {
   default = "stevejcliu.com"
 }
+
+variable "bastion_enable" {
+  default = false
+}

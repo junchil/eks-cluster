@@ -1,5 +1,5 @@
-resource "aws_security_group" "kubernetes-server-instance-sg" {
-  name        = "kubernetes-server-instance-sg"
+resource "aws_security_group" "kubernetes_server_instance_sg" {
+  name        = "kubernetes_server_instance_sg"
   description = "kubectl_instance_sg"
   vpc_id      = var.vpc_id
 
@@ -32,7 +32,7 @@ resource "aws_instance" "kubernetes-server" {
   ami                    = var.instance_ami
   key_name               = aws_key_pair.ssh-key-ec2.key_name
   subnet_id              = var.k8-subnet
-  vpc_security_group_ids = [aws_security_group.kubernetes-server-instance-sg.id]
+  vpc_security_group_ids = [aws_security_group.kubernetes_server_instance_sg.id]
 
   root_block_device {
     volume_type           = "gp2"
