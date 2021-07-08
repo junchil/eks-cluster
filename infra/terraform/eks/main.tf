@@ -39,7 +39,7 @@ module "eks" {
   eks_subnets          = flatten([module.vpc.master_subnet])
   worker_subnet        = flatten([module.vpc.worker_node_subnet])
   subnet_ids           = flatten([module.vpc.master_subnet, module.vpc.worker_node_subnet])
-  kubernetes_namespace = "default"
+  kubernetes_namespace = "fargate"
   kubernetes_labels    = {}
 }
 

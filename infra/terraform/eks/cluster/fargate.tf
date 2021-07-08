@@ -33,4 +33,8 @@ resource "aws_eks_fargate_profile" "this_fargate" {
     namespace = var.kubernetes_namespace
     labels    = var.kubernetes_labels
   }
+
+  depends_on = [
+    null_resource.wait_for_cluster
+  ]
 }
