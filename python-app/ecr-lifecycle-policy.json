@@ -1,0 +1,42 @@
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Rule 1",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["latest"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 1
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Rule 2",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 1
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 3,
+            "description": "Rule 3",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 1
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}

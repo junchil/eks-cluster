@@ -16,6 +16,7 @@ echo "Commit hash: $COMMIT_HASH"
 # Check ecr repo exists or not
 if ! aws --region $AWS_REGION ecr describe-repositories --repository-names $ECR_REPO_NAME; then 
 	aws --region $AWS_REGION ecr create-repository --repository-name $ECR_REPO_NAME;
+    aws --region $AWS_REGION ecr put-lifecycle-policy --repository-name $ECR_REPO_NAME --lifecycle-policy-text file://ecr-lifecycle-policy.json;
 fi
 # ECR login
 #aws ecr get-login-password --region $AWS_REGION
