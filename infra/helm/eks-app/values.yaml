@@ -39,6 +39,7 @@ postgresql:
 albcontroller:
   enabled: true
   clusterName: "anycluster"
+  awsRegion: "ap-southeast-2"
   autoDiscoverAwsRegion: true
   autoDiscoverAwsVpcID: true
 
