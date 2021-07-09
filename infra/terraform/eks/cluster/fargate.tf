@@ -24,7 +24,7 @@ resource "aws_iam_role_policy_attachment" "amazon_eks_fargate_pod_execution_role
 
 resource "aws_eks_fargate_profile" "this_fargate" {
   cluster_name           = var.cluster_name
-  fargate_profile_name   = "${var.kubernetes_namespace}-fargate-profile"
+  fargate_profile_name   = "${var.kubernetes_namespace}-namespace-profile"
   pod_execution_role_arn = join("", aws_iam_role.this_fargate.*.arn)
   subnet_ids             = var.worker_subnet
   tags                   = local.common_tags

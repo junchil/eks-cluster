@@ -15,18 +15,6 @@ variable "cidr" {
 }
 
 #subnet variable
-variable "master_subnet_cidr" {
-  type        = list(string)
-  description = "CIDR for master subnet"
-  default     = []
-}
-
-variable "worker_subnet_cidr" {
-  type        = list(string)
-  description = "CIDR for worker subnet"
-  default     = []
-}
-
 variable "public_subnet_cidr" {
   description = "Kubernetes Public CIDR"
   type        = list(string)
