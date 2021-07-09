@@ -39,6 +39,7 @@ module "eks" {
   subnet_ids           = flatten([module.vpc.public_subnet, module.vpc.private_subnet])
   kubernetes_namespace = "fargate"
   kubernetes_labels    = {}
+  oidc_provider_enabled = true
 }
 
 resource "aws_acm_certificate" "cert" {
