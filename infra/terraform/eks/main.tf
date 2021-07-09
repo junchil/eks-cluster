@@ -34,11 +34,11 @@ module "eks" {
   vpc_id       = module.vpc.vpc_id
   cluster_name = var.cluster_name
   #kubernetes_server_instance_sg = module.bastion-host.kubernetes_server_instance_sg
-  eks_subnets          = flatten([module.vpc.public_subnet])
-  worker_subnet        = flatten([module.vpc.private_subnet])
-  subnet_ids           = flatten([module.vpc.public_subnet, module.vpc.private_subnet])
-  kubernetes_namespace = "fargate"
-  kubernetes_labels    = {}
+  eks_subnets           = flatten([module.vpc.public_subnet])
+  worker_subnet         = flatten([module.vpc.private_subnet])
+  subnet_ids            = flatten([module.vpc.public_subnet, module.vpc.private_subnet])
+  kubernetes_namespace  = "fargate"
+  kubernetes_labels     = {}
   oidc_provider_enabled = true
 }
 
