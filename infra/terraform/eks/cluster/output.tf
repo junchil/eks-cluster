@@ -19,6 +19,8 @@ data:
     - rolearn: ${aws_iam_role.this_fargate.arn}
       username: system:node:{{SessionName}}
       groups:
+        - system:bootstrappers
+        - system:nodes
         - system:node-proxier
 CONFIGMAPAWSAUTH
 
