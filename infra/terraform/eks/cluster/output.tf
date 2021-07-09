@@ -1,7 +1,6 @@
 #
 # Outputs
-#
-
+#https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
 locals {
   config_map_aws_auth = <<CONFIGMAPAWSAUTH
 
@@ -13,6 +12,11 @@ metadata:
 data:
   mapRoles: |
     - rolearn: ${aws_iam_role.worker-node-role.arn}
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: ${aws_iam_role.this_fargate.arn}
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
