@@ -41,7 +41,8 @@ albcontroller:
   clusterName: "anycluster"
   awsRegion: "ap-southeast-2"
   autoDiscoverAwsRegion: false
-  autoDiscoverAwsVpcID: true
+  awsVpcID: "vpc-0e49ed43ff6dde091"
+  autoDiscoverAwsVpcID: false
 
   scope:
     ingressClass: alb
