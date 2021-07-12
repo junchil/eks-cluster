@@ -57,25 +57,15 @@ resource "aws_security_group" "cluster_sg" {
   )
 }
 
-resource "aws_security_group_rule" "cluster-ingress-node-https" {
+resource "aws_security_group_rule" "cluster_ingress_node_https" {
   description              = "Allow pods to communicate with the cluster API Server"
   from_port                = 443
   protocol                 = "tcp"
   security_group_id        = aws_security_group.cluster_sg.id
-  source_security_group_id = aws_security_group.worker-node-sg.id
+  source_security_group_id = aws_security_group.worker_node_sg.id
   to_port                  = 443
   type                     = "ingress"
 }
-
-# resource "aws_security_group_rule" "cluster-ingress-workstation-https" {
-#   cidr_blocks       = ["0.0.0.0/0"]
-#   description       = "Allow workstation to communicate with the cluster API Server"
-#   from_port         = 443
-#   protocol          = "tcp"
-#   security_group_id = aws_security_group.cluster_sg.id
-#   to_port           = 443
-#   type              = "ingress"
-# }
 
 #EKS Service
 resource "aws_eks_cluster" "eks-cluster" {
