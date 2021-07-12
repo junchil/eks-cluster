@@ -8,7 +8,7 @@
 #
 
 #IAM Role
-resource "aws_iam_role" "worker-node-role" {
+resource "aws_iam_role" "worker_node_role" {
   name = "${local.name_prefix}-worker-nodes-role"
 
   assume_role_policy = <<POLICY
@@ -217,7 +217,7 @@ resource "aws_iam_policy" "worker-node-policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "worker-node-policy" {
-  role       = aws_iam_role.worker-node-role.name
+  role       = aws_iam_role.worker_node_role.name
   policy_arn = aws_iam_policy.worker-node-policy.arn
 }
 
@@ -250,32 +250,32 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "worker-node-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.worker-node-role.name
+  role       = aws_iam_role.worker_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "worker-node-AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.worker-node-role.name
+  role       = aws_iam_role.worker_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "worker-node-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.worker-node-role.name
+  role       = aws_iam_role.worker_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "worker-node-AmazonEC2FullAccess" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-  role       = aws_iam_role.worker-node-role.name
+  role       = aws_iam_role.worker_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "worker-node-resource_tagging_for_eks" {
   policy_arn = aws_iam_policy.eks-tagging.arn
-  role       = aws_iam_role.worker-node-role.name
+  role       = aws_iam_role.worker_node_role.name
 }
 
 resource "aws_iam_instance_profile" "worker-node" {
   name = "${local.name_prefix}-eks-worker-node-profile"
-  role = aws_iam_role.worker-node-role.name
+  role = aws_iam_role.worker_node_role.name
 }
 
 #Security Group
