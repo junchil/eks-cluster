@@ -30,7 +30,7 @@ POLICY
 
 }
 
-data "aws_iam_policy_document" "worker-node-policy" {
+data "aws_iam_policy_document" "worker_node_policy" {
   # Source: https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.1.2/docs/examples/iam-policy.json
   statement {
     actions = [
@@ -210,15 +210,15 @@ data "aws_iam_policy_document" "worker-node-policy" {
   }
 }
 
-resource "aws_iam_policy" "worker-node-policy" {
-  name        = "${local.name_prefix}-worker-node-policy"
+resource "aws_iam_policy" "worker_node_policy" {
+  name        = "${local.name_prefix}-worker_node_policy"
   description = "Allow EKS worker nodes to use various AWS APIs"
-  policy      = data.aws_iam_policy_document.worker-node-policy.json
+  policy      = data.aws_iam_policy_document.worker_node_policy.json
 }
 
-resource "aws_iam_role_policy_attachment" "worker-node-policy" {
+resource "aws_iam_role_policy_attachment" "worker_node_policy" {
   role       = aws_iam_role.worker_node_role.name
-  policy_arn = aws_iam_policy.worker-node-policy.arn
+  policy_arn = aws_iam_policy.worker_node_policy.arn
 }
 
 resource "aws_iam_policy" "eks-tagging" {
