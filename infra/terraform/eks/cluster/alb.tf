@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "allow_http" {
   to_port                  = 80
   protocol                 = "tcp"
   security_group_id        = aws_security_group.eks_alb_sg.id
-  source_security_group_id = aws_security_group.worker-node-sg.id
+  source_security_group_id = aws_security_group.worker_node_sg.id
 }
 
 resource "aws_security_group_rule" "allow_https" {
@@ -30,7 +30,7 @@ resource "aws_security_group_rule" "allow_https" {
   to_port                  = 443
   protocol                 = "tcp"
   security_group_id        = aws_security_group.eks_alb_sg.id
-  source_security_group_id = aws_security_group.worker-node-sg.id
+  source_security_group_id = aws_security_group.worker_node_sg.id
 }
 
 resource "aws_security_group_rule" "allow_worker_node" {
@@ -39,6 +39,6 @@ resource "aws_security_group_rule" "allow_worker_node" {
   to_port                  = 65535
   protocol                 = "tcp"
   security_group_id        = aws_security_group.eks_alb_sg.id
-  source_security_group_id = aws_security_group.worker-node-sg.id
+  source_security_group_id = aws_security_group.worker_node_sg.id
 }
 
