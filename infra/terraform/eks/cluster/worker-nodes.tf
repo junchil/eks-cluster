@@ -315,7 +315,7 @@ resource "aws_security_group_rule" "worker-node-ingress-cluster" {
   from_port                = 1025
   protocol                 = "tcp"
   security_group_id        = aws_security_group.worker-node-sg.id
-  source_security_group_id = aws_security_group.cluster-sg.id
+  source_security_group_id = aws_security_group.cluster_sg.id
   to_port                  = 65535
   type                     = "ingress"
 }
