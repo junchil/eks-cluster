@@ -303,40 +303,40 @@ resource "aws_security_group" "worker_node_sg" {
 resource "aws_security_group_rule" "worker-node-ingress-self" {
   description              = "Allow node to communicate with each other"
   from_port                = 0
+  to_port                  = 65535
   protocol                 = "-1"
   security_group_id        = aws_security_group.worker_node_sg.id
   source_security_group_id = aws_security_group.worker_node_sg.id
-  to_port                  = 65535
   type                     = "ingress"
 }
 
 resource "aws_security_group_rule" "worker-node-ingress-cluster" {
   description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
   from_port                = 1025
+  to_port                  = 65535
   protocol                 = "tcp"
   security_group_id        = aws_security_group.worker_node_sg.id
   source_security_group_id = aws_security_group.cluster_sg.id
-  to_port                  = 65535
   type                     = "ingress"
 }
 
 # resource "aws_security_group_rule" "worker-node-for-control-server" {
 #   description              = "Allow worker Kubelets and pods to receive communication from the control server"
 #   from_port                = 0
+#   to_port                  = 65535
 #   protocol                 = "tcp"
 #   security_group_id        = aws_security_group.worker_node_sg.id
 #   source_security_group_id = var.kubernetes_server_instance_sg
-#   to_port                  = 65535
 #   type                     = "ingress"
 # }
 
 resource "aws_security_group_rule" "worker-node-for-alb" {
   description              = "Allow worker Kubelets and pods to receive communication from alb"
   from_port                = 0
+  to_port                  = 65535
   protocol                 = "tcp"
   security_group_id        = aws_security_group.worker_node_sg.id
   source_security_group_id = aws_security_group.eks_alb_sg.id
-  to_port                  = 65535
   type                     = "ingress"
 }
 
