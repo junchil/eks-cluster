@@ -6,7 +6,7 @@
 #
 
 #IAM Role
-resource "aws_iam_role" "cluster-role" {
+resource "aws_iam_role" "cluster_role" {
   name = "${local.name_prefix}-cluster-iam-role"
 
   assume_role_policy = <<POLICY
@@ -28,12 +28,12 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.cluster-role.name
+  role       = aws_iam_role.cluster_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.cluster-role.name
+  role       = aws_iam_role.cluster_role.name
 }
 
 #Security Group
@@ -70,7 +70,7 @@ resource "aws_security_group_rule" "cluster_ingress_node_https" {
 #EKS Service
 resource "aws_eks_cluster" "eks-cluster" {
   name     = var.cluster_name
-  role_arn = aws_iam_role.cluster-role.arn
+  role_arn = aws_iam_role.cluster_role.arn
   version  = var.cluster_version
 
   vpc_config {
