@@ -37,14 +37,14 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSServicePolicy" {
 }
 
 #Security Group
-resource "aws_security_group" "cluster-sg" {
+resource "aws_security_group" "cluster_sg" {
   name        = "${local.name_prefix}-clusterSG"
   description = "Cluster communication with worker nodes"
   vpc_id      = var.vpc_id
 
   egress {
     from_port   = 0
-    to_port     = 0
+    to_port     = 65535
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -52,7 +52,7 @@ resource "aws_security_group" "cluster-sg" {
   tags = merge(
     local.common_tags,
     {
-      "Name" = "${local.name_prefix}-cluster-sg"
+      "Name" = "${local.name_prefix}-cluster_sg"
     },
   )
 }
@@ -61,7 +61,7 @@ resource "aws_security_group_rule" "cluster-ingress-node-https" {
   description              = "Allow pods to communicate with the cluster API Server"
   from_port                = 443
   protocol                 = "tcp"
-  security_group_id        = aws_security_group.cluster-sg.id
+  security_group_id        = aws_security_group.cluster_sg.id
   source_security_group_id = aws_security_group.worker-node-sg.id
   to_port                  = 443
   type                     = "ingress"
@@ -72,7 +72,7 @@ resource "aws_security_group_rule" "cluster-ingress-node-https" {
 #   description       = "Allow workstation to communicate with the cluster API Server"
 #   from_port         = 443
 #   protocol          = "tcp"
-#   security_group_id = aws_security_group.cluster-sg.id
+#   security_group_id = aws_security_group.cluster_sg.id
 #   to_port           = 443
 #   type              = "ingress"
 # }
@@ -84,7 +84,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   version  = var.cluster_version
 
   vpc_config {
-    security_group_ids = [aws_security_group.cluster-sg.id]
+    security_group_ids = [aws_security_group.cluster_sg.id]
     # https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html
     subnet_ids = var.subnet_ids
   }
