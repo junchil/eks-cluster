@@ -1,7 +1,7 @@
 resource "aws_security_group" "eks_alb_sg" {
   description = "Allow worker nodes pods to communicate with outsiders"
   vpc_id      = var.vpc_id
-  name        = "eks-alb-loadbalancer-sg"
+  name        = "${local.name_prefix}-alb-loadbalancer-sg"
 
   egress {
     from_port   = 0
