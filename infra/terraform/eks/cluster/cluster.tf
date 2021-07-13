@@ -23,49 +23,6 @@ resource "aws_eks_cluster" "eks-cluster" {
   ]
 }
 
-# # Create an admin role and let everyone in the account assume it to maintain the eks cluster
-# resource "aws_iam_role" "admin-role" {
-#   name = "${local.name_prefix}-kube-cluster-admin-role"
-
-#   assume_role_policy = <<POLICY
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#       "Principal": {
-#         "AWS": "${var.everyone_admin ? "arn:aws:iam::${local.account_id}:root" : local.caller_arn}"
-#       },
-#       "Action": "sts:AssumeRole"
-#     }
-#   ]
-# }
-# POLICY
-
-#   tags = local.common_tags
-
-# }
-
-# resource "aws_iam_role_policy_attachment" "admin-AmazonEKSClusterPolicy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-#   role       = aws_iam_role.admin-role.name
-# }
-
-# resource "aws_iam_role_policy_attachment" "admin-AmazonEKSServicePolicy" {
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-#   role       = aws_iam_role.admin-role.name
-# }
-
-# Enabling IAM Roles for Service Accounts in Kubernetes cluster
-#
-# From official docs:
-# The IAM roles for service accounts feature is available on new Amazon EKS Kubernetes version 1.14 clusters,
-# and clusters that were updated to versions 1.14 or 1.13 on or after September 3rd, 2019.
-#
-# https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html
-# https://medium.com/@marcincuber/amazon-eks-with-oidc-provider-iam-roles-for-kubernetes-services-accounts-59015d15cb0c
-#
-
 data "tls_certificate" "cluster" {
   count = var.oidc_provider_enabled ? 1 : 0
   url   = join("", aws_eks_cluster.eks-cluster.*.identity.0.oidc.0.issuer)
