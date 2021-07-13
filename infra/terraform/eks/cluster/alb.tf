@@ -1,5 +1,5 @@
 resource "aws_security_group" "eks_alb_sg" {
-  description = "Allow worker nodes pods to communicate with outsiders"
+  description = "Allow worker nodes pods to communicate with load balancer"
   vpc_id      = var.vpc_id
   name        = "${local.name_prefix}-alb-loadbalancer-sg"
 

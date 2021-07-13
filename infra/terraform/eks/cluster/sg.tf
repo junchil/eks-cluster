@@ -15,7 +15,7 @@ resource "aws_security_group" "cluster_sg" {
   tags = merge(
     local.common_tags,
     {
-      "Name" = "${local.name_prefix}-cluster_sg"
+      "Name" = "${local.name_prefix}-cluster-sg"
     },
   )
 }
