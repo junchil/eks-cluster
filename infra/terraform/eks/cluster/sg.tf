@@ -42,7 +42,7 @@ resource "aws_security_group_rule" "cluster_ingress_node_api" {
 
 #Worker node security Group
 resource "aws_security_group" "worker_node_sg" {
-  name        = "${local.name_prefix}-worker-nodeSG"
+  name        = "${local.name_prefix}-worker-node-sg"
   description = "Security group for all nodes in the cluster"
   vpc_id      = var.vpc_id
 
