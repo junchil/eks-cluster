@@ -3,6 +3,7 @@ data "aws_region" "current" {
 
 locals {
   name_prefix  = "${var.cluster_name}-${var.cluster_location == "" ? data.aws_region.current.name : var.cluster_location}"
+  cluster_name = local.name_prefix
   common_tags = {
     "cluster_name" = var.cluster_name
     "comment"      = "Managed by Terraform"
