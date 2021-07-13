@@ -3,7 +3,6 @@ data "aws_region" "current" {
 
 locals {
   name_prefix  = "${var.cluster_name}-${var.cluster_location == "" ? data.aws_region.current.name : var.cluster_location}"
-  cluster_name = var.cluster_name_override == "" ? local.name_prefix : var.cluster_name_override
   common_tags = {
     "cluster_name" = var.cluster_name
     "comment"      = "Managed by Terraform"

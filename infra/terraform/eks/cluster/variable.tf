@@ -9,11 +9,6 @@ variable "cluster_version" {
   default     = "1.20"
 }
 
-variable "cluster_name_override" {
-  description = "EKS cluster name override"
-  default     = ""
-}
-
 variable "cluster_location" {
   description = "Used as a suffix in resource names to denote cluster deploy location"
   default     = ""
