@@ -64,7 +64,7 @@ resource "aws_autoscaling_group" "worker" {
     value               = "owned"
     propagate_at_launch = true
   }
-
+  #https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
   tag {
     key                 = var.worker_node_autoscaling ? "kubernetes.io/cluster-autoscaler/enabled" : "kubernetes.io/cluster-autoscaler/disabled"
     value               = "true"

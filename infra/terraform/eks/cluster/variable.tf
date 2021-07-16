@@ -1,17 +1,9 @@
-#
-# Variables Configuration
-#
 variable "cluster_name" {
 }
 
 variable "cluster_version" {
   description = "EKS cluster version. E.g. 1.11, 1.12"
   default     = "1.20"
-}
-
-variable "cluster_location" {
-  description = "Used as a suffix in resource names to denote cluster deploy location"
-  default     = ""
 }
 
 variable "vpc_id" {

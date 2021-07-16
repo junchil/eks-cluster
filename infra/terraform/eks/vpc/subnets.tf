@@ -7,7 +7,7 @@ resource "aws_subnet" "public_subnet" {
   tags = merge(
     local.common_tags,
     {
-      Name                                        = "Master_${element(data.aws_availability_zones.available.names, count.index)}"
+      Name                                        = "Public_${element(data.aws_availability_zones.available.names, count.index)}"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
       "kubernetes.io/role/elb"                    = "1"
     },
@@ -23,7 +23,7 @@ resource "aws_subnet" "private_subnet" {
   tags = merge(
     local.common_tags,
     {
-      Name                                        = "Worker_${element(data.aws_availability_zones.available.names, count.index)}"
+      Name                                        = "Private_${element(data.aws_availability_zones.available.names, count.index)}"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
       "kubernetes.io/role/internal-elb"           = "1"
     },

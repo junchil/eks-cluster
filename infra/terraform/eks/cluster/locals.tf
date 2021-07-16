@@ -2,7 +2,7 @@ data "aws_region" "current" {
 }
 
 locals {
-  name_prefix  = "${var.cluster_name}-${var.cluster_location == "" ? data.aws_region.current.name : var.cluster_location}"
+  name_prefix  = "${var.cluster_name}-${data.aws_region.current.name}"
   cluster_name = local.name_prefix
   common_tags = {
     "cluster_name" = var.cluster_name
