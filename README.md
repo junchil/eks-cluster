@@ -23,14 +23,16 @@ Table of Contents
 
 ## EKS Cluster
 
+![diagram](doc/eks_diagram.png)
+
 VPC:
 
-* In the vpc module, it create four subnets: public subnets, private subnets, master subnets and worker subnets.
-* Public subnets and master subnets are public to internet. They are connected to [Internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html).
-* Private subnets and worker subnets are private. They are connected to [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for getting internet traffic.
+* In the vpc module, it create two subnets: public subnets, private subnets.
+* Public subnets are public to internet. They are connected to [Internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html).
+* Private subnets are private. They are connected to [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for getting internet traffic.
 * Bastion host sits in the public subnets.
-* Amazon [EKS](https://aws.amazon.com/eks/) is using both master subnets and worker subnets.
-* Kubernetes worker nodes sit in worker subnets.
+* Amazon [EKS](https://aws.amazon.com/eks/) is using both public subnets and private subnets.
+* Kubernetes worker nodes sit in private subnets.
 * For saving money, the terraform doesn't provide ASG for bastion host, and nat gateway in each AZs.
 
 ![diagram](doc/subnets.png)
@@ -38,13 +40,14 @@ VPC:
 Cluster:
 
 * Kubernetes worker nodes are using [Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html). It also supports [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html).
+* Also enable fargate
 
 Bastion host:
 
 * [Bastion host](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html) is a single vm which sits in the public subnets. It is used for managing the kubernetes work nodes if there is a need.
 * SSH port 22 is enabled in bastion host vm.
 
-![diagram](doc/ec2.PNG)
+![diagram](doc/ec2.png)
 
 ## Helm charts
 
