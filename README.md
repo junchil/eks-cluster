@@ -40,6 +40,7 @@ Table of Contents
 * Kubernetes worker nodes are using self mangaed worker nodes, [Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html). It also supports [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html).
 * Also enable fargate
 ![diagram](doc/fargate.png)
+![diagram](doc/ec2.png)
 
 **ALB**:
 ![diagram](doc/alb.png)
@@ -47,7 +48,6 @@ Table of Contents
 **Bastion host**:
 * [Bastion host](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html) is a single vm which sits in the public subnets. It is used for managing the kubernetes work nodes if there is a need.
 * SSH port 22 is enabled in bastion host vm.
-![diagram](doc/ec2.png)
 
 ## Helm charts
 ![diagram](doc/kube_dashboard.png)
