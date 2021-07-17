@@ -52,7 +52,6 @@ Bastion host:
 
 ![diagram](doc/ec2.PNG)
 
-
 ## Helm charts
 
 - Kubernetes ingress resources by provisioning Application Load Balancers with [aws-alb-ingress-controller](https://github.com/helm/charts/tree/master/incubator/aws-alb-ingress-controller)
