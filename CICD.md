@@ -1,6 +1,8 @@
 ## CICD
 
-The whole CICD process is controlled by the travis.
+The whole CICD process is controlled by the github actio.
+
+![diagram](doc/github_action.png)
 
 Steps:
 ```

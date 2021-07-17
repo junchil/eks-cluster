@@ -23,8 +23,6 @@ Table of Contents
 
 ## EKS Cluster
 
-![diagram](doc/eks_diagram.png)
-
 VPC:
 
 * In the vpc module, it create four subnets: public subnets, private subnets, master subnets and worker subnets.
@@ -35,7 +33,7 @@ VPC:
 * Kubernetes worker nodes sit in worker subnets.
 * For saving money, the terraform doesn't provide ASG for bastion host, and nat gateway in each AZs.
 
-![diagram](doc/vpc.PNG)
+![diagram](doc/subnets.PNG)
 
 Cluster:
 
