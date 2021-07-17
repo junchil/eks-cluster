@@ -33,10 +33,12 @@ VPC:
 * Kubernetes worker nodes sit in private subnets.
 * For saving money, the terraform doesn't provide ASG for bastion host, and nat gateway in each AZs.
 ![diagram](doc/subnets.png)
+![diagram](doc/eks_network.png)
 
 Cluster:
-* Kubernetes worker nodes are using [Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html). It also supports [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html).
+* Kubernetes worker nodes are using self mangaed worker nodes, [Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html). It also supports [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html).
 * Also enable fargate
+![diagram](doc/fargate.png)
 
 Bastion host:
 * [Bastion host](https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html) is a single vm which sits in the public subnets. It is used for managing the kubernetes work nodes if there is a need.
