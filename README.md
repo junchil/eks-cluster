@@ -8,7 +8,7 @@ Cluster external endpoints:
 Overview:
 - Host web application inside aws eks cluster using alb + nginx ingress.
 - CICD using github action
-- Terrform for provision aws resources
+- Terraform for provision aws resources
 - Helm charts for managing eks cluster
 
 Table of Contents                                                                                                                       
@@ -123,21 +123,3 @@ sliu@MLB-LT-300175:/mnt/d/go/src/github.com/junchil/go-db-kubernetes/ignore$ kub
 NAME   COMPLETIONS   DURATION   AGE
 pi     1/1           62s        7m11s
 ```
-
-## Reference
-
-1. https://aws.amazon.com/blogs/opensource/kubernetes-ingress-aws-alb-ingress-controller/
-
-2. https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
-
-3. https://github.com/helm/charts/tree/master/incubator/aws-alb-ingress-controller
-
-4. https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/public-private-route53.md
-
-5. https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/alb-ingress.md
-
-6. https://medium.com/@sajid2045/aws-eks-ingress-option-alb-nginx-fc64a4a5ea9f
-
-7. https://kubernetes.github.io/ingress-nginx/user-guide/basic-usage/
-
-8. https://kubernetes.github.io/ingress-nginx/user-guide/ingress-path-matching/

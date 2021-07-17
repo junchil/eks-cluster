@@ -83,7 +83,8 @@ deploy-helm-charts:
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
-
+	kubectl apply -f eks-admin-service-account.yaml
+	
 deploy: deploy-terraform deploy-helm-charts deploy-kube-dashboard
 
 destroy-helm-charts:
