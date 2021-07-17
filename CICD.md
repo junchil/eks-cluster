@@ -1,6 +1,6 @@
 ## CICD
 
-The whole CICD process is controlled by the github actio.
+The whole CICD process is controlled by the github action.
 
 ![diagram](doc/github_action.png)
 

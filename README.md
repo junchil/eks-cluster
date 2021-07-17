@@ -16,12 +16,12 @@ Table of Contents
 * [Directory Structure](DIRECTORY.md)
 * [Set up](SETUP.md)
 * [CICD](CICD.md)
-* [EKS Cluster](#eks-cluster)
+* [AWS](#aws)
 * [Helm Charts](#helm-charts)
 * [Reference](#reference)
 * [To Do](TODO.md)
 
-## EKS Cluster
+## AWS
 ![diagram](doc/eks_diagram.png)
 
 VPC:
