@@ -80,7 +80,11 @@ deploy-helm-charts:
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
 
-deploy: deploy-terraform deploy-helm-charts
+deploy-kube-dashboard:
+	@echo Deploying cluster dashboard
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
+
+deploy: deploy-terraform deploy-helm-charts deploy-kube-dashboard
 
 destroy-helm-charts:
 	helm uninstall $(RELEASE_NAME) && \

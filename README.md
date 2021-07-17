@@ -1,19 +1,15 @@
 # eks-cluster
-
 [![.github/workflows/aws.yml](https://github.com/junchil/eks-cluster/actions/workflows/aws.yml/badge.svg?branch=main)](https://github.com/junchil/eks-cluster/actions/workflows/aws.yml)
 
+Cluster external endpoints:
+* https://web.stevejcliu.com/python
+* https://web.stevejcliu.com/golang
 
-API:
-
-https://web.stevejcliu.com/python
-
-https://web.stevejcliu.com/golang
-
-Host web application inside AWS EKS cluster using ALB + NGINX.
-
-This repo builds a CICD pipeline for depolying golang and python web application into EKS cluster. 
-
-There is no manual task needed during this CICD process. The related travis build can be found through the build status.
+Overview:
+- Host web application inside aws eks cluster using alb + nginx ingress.
+- CICD using github action
+- Terrform for provision aws resources
+- Helm charts for managing eks cluster
 
 Table of Contents                                                                                                                       
 ============================================
