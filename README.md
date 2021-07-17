@@ -18,8 +18,8 @@ Table of Contents
 * [CICD](CICD.md)
 * [AWS](#aws)
 * [Helm Charts](#helm-charts)
-* [Reference](#reference)
 * [To Do](TODO.md)
+* [Reference](REF.md)
 
 ## AWS
 **Overview**:
@@ -39,8 +39,8 @@ Table of Contents
 **EKS Cluster**:
 * Kubernetes worker nodes are using self mangaed worker nodes, [Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html). It also supports [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html).
 * Also enable fargate
-![diagram](doc/fargate.png)
 ![diagram](doc/ec2_host.png)
+![diagram](doc/fargate.png)
 
 **ALB**:
 ![diagram](doc/alb.png)
