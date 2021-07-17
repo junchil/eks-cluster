@@ -33,7 +33,7 @@ VPC:
 * Kubernetes worker nodes sit in worker subnets.
 * For saving money, the terraform doesn't provide ASG for bastion host, and nat gateway in each AZs.
 
-![diagram](doc/subnets.PNG)
+![diagram](doc/subnets.png)
 
 Cluster:
 
