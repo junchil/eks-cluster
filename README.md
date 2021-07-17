@@ -40,7 +40,7 @@ Table of Contents
 * Kubernetes worker nodes are using self mangaed worker nodes, [Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html). It also supports [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html).
 * Also enable fargate
 ![diagram](doc/fargate.png)
-![diagram](doc/ec2.png)
+![diagram](doc/ec2_host.png)
 
 **ALB**:
 ![diagram](doc/alb.png)
@@ -60,54 +60,56 @@ Table of Contents
 - Can support multiple ingress class
 ![kubernetes-ingress](doc/ingress.png)
 ```
-kubectl get po
-NAME                                             READY   STATUS      RESTARTS   AGE
-pi-dgbmv                                         0/1     Completed   0          4m28s
-servian-albcontroller-67ddc8fbb6-wvx9t           1/1     Running     0          4m28s
-servian-externaldns-6bcf4d755b-mm62w             1/1     Running     0          4m28s
-servian-nginx-controller-8c7cbc6fd-z67r7         1/1     Running     0          4m28s
-servian-nginx-default-backend-85ffc485d8-bk9r4   1/1     Running     0          4m28s
-servian-postgresql-0                             1/1     Running     0          4m28s
-servian-reaweb-d77f64f89-ttvwq                   1/1     Running     0          4m18s
-servian-testbox-5dc9c48d7d-bjsfv                 1/1     Running     0          4m28s
+ ~/g/s/gi/j/eks-cluster/i/t/eks | main !2 ?1  kubectl get po             INT | 33m 48s | aws kube | 15:19:05 
+NAME                                            READY   STATUS    RESTARTS   AGE
+eksapp-albcontroller-74bb58b9fc-2blj9           1/1     Running   0          49m
+eksapp-externaldns-595b9688fc-wwk9r             1/1     Running   0          49m
+eksapp-golang-app-bfd857976-kwvr4               1/1     Running   0          59m
+eksapp-nginx-controller-7c88f9d586-qj6hg        1/1     Running   0          59m
+eksapp-nginx-default-backend-566b98cbf8-d2ndp   1/1     Running   0          59m
+eksapp-postgresql-0                             1/1     Running   0          59m
+eksapp-python-app-5d55d98fbb-6wfc5              1/1     Running   0          59m
+eksapp-testbox-c8cbff867-rrzw5                  1/1     Running   0          59m
 ```
 ```
-kubectl get deploy
-NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
-servian-albcontroller           1/1     1            1           5m57s
-servian-externaldns             1/1     1            1           5m57s
-servian-nginx-controller        1/1     1            1           5m57s
-servian-nginx-default-backend   1/1     1            1           5m57s
-servian-reaweb                  1/1     1            1           5m57s
-servian-testbox                 1/1     1            1           5m57s
+ ~/g/s/gi/j/eks-cluster/i/t/eks | main !2 ?1  kubectl get deploy               ok | 3s | aws kube | 15:19:12 
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+eksapp-albcontroller           1/1     1            1           59m
+eksapp-externaldns             1/1     1            1           59m
+eksapp-golang-app              1/1     1            1           59m
+eksapp-nginx-controller        1/1     1            1           59m
+eksapp-nginx-default-backend   1/1     1            1           59m
+eksapp-python-app              1/1     1            1           59m
+eksapp-testbox                 1/1     1            1           59m
 ```
 ```
-kubectl get svc
-NAME                            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
-kubernetes                      ClusterIP   172.20.0.1       <none>        443/TCP                      9m35s
-servian-externaldns             ClusterIP   172.20.75.5      <none>        7979/TCP                     6m17s
-servian-nginx-controller        NodePort    172.20.193.215   <none>        80:32079/TCP,443:30338/TCP   6m16s
-servian-nginx-default-backend   ClusterIP   172.20.125.90    <none>        80/TCP                       6m16s
-servian-postgresql              ClusterIP   172.20.117.121   <none>        5432/TCP                     6m16s
-servian-postgresql-headless     ClusterIP   None             <none>        5432/TCP                     6m17s
-servian-reaweb                  NodePort    172.20.126.35    <none>        3000:30055/TCP               6m16s
+ ~/g/s/gi/j/eks-cluster/i/t/eks | main !2 ?1  kubectl get svc                       ok | aws kube | 15:19:32 
+NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+eksapp-externaldns             ClusterIP   172.20.29.85     <none>        7979/TCP                     59m
+eksapp-golang-app              NodePort    172.20.164.156   <none>        3000:32243/TCP               59m
+eksapp-nginx-controller        NodePort    172.20.181.188   <none>        80:32044/TCP,443:31277/TCP   59m
+eksapp-nginx-default-backend   ClusterIP   172.20.189.204   <none>        80/TCP                       59m
+eksapp-postgresql              ClusterIP   172.20.184.216   <none>        5432/TCP                     59m
+eksapp-postgresql-headless     ClusterIP   None             <none>        5432/TCP                     59m
+eksapp-python-app              NodePort    172.20.72.232    <none>        5000:31646/TCP               59m
+kubernetes                     ClusterIP   172.20.0.1       <none>        443/TCP                      64m
 ```
 ```
-kubectl get ingress
-NAME                  HOSTS   ADDRESS                                                                       PORTS   AGE
-servian-elb-ingress   *       ac97d66b-default-servianel-92e9-1878420424.ap-southeast-2.elb.amazonaws.com   80      6m34s
-servian-reaweb        *       10.0.157.95   
+ ~/g/s/gi/j/eks-cluster/i/t/eks | main !2 ?1  kubectl get ingress                   ok | aws kube | 15:19:48 
+NAME                 CLASS    HOSTS   ADDRESS                                                                       PORTS   AGE
+eksapp-elb-ingress   <none>   *       82b8615f-default-eksappelb-9823-1389826350.ap-southeast-2.elb.amazonaws.com   80      60m
+eksapp-golang-app    <none>   *       10.0.228.159                                                                  80      60m
+eksapp-python-app    <none>   *       10.0.228.159                                                                  80      60m
 ```
 ```
-kubectl get nodes
-NAME                                             STATUS   ROLES    AGE    VERSION
-ip-10-0-157-95.ap-southeast-2.compute.internal   Ready    <none>   7m8s   v1.16.8-eks-e16311
-ip-10-0-161-51.ap-southeast-2.compute.internal   Ready    <none>   7m5s   v1.16.8-eks-e16311
-ip-10-0-187-81.ap-southeast-2.compute.internal   Ready    <none>   7m3s   v1.16.8-eks-e16311
+ ~/go/src/github.com/junchil/eks-cluster/infra/terraform/eks | main !2 ?1  kubectl get nodes                                                               ok | aws kube | 15:20:07 
+NAME                                              STATUS   ROLES    AGE   VERSION
+ip-10-0-228-159.ap-southeast-2.compute.internal   Ready    <none>   61m   v1.20.4-eks-6b7464
+ip-10-0-232-67.ap-southeast-2.compute.internal    Ready    <none>   61m   v1.20.4-eks-6b7464
+ip-10-0-238-13.ap-southeast-2.compute.internal    Ready    <none>   61m   v1.20.4-eks-6b7464
 ```
-This job is used for init postgresql.
 ```
-sliu@MLB-LT-300175:/mnt/d/go/src/github.com/junchil/go-db-kubernetes/ignore$ kubectl get job
-NAME   COMPLETIONS   DURATION   AGE
-pi     1/1           62s        7m11s
+ ~/g/s/gi/j/eks-cluster/infra/terraform/eks | main !2 ?1  kubectl get storageclass                                                                         ok | aws kube | 15:20:58 
+NAME            PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+gp2 (default)   kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  65m
 ```
