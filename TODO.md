@@ -9,3 +9,4 @@
 4. Add horizontal pod autoscaler in cluster. Ref: 
     - https://aws.amazon.com/premiumsupport/knowledge-center/eks-metrics-server-pod-autoscaler/
     - https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+    
