@@ -10,4 +10,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 
 COPY . /appfile
 
+RUN chmod -R 765 /appfile
+
 ENTRYPOINT ["bash"]
