@@ -259,6 +259,11 @@ resource "aws_iam_role_policy_attachment" "worker-node-AmazonEC2FullAccess" {
   role       = aws_iam_role.worker_node_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "worker-node-AmazonS3FullAccess" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  role       = aws_iam_role.worker_node_role.name
+}
+
 resource "aws_iam_role_policy_attachment" "worker-node-resource_tagging_for_eks" {
   policy_arn = aws_iam_policy.eks-tagging.arn
   role       = aws_iam_role.worker_node_role.name
