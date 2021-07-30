@@ -25,6 +25,16 @@ USERDATA
 
 #Launch Configuration
 resource "aws_launch_template" "worker" {
+  block_device_mappings {
+    device_name = "/dev/sda1"
+
+    ebs {
+      volume_size           = 10
+      encrypted             = true
+      delete_on_termination = true
+    }
+  }
+
   network_interfaces {
     associate_public_ip_address = false
     security_groups             = [aws_security_group.worker_node_sg.id]
