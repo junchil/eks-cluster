@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "westfarmers" {
-  bucket = "${var.cluster-name}-object-store-bucket"
+  bucket = "${var.cluster_name}-object-store-bucket"
   # Enable versioning so we can see the full revision history of our
   # state files
   versioning {
@@ -30,6 +30,6 @@ resource "aws_s3_bucket" "westfarmers" {
   }
 
   tags = {
-    Name = "${var.cluster-name}-object-store-bucket"
+    Name = "${var.cluster_name}-object-store-bucket"
   }
 }
