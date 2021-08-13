@@ -14,6 +14,12 @@ Cluster external endpoints:
 
 ![diagram](doc/golanginfo.png)
 
+The CICD pipeline can be found here: https://github.com/junchil/eks-cluster/actions
+
+Github secrets
+
+![diagram](doc/secrets.png)
+
 Overview:
 - Host web application inside aws eks cluster using alb + nginx ingress.
 - CICD using github action
