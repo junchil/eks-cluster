@@ -10,14 +10,19 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+var logger = log.New(os.Stdout, "[myapplication] ", 0)
+
 func hello() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		logger.Printf("Started %s %s", r.Method, r.URL.Path)
 		fmt.Fprintf(w, "Hello Golang")
 	}
 }
 
 func returnVersion(version string, git_commit_sha string) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		logger.Printf("Started %s %s", r.Method, r.URL.Path)
+
 		env := Environment{}
 
 		file, err := os.Open("env.json")
