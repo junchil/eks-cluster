@@ -26,6 +26,8 @@ func main() {
 
 	r.GET("/info", returnVersion(version, git_commit_sha))
 
+	r.GET("/", hello())
+
 	err := http.ListenAndServe("0.0.0.0:8080", r)
 
 	if err != nil {
