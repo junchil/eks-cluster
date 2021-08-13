@@ -9,8 +9,7 @@ Cluster external endpoints:
 ![diagram](doc/golanghello.png)
 
 * https://web.stevejcliu.com/golang/info
-
-
+![diagram](doc/golanginfo.png)
 
 Overview:
 - Host web application inside aws eks cluster using alb + nginx ingress.
