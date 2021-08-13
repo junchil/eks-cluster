@@ -6,7 +6,7 @@ Cluster external endpoints:
 ![diagram](doc/pythonapi.png)
 
 * https://web.stevejcliu.com/golang
-
+![diagram](doc/golanghello.png)
 
 * https://web.stevejcliu.com/golang/info
 
