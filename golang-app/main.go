@@ -1,36 +1,37 @@
 package main
 
 import (
-	"flag"
-	"log"
 	"net/http"
 
-	"github.com/julienschmidt/httprouter"
+	"flag"
+	"fmt"
+	"golang-app/pkg/api"
+
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	log "github.com/sirupsen/logrus"
+)
+
+var (
+	port int
 )
 
 func main() {
-	var (
-		version        string
-		git_commit_sha string
-	)
-	{
-		flag.StringVar(&version, "version", "1.0.0", "Service version")
-		flag.StringVar(&git_commit_sha, "git_commit_sha", "abc57858585", "Last commit related to this service")
-	}
-
-	// Parse flags
-	LoadFlagsFromEnv("API_SERVER")
+	flag.IntVar(&port, "port", 8080, "HTTP Port Number")
 	flag.Parse()
 
-	r := httprouter.New()
+	router := chi.NewRouter()
+	router.Use(middleware.Logger)
 
-	r.GET("/info", returnVersion(version, git_commit_sha))
+	event := &api.Event{}
+	service := api.NewEventService(event)
 
-	r.GET("/", hello())
-
-	err := http.ListenAndServe("0.0.0.0:8080", r)
-
-	if err != nil {
-		log.Fatal(err)
+	api.SetupRoutes(router, service)
+	server := &http.Server{
+		Handler: router,
+		Addr:    fmt.Sprintf(":%d", port),
 	}
+
+	log.Infoln("Server listening on port", port)
+	log.Fatal(server.ListenAndServe())
 }

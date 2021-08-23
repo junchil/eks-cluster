@@ -1,4 +1,6 @@
-FROM golang:latest
+FROM golang:1.16-alpine as builder
+
+ENV GO111MODULE=on
 
 WORKDIR /app
 
@@ -8,9 +10,10 @@ RUN go mod download
 
 COPY . .
 
+RUN apk --no-cache add git alpine-sdk build-base gcc
+
 # Build the Go app
-RUN go build -o main .
+RUN go build -o  apiserver main.go
 
 EXPOSE 8080
-
-CMD ["./main"]
+CMD ["./apiserver"]
