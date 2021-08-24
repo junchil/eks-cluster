@@ -76,6 +76,7 @@ deploy-helm-charts:
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm repo add stable https://charts.helm.sh/stable && \
 	helm repo add common https://charts.helm.sh/incubator && \
+	helm repo add nginx-stable https://helm.nginx.com/stable && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
