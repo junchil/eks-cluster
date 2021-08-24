@@ -27,7 +27,7 @@ dependencies:
   condition: postgresql.enabled
 
 - name: aws-alb-ingress-controller
-  version: 0.1.13
+  version: 1.0.4
   repository: https://charts.helm.sh/incubator
   alias: albcontroller
   condition: albcontroller.enabled
