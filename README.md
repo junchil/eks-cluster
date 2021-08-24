@@ -16,7 +16,6 @@ Cluster external endpoints:
 
 The CICD pipeline can be found here: https://github.com/junchil/eks-cluster/actions
 
-
 Github secrets
 
 ![diagram](doc/secrets.png)
