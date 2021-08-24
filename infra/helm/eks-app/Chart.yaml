@@ -38,7 +38,7 @@ dependencies:
   alias: externaldns
   condition: externaldns.enabled
 
-- name: nginx-ingress
+- name: nginx-ingress-controller
   version: 7.6.19
   repository: https://charts.bitnami.com/bitnami
   alias: nginx
