@@ -1,12 +1,16 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
-	"net/http"
 )
 
 func SetupRoutes(r chi.Router, s *Service) {
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hi golang app"))
+	})
 	r.Get("/info", s.GetEvent)
 }
 
