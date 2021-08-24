@@ -39,7 +39,7 @@ dependencies:
   condition: externaldns.enabled
 
 - name: nginx-ingress-controller
-  version: 7.6.19
-  repository: https://charts.bitnami.com/bitnami
+  version: 0.10.0
+  repository: https://helm.nginx.com/stable
   alias: nginx
   condition: nginx.enabled
