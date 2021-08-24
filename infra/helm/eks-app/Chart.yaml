@@ -38,7 +38,7 @@ dependencies:
   alias: externaldns
   condition: externaldns.enabled
 
-- name: nginx-ingress-controller
+- name: nginx-ingress
   version: 0.10.0
   repository: https://helm.nginx.com/stable
   alias: nginx
