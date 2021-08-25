@@ -37,6 +37,7 @@ postgresql:
 # More details on:
 # https://github.com/helm/charts/blob/master/incubator/aws-alb-ingress-controller/values.yaml
 albcontroller:
+  replicaCount: 1
   enabled: true
   clusterName: "anycluster"
   awsRegion: "ap-southeast-2"
@@ -63,6 +64,8 @@ albcontroller:
   enableLivenessProbe: false
   # How long to wait (in seconds) before checking the liveness probe
   livenessProbeInitialDelay: 30
+  serviceAccount:
+    create: true
   rbac:
     create: true
     serviceAccountName: alb-ingress
