@@ -1,4 +1,5 @@
 albcontroller:
+  replicaCount: 1
   enabled: true
   clusterName: "anycluster"
   serviceAccount:

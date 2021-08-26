@@ -213,7 +213,7 @@ resource "aws_iam_role_policy_attachment" "worker_node_policy" {
 }
 
 resource "aws_iam_policy" "eks-tagging" {
-  name        = "production_resource_tagging_for_eks"
+  name        = "${local.name_prefix}-production_resource_tagging_for_eks"
   path        = "/"
   description = "resource_tagging_for_eks"
 
