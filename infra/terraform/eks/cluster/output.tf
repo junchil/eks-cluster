@@ -16,12 +16,6 @@ data:
       groups:
         - system:bootstrappers
         - system:nodes
-    # - rolearn: ${aws_iam_role.this_fargate.arn}
-    #   username: system:node:{{SessionName}}
-    #   groups:
-    #     - system:bootstrappers
-    #     - system:nodes
-    #     - system:node-proxier
 CONFIGMAPAWSAUTH
 
   kubeconfig = <<KUBECONFIG
@@ -65,3 +59,9 @@ output "cluster_name" {
   value = aws_eks_cluster.eks-cluster.name
 }
 
+# - rolearn: ${aws_iam_role.this_fargate.arn}
+#   username: system:node:{{SessionName}}
+#   groups:
+#     - system:bootstrappers
+#     - system:nodes
+#     - system:node-proxier
