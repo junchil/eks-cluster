@@ -9,6 +9,9 @@ KUBECTL_VERS            	?= 1.16.0
 HELM_VERS               	?= 3.6.0
 LOCAL_BIN               	?= $(HOME)/bin
 CURL                     	= curl -fSOL
+AWS_REGION 					= ap-southeast-2
+CLUSTER_NAME 				= anyCluster
+AWS_ACCOUNT_ID				= 675617749633
 
 KUBECONFIG           = $(shell readlink -f kubeconfig.yaml)
 KUBECONFIGMAP        = $(shell readlink -f config_map_aws_auth.yaml)
@@ -77,7 +80,13 @@ deploy-terraform: copy-ssh-public-key
 	) || exit 1;
 	kubectl apply -f $(KUBECONFIGMAP)
 
-deploy-helm-charts:
+deploy-iam-serviceaccount-aws-alb:
+	eksctl utils associate-iam-oidc-provider --region $(AWS_REGION) --cluster $(CLUSTER_NAME) --approve && \
+	curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json && \
+	aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json && \
+	eksctl create iamserviceaccount --cluster=$(CLUSTER_NAME) --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::$(AWS_ACCOUNT_ID):policy/AWSLoadBalancerControllerIAMPolicy --approve
+
+deploy-helm-charts: deploy-iam-serviceaccount-aws-alb
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
