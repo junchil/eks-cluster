@@ -48,9 +48,10 @@ depend-aws-iam-authenticator:
 
 depend-eksctl:
 	@echo "Installing eksctl"
-	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xf -C /tmp && \
-	sudo mv /tmp/eksctl /usr/local/bin
-
+	$(CURL) https://github.com/weaveworks/eksctl/releases/download/0.62.0/eksctl_Linux_amd64.tar.gz && \
+	tar -zxvf eksctl_Linux_amd64.tar.gz && \
+	chmod +x eksctl && \
+	sudo mv eksctl /usr/local/bin
 
 depend: depend-terraform depend-helm-client depend-aws-iam-authenticator depend-eksctl
 	@for bin in $(APPS); do which $$bin; done
