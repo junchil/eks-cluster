@@ -10,7 +10,7 @@ HELM_VERS               	?= 3.6.0
 LOCAL_BIN               	?= $(HOME)/bin
 CURL                     	= curl -fSOL
 AWS_REGION 					= ap-southeast-2
-CLUSTER_NAME 				= anyCluster
+CLUSTER_NAME 				= anycluster
 AWS_ACCOUNT_ID				= 675617749633
 
 KUBECONFIG           = $(shell readlink -f kubeconfig.yaml)
