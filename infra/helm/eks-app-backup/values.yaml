@@ -1,0 +1,78 @@
+# Default values for trs-normalize.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+environment: Default
+
+testBox:
+  enabled: true
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/testbox
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+pythonApp:
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/python-app
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+golangApp:
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+postgresql:
+  enabled: true
+  postgresqlUsername: postgres
+  postgresqlPassword: "changeme"
+  persistence:
+    enabled: false
+    storageClass: "standard"
+
+# More details on:
+# https://github.com/helm/charts/blob/master/incubator/aws-alb-ingress-controller/values.yaml
+albcontroller:
+  enabled: true
+  clusterName: "anycluster"
+  awsRegion: "ap-southeast-2"
+  autoDiscoverAwsRegion: false
+  #awsVpcID: "vpc-0e49ed43ff6dde091"
+  autoDiscoverAwsVpcID: true
+
+  scope:
+    ingressClass: alb
+    # singleNamespace: true
+    # watchNamespace: "kube-system-ingress"
+
+externaldns:
+  enabled: true
+  sources:
+    - service
+    - ingress
+  provider: aws
+  domainFilters:
+    # List of the domains that external-dns has to watch, Route 53 should be prepared before setting this up
+    - stevejcliu.com
+  policy: sync
+  rbac:
+    create: true
+
+nginx:
+  enabled: true
+  controller:
+    config:
+      use-forwarded-headers: "true"
+    service:
+      type: NodePort
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      targetPorts:
+        http: 80
+        https: 80
+
+certificateArn: ""

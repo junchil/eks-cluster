@@ -2,7 +2,7 @@ RELEASE_NAME             = eksapp
 CHART_PATH               = eks-app
 TF_FOLDER            	 = terraform/eks
 SSH_FOLDER               = terraform/ssh-key
-APPS                 	 = terraform kubectl helm aws aws-iam-authenticator
+APPS                 	 = terraform kubectl helm aws aws-iam-authenticator eksctl
 
 TF_VERS                 	?= 0.15.3
 KUBECTL_VERS            	?= 1.16.0
@@ -46,7 +46,14 @@ depend-aws-iam-authenticator:
 	chmod +x aws-iam-authenticator && \
 	sudo mv aws-iam-authenticator /usr/local/bin/
 
-depend: depend-terraform depend-helm-client depend-aws-iam-authenticator
+depend-eksctl:
+	@echo "Installing eksctl"
+	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
+	chmod +x /tmp/eksctl && \
+	sudo mv /tmp/eksctl /usr/local/bin
+
+
+depend: depend-terraform depend-helm-client depend-aws-iam-authenticator depend-eksctl
 	@for bin in $(APPS); do which $$bin; done
 
 copy-ssh-public-key:

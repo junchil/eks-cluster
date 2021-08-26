@@ -117,7 +117,7 @@ jobs:
       run: |
         cd $SERVICE_DIR
         make depend  
-        make deploy
+        #make deploy
 
   aws-destroy:
     needs: [python-app-build, golang-app-build, testbox-build]
