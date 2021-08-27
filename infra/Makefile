@@ -88,6 +88,7 @@ deploy-helm-charts: deploy-iam-serviceaccount-aws-alb
 	helm repo add stable https://charts.helm.sh/stable && \
 	helm repo add common https://charts.helm.sh/incubator && \
 	helm repo add eks https://aws.github.io/eks-charts && \
+	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
@@ -99,7 +100,10 @@ deploy-kube-dashboard:
 	
 deploy: deploy-terraform deploy-helm-charts deploy-kube-dashboard
 
-destroy-helm-charts:
+destroy-iam-serviceaccount-aws-alb: 
+	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller
+	
+destroy-helm-charts: destroy-iam-serviceaccount-aws-alb
 	helm uninstall $(RELEASE_NAME) && \
 	echo "Helm changes are destroyed successfully"
 
