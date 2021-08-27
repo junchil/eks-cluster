@@ -305,7 +305,7 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSServicePolicy" {
   role       = aws_iam_role.cluster_role.name
 }
 
-resource "aws_iam_policy" "eks-tagging" {
+resource "aws_iam_policy" "eks-alb-controller-iam-policy" {
   name        = "AWSLoadBalancerControllerIAMPolicy"
   path        = "/"
   description = "IAM policy for the AWS Load Balancer Controller Helm Chart"
