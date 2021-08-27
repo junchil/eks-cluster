@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-python-app
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /python
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-python-app
+            port:
+              number: 5000

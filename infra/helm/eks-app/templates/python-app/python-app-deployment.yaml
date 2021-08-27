@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-python-app
+spec:
+  replicas: {{ .Values.pythonApp.replicas }}
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - image: "{{ .Values.pythonApp.image.repository }}:{{ .Values.pythonApp.image.tag }}"
+        imagePullPolicy: {{ .Values.pythonApp.image.pullPolicy }}
+        stdin: true               # required to stop early exit
+        name: python-app
+        ports:
+        - containerPort: 5000
