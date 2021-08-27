@@ -69,4 +69,4 @@ nginx:
 certificateArn: ""
 
 prometheus:
-  enabled: true
+  enabled: false
