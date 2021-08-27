@@ -31,8 +31,8 @@ postgresql:
     storageClass: "standard"
     
 albcontroller:
-  replicaCount: 1
   enabled: true
+  replicaCount: 1
   clusterName: "anycluster"
   serviceAccount:
     create: false
