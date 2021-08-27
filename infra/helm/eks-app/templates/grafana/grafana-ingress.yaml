@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Release.Name }}-golang-app
+            name: {{ .Release.Name }}-grafana
             port:
               number: 80
