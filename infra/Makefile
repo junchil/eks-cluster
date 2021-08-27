@@ -1,4 +1,4 @@
-RELEASE_NAME       	= eksapp
+RELEASE_NAME   		= eksapp
 CHART_PATH          = eks-app
 TF_FOLDER           = terraform/eks
 SSH_FOLDER          = terraform/ssh-key
