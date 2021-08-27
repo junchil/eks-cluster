@@ -18,7 +18,6 @@ The CICD pipeline can be found here: https://github.com/junchil/eks-cluster/acti
 
 Github secrets
 
-
 ![diagram](doc/secrets.png)
 
 Overview:
