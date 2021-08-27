@@ -1,18 +1,18 @@
-RELEASE_NAME             = eksapp
-CHART_PATH               = eks-app
-TF_FOLDER            	 = terraform/eks
-SSH_FOLDER               = terraform/ssh-key
-APPS                 	 = terraform kubectl helm aws aws-iam-authenticator eksctl
+RELEASE_NAME       	= eksapp
+CHART_PATH          = eks-app
+TF_FOLDER           = terraform/eks
+SSH_FOLDER          = terraform/ssh-key
+APPS                = terraform kubectl helm aws aws-iam-authenticator eksctl
 
-TF_VERS                 	?= 0.15.3
-KUBECTL_VERS            	?= 1.16.0
-HELM_VERS               	?= 3.6.0
-LOCAL_BIN               	?= $(HOME)/bin
-CURL                     	= curl -fSOL
+TF_VERS            ?= 0.15.3
+KUBECTL_VERS       ?= 1.16.0
+HELM_VERS          ?= 3.6.0
+LOCAL_BIN          ?= $(HOME)/bin
+CURL               = curl -fSOL
 
-KUBECONFIG           = $(shell readlink -f kubeconfig.yaml)
-KUBECONFIGMAP        = $(shell readlink -f config_map_aws_auth.yaml)
-HELM_VALUES          = $(shell readlink -f helm_values.$(ENVIRONMENT_NAME).yaml)
+KUBECONFIG         = $(shell readlink -f kubeconfig.yaml)
+KUBECONFIGMAP      = $(shell readlink -f config_map_aws_auth.yaml)
+HELM_VALUES        = $(shell readlink -f helm_values.$(ENVIRONMENT_NAME).yaml)
 
 # export as env-variable
 export KUBECONFIG
@@ -84,10 +84,10 @@ deploy-iam-serviceaccount-aws-alb:
 deploy-helm-charts: deploy-iam-serviceaccount-aws-alb
 	@echo Deploying helm charts
 	@cd helm && \
+	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm repo add eks https://aws.github.io/eks-charts && \
-	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \ 
-	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
+	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
