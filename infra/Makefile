@@ -85,8 +85,6 @@ deploy-helm-charts: deploy-iam-serviceaccount-aws-alb
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
-	helm repo add stable https://charts.helm.sh/stable && \
-	helm repo add common https://charts.helm.sh/incubator && \
 	helm repo add eks https://aws.github.io/eks-charts && \
 	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
 	helm dependency update $(CHART_PATH) && \
