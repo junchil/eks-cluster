@@ -67,3 +67,6 @@ nginx:
         https: 80
 
 certificateArn: ""
+
+prometheus:
+  enabled: false
