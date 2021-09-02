@@ -18,4 +18,4 @@ spec:
         stdin: true               # required to stop early exit
         name: golang-app
         ports:
-        - containerPort: 8080
+        - containerPort: 8081

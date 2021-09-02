@@ -15,11 +15,11 @@ spec:
           service:
             name: {{ .Release.Name }}-golang-app
             port:
-              number: 8080
+              number: 8081
       - path: /golang($|/)(.*)
         pathType: Prefix
         backend:
           service:
             name: {{ .Release.Name }}-golang-app
             port:
-              number: 8080
+              number: 8081

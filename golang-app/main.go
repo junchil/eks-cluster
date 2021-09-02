@@ -17,7 +17,7 @@ var (
 )
 
 func main() {
-	flag.IntVar(&port, "port", 8080, "HTTP Port Number")
+	flag.IntVar(&port, "port", 8081, "HTTP Port Number")
 	flag.Parse()
 
 	router := chi.NewRouter()
