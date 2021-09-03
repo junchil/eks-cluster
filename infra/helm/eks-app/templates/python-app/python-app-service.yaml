@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-python-app
+  namespace: app
 spec:
   ports:
     - name: tcp-python-app
