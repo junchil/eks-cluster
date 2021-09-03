@@ -85,7 +85,7 @@ deploy-iam-serviceaccount-aws-alb:
 deploy-istio-charts:
 	curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$(ISTIO_VERSION) TARGET_ARCH=x86_64 sh - && \
 	cd istio-$(ISTIO_VERSION) && \
-	kubectl create namespace istio-system && \
+	kubectl create namespace istio-system || true && \
 	helm install istio-base manifests/charts/base -n istio-system && \
 	helm install istiod manifests/charts/istio-control/istio-discovery -n istio-system && \
 	helm install istio-ingress manifests/charts/gateways/istio-ingress -n istio-system && \
