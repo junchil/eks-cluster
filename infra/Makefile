@@ -89,28 +89,28 @@ deploy-istio-charts:
 	helm upgrade istio-base manifests/charts/base -n istio-system --install && \
 	helm upgrade istiod manifests/charts/istio-control/istio-discovery -n istio-system --install && \
 	kubectl get po -n istio-system && \
+	kubectl create namespace app || true && \
 	kubectl label namespace app istio-injection=enabled --overwrite && \
-	kubectl delete --all pods --namespace=app && \
 	kubectl apply -f samples/addons
 
-deploy-app-charts: deploy-iam-serviceaccount-aws-alb
+deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm repo add eks https://aws.github.io/eks-charts && \
 	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
-	kubectl create namespace app || true && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
-	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
+	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
+	kubectl delete --all pods --namespace=app && \
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
 	kubectl apply -f eks-admin-service-account.yaml
 	
-deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-istio-charts
+deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard
 
 destroy-iam-serviceaccount-aws-alb: 
 	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller
