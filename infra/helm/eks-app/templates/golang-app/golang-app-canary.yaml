@@ -16,18 +16,6 @@ spec:
         host: {{ .Release.Name }}-golang-app
         subset: v2
       weight: 0
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        host: {{ .Release.Name }}-golang-app
-  - match:
-    - uri:
-        prefix: /info
-    route:
-    - destination:
-        host: {{ .Release.Name }}-golang-app
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
