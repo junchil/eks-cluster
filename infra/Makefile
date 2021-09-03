@@ -89,7 +89,9 @@ deploy-istio-charts:
 	helm upgrade istio-base manifests/charts/base -n istio-system --install && \
 	helm upgrade istiod manifests/charts/istio-control/istio-discovery -n istio-system --install && \
 	kubectl get po -n istio-system && \
-	kubectl label namespace app istio-injection=enabled --overwrite
+	kubectl label namespace app istio-injection=enabled --overwrite && \
+	kubectl delete --all pods --namespace=app && \
+	kubectl apply -f samples/addons
 
 deploy-app-charts: deploy-iam-serviceaccount-aws-alb
 	@echo Deploying helm charts
