@@ -19,3 +19,8 @@ spec:
         name: golang-app
         ports:
         - containerPort: 8081
+      - name: istio-proxy
+        image: auto
+        resources:
+          requests:
+            cpu: "100m"
