@@ -4,7 +4,6 @@
 Cluster external endpoints:
 * https://web.stevejcliu.com/python
 
-
 ![diagram](doc/pythonapi.png)
 
 * https://web.stevejcliu.com/golang
