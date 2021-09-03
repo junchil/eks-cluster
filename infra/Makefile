@@ -9,6 +9,7 @@ KUBECTL_VERS       ?= 1.16.0
 HELM_VERS          ?= 3.6.0
 LOCAL_BIN          ?= $(HOME)/bin
 CURL               = curl -fSOL
+ISTIO_VERSION		= 1.11.1
 
 KUBECONFIG         = $(shell readlink -f kubeconfig.yaml)
 KUBECONFIGMAP      = $(shell readlink -f config_map_aws_auth.yaml)
@@ -81,7 +82,16 @@ deploy-iam-serviceaccount-aws-alb:
 	sudo chmod +x albiam.sh
 	./albiam.sh
 
-deploy-helm-charts: deploy-iam-serviceaccount-aws-alb
+deploy-istio-charts:
+	curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$(ISTIO_VERSION) TARGET_ARCH=x86_64 sh - && \
+	cd istio-$(ISTIO_VERSION) && \
+	kubectl create namespace istio-system && \
+	helm install istio-base manifests/charts/base -n istio-system && \
+	helm install istiod manifests/charts/istio-control/istio-discovery -n istio-system && \
+	helm install istio-ingress manifests/charts/gateways/istio-ingress -n istio-system && \
+	helm install istio-egress manifests/charts/gateways/istio-egress -n istio-system
+
+deploy-app-charts: deploy-iam-serviceaccount-aws-alb
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
@@ -97,12 +107,12 @@ deploy-kube-dashboard:
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
 	kubectl apply -f eks-admin-service-account.yaml
 	
-deploy: deploy-terraform deploy-helm-charts deploy-kube-dashboard
+deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-istio-charts
 
 destroy-iam-serviceaccount-aws-alb: 
 	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller
 	
-destroy-helm-charts: destroy-iam-serviceaccount-aws-alb
+destroy-app-charts: destroy-iam-serviceaccount-aws-alb
 	helm uninstall $(RELEASE_NAME) && \
 	echo "Helm changes are destroyed successfully"
 
@@ -115,4 +125,4 @@ destroy-terraform:
 		echo "Terraform changes are destroyed successfully" \
 	)
 
-destroy: deploy-terraform destroy-helm-charts destroy-terraform
+destroy: deploy-terraform destroy-app-charts destroy-terraform
