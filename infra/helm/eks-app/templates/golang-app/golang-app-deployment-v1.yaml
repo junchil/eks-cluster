@@ -15,7 +15,7 @@ spec:
         version: v1
     spec:
       containers:
-      - image: "{{ .Values.golangApp.image.repository }}:{{ .Values.golangApp.image.tag }}"
+      - image: "{{ .Values.golangApp.image.repository }}:v1"
         imagePullPolicy: {{ .Values.golangApp.image.pullPolicy }}
         stdin: true               # required to stop early exit
         name: golang-app-v1

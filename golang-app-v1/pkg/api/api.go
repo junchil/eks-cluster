@@ -9,7 +9,7 @@ import (
 
 func SetupRoutes(r chi.Router, s *Service) {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hi golang app"))
+		w.Write([]byte("hi golang app v1"))
 	})
 	r.Get("/info", s.GetEvent)
 }

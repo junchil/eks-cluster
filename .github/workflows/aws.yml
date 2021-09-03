@@ -41,7 +41,7 @@ jobs:
         sudo chmod +x build.sh
         ./build.sh
 
-  golang-app-build:
+  golang-app-v1-build:
     name: Golang App Build
     runs-on: ubuntu-latest
 
@@ -62,7 +62,33 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
-      working-directory: ./golang-app
+      working-directory: ./golang-app-v1
+      run: |
+        sudo chmod +x build.sh
+        ./build.sh
+
+  golang-app-v2-build:
+    name: Golang App Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      working-directory: ./golang-app-v2
       run: |
         sudo chmod +x build.sh
         ./build.sh
@@ -94,7 +120,7 @@ jobs:
         ./build.sh
 
   aws-deploy:
-    needs: [python-app-build, golang-app-build, testbox-build]
+    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build]
     name: AWS Deploy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdeploy'
@@ -120,7 +146,7 @@ jobs:
         make deploy
 
   aws-destroy:
-    needs: [python-app-build, golang-app-build, testbox-build]
+    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build]
     name: AWS Destroy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdestroy'
