@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: python-app
+        version: v1
     spec:
       containers:
       - image: "{{ .Values.pythonApp.image.repository }}:{{ .Values.pythonApp.image.tag }}"

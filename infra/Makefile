@@ -103,7 +103,7 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
-	kubectl delete --all pods --namespace=app && \
+	kubectl delete --all pods --namespace=app
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
