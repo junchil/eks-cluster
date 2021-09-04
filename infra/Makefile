@@ -109,8 +109,12 @@ deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
 	kubectl apply -f eks-admin-service-account.yaml
+
+deploy-kube-metrics-server:
+	@echo Deploying cluster metrics server
+	kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 	
-deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard
+deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-kube-metrics-server
 
 destroy-iam-serviceaccount-aws-alb: 
 	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller

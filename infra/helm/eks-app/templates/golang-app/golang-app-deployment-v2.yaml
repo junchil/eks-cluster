@@ -21,3 +21,8 @@ spec:
         name: golang-app-v2
         ports:
         - containerPort: 8081
+        resources:
+          limits:
+            cpu: 50m
+          requests:
+            cpu: 20m
