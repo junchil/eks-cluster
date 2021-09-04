@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: {{ .Release.Name }}-golang-app-v2
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:

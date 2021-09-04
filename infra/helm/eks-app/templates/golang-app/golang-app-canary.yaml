@@ -3,6 +3,8 @@ kind: VirtualService
 metadata:
   name: {{ .Release.Name }}-golang-app
   namespace: app
+  labels:
+    app: {{ .Release.Name }}-golang-app
 spec:
   hosts:
     - {{ .Release.Name }}-golang-app
@@ -22,6 +24,8 @@ kind: DestinationRule
 metadata:
   name: {{ .Release.Name }}-golang-app
   namespace: app
+  labels:
+    app: {{ .Release.Name }}-golang-app
 spec:
   host: {{ .Release.Name }}-golang-app
   subsets:
