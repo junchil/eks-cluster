@@ -11,4 +11,4 @@ spec:
       protocol: TCP
   type: NodePort
   selector:
-    app: golang-app
+    app: {{ .Release.Name }}-golang-app

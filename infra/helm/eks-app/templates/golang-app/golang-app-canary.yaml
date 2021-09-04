@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: {{ .Release.Name }}-golang-app-vs
+  name: {{ .Release.Name }}-golang-app
   namespace: app
 spec:
   hosts:
@@ -20,7 +20,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: {{ .Release.Name }}-golang-app-dr
+  name: {{ .Release.Name }}-golang-app
   namespace: app
 spec:
   host: {{ .Release.Name }}-golang-app

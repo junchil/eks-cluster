@@ -7,11 +7,11 @@ spec:
   replicas: {{ .Values.golangApp.replicas }}
   selector:
     matchLabels:
-      app: golang-app
+      app: {{ .Release.Name }}-golang-app
   template:
     metadata:
       labels:
-        app: golang-app
+        app: {{ .Release.Name }}-golang-app
         version: v2
     spec:
       containers:
