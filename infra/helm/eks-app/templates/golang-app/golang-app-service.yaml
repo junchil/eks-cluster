@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-golang-app
   namespace: app
+  labels:
+    app: {{ .Release.Name }}-golang-app
 spec:
   ports:
     - name: tcp-golang-app
