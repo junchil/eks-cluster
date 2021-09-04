@@ -20,3 +20,8 @@ spec:
         name: python-app
         ports:
         - containerPort: 5000
+        resources:
+          limits:
+            cpu: 50m
+          requests:
+            cpu: 20m
