@@ -25,7 +25,7 @@ Overview:
 - Terraform for provision aws resources
 - Helm charts for managing eks cluster
 
-Table of Contents                                                                                                                       
+Table of Contents                                                                                                                    
 ============================================
 * [Directory Structure](DIRECTORY.md)
 * [Set up](SETUP.md)
