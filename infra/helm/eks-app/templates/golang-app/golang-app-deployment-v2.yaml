@@ -5,9 +5,9 @@ metadata:
   namespace: app
 spec:
   replicas: {{ .Values.golangApp.replicas }}
-  selector:
-    matchLabels:
-      app: {{ .Release.Name }}-golang-app
+  # selector:
+  #   matchLabels:
+  #     app: {{ .Release.Name }}-golang-app
   template:
     metadata:
       labels:
