@@ -1,11 +1,17 @@
 apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: istio
+spec:
+  controller: istio.io/ingress-controller
+---
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}-golang-app
   namespace: app
-  annotations:
-    kubernetes.io/ingress.class: istio
 spec:
+  ingressClassName: istio
   rules:
   - http:
       paths:

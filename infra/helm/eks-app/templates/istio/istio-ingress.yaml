@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: "{{ .Release.Name }}-alb-istio-ingress"
+  namespace: istio-system
   annotations:
     external-dns.alpha.kubernetes.io/hostname: web.stevejcliu.com
     kubernetes.io/ingress.class: alb
