@@ -9,7 +9,7 @@ spec:
   gateways:
   - {{ .Release.Name }}-golang-app-gateway
   hosts:
-  - "*"
+  - "web.stevejcliu.com"
   http:
   - match:
     - uri:
