@@ -1,24 +1,15 @@
-apiVersion: networking.k8s.io/v1
-kind: IngressClass
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  name: istio
-spec:
-  controller: istio.io/ingress-controller
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: {{ .Release.Name }}-python-app
+  name: {{ .Release.Name }}-python-app-gateway
   namespace: app
 spec:
-  ingressClassName: istio
-  rules:
-  - http:
-      paths:
-      - path: /python
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ .Release.Name }}-python-app
-            port:
-              number: 5000
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "web.stevejcliu.com"

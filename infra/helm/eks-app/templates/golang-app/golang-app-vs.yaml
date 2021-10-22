@@ -13,7 +13,9 @@ spec:
   http:
   - match:
     - uri:
-        exact: /golang
+      prefix: /golang
+      rewrite:
+        uri: "/"
     # - uri:
     #     prefix: /golang($|/)(.*)
     route:
