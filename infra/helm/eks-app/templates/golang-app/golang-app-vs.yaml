@@ -13,7 +13,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /golang($|/)(.*)
+        prefix: /golang
     rewrite:
         uri: "/"
     route:
