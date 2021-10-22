@@ -88,7 +88,7 @@ deploy-istio-charts:
 	kubectl create namespace istio-system || true && \
 	helm upgrade istio-base manifests/charts/base -n istio-system --install && \
 	helm upgrade istiod manifests/charts/istio-control/istio-discovery -n istio-system --install && \
-	helm install istio-ingress manifests/charts/gateways/istio-ingress -n istio-system --install &&  --set gateways.enabled=true --set gateways.istio-ingressgateway.type=NodePort\
+	helm upgrade istio-ingress manifests/charts/gateways/istio-ingress -n istio-system --install &&  --set gateways.enabled=true --set gateways.istio-ingressgateway.type=NodePort\
 	kubectl get po -n istio-system && \
 	kubectl create namespace app || true && \
 	kubectl label namespace app istio-injection=enabled --overwrite && \
