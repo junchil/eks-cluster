@@ -100,7 +100,6 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm repo add eks https://aws.github.io/eks-charts && \
-	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
