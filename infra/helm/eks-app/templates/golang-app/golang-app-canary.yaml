@@ -16,7 +16,7 @@ spec:
         prefix: /golang
     - uri:
         prefix: /golang($|/)(.*)
-  - route:
+    route:
     - destination:
         host: {{ .Release.Name }}-golang-app.app.svc.cluster.local
         subset: v1
