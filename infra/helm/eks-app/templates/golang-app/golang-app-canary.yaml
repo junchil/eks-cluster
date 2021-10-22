@@ -6,9 +6,16 @@ metadata:
   labels:
     app: {{ .Release.Name }}-golang-app
 spec:
+  gateways:
+  - {{ .Release.Name }}-golang-app-gateway
   hosts:
-    - {{ .Release.Name }}-golang-app.app.svc.cluster.local
+  - "*"
   http:
+  - match:
+    - uri:
+        prefix: /golang
+    - uri:
+        prefix: /golang($|/)(.*)
   - route:
     - destination:
         host: {{ .Release.Name }}-golang-app.app.svc.cluster.local
