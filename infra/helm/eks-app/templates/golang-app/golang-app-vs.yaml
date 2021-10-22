@@ -13,11 +13,9 @@ spec:
   http:
   - match:
     - uri:
-      prefix: /golang
-      rewrite:
+        prefix: /golang($|/)(.*)
+    rewrite:
         uri: "/"
-    # - uri:
-    #     prefix: /golang($|/)(.*)
     route:
     - destination:
         host: {{ .Release.Name }}-golang-app

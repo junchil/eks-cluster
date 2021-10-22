@@ -13,8 +13,8 @@ spec:
   http:
   - match:
     - uri:
-      prefix: /python
-      rewrite:
+        prefix: /python
+    rewrite:
         uri: "/"
     route:
     - destination:
