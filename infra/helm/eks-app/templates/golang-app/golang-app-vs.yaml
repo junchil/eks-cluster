@@ -11,6 +11,11 @@ spec:
   hosts:
   - "web.stevejcliu.com"
   http:
+  - fault:
+      delay:
+        percentage:
+          value: 50
+        fixedDelay: 5s
   - match:
     - uri:
         prefix: /golang
@@ -21,13 +26,10 @@ spec:
         host: {{ .Release.Name }}-golang-app-service
         subset: v1
       weight: 50
-    # - destination:
-    #     host: {{ .Release.Name }}-golang-app-service
-    #     subset: v2
-    #   weight: 10
     - destination:
-        host: {{ .Release.Name }}-python-app
-      weight: 50
+        host: {{ .Release.Name }}-golang-app-service
+        subset: v2
+      weight: 10
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
