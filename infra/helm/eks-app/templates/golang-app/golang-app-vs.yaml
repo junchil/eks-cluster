@@ -25,7 +25,7 @@ spec:
     - destination:
         host: {{ .Release.Name }}-golang-app-service
         subset: v1
-      weight: 50
+      weight: 90
     - destination:
         host: {{ .Release.Name }}-golang-app-service
         subset: v2
