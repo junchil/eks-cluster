@@ -21,9 +21,12 @@ spec:
         host: {{ .Release.Name }}-golang-app-service
         subset: v1
       weight: 90
+    # - destination:
+    #     host: {{ .Release.Name }}-golang-app-service
+    #     subset: v2
+    #   weight: 10
     - destination:
-        host: {{ .Release.Name }}-golang-app-service
-        subset: v2
+        host: {{ .Release.Name }}-python-app
       weight: 10
 ---
 apiVersion: networking.istio.io/v1alpha3
