@@ -15,7 +15,7 @@ spec:
       delay:
         percentage:
           value: 50
-        fixedDelay: 5s
+        fixedDelay: 10s
     match:
     - uri:
         prefix: /golang
