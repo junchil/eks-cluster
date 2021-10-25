@@ -16,7 +16,7 @@ spec:
         percentage:
           value: 50
         fixedDelay: 5s
-  - match:
+    match:
     - uri:
         prefix: /golang
     rewrite:
