@@ -18,11 +18,11 @@ spec:
         uri: "/"
     route:
     - destination:
-        host: {{ .Release.Name }}-golang-app
+        host: {{ .Release.Name }}-golang-app-service
         subset: v1
       weight: 75
     - destination:
-        host: {{ .Release.Name }}-golang-app
+        host: {{ .Release.Name }}-golang-app-service
         subset: v2
       weight: 25
 ---
