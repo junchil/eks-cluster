@@ -34,7 +34,7 @@ metadata:
   labels:
     app: {{ .Release.Name }}-golang-app
 spec:
-  host: {{ .Release.Name }}-golang-app
+  host: {{ .Release.Name }}-golang-app-service
   subsets:
   - name: v1
     labels:
