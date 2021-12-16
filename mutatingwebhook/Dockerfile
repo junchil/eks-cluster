@@ -3,7 +3,7 @@
 #
 FROM golang:1.16-alpine as go-builder
 
-WORKDIR /go/src/github.com/wardviaene/kubernetes-course/mutatingwebhook
+WORKDIR /go/src/github.com/junchil/eks-cluster/mutatingwebhook
 
 COPY . .
 
@@ -20,7 +20,7 @@ RUN mkdir -p /app && \
 
 WORKDIR /app
 
-COPY --from=go-builder /go/src/github.com/wardviaene/kubernetes-course/mutatingwebhook .
+COPY --from=go-builder /go/src/github.com/junchil/eks-cluster/mutatingwebhook .
 
 USER app
 
