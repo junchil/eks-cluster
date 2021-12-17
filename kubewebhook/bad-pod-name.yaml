@@ -1,8 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: offensive-pod
+  name: mypod
   namespace: apps
+  labels:
+    test: hkjl
+    managedby: steve
 spec:
   containers:
     - args:

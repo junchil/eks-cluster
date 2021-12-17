@@ -47,7 +47,7 @@ func (a Admitter) Pod() (*corev1.Pod, error) {
 	if a.Request.Kind.Kind != "Pod" {
 		return nil, fmt.Errorf("only pods are supported here")
 	}
-
+	// https://pkg.go.dev/k8s.io/api/core/v1#Pod
 	p := corev1.Pod{}
 	if err := json.Unmarshal(a.Request.Object.Raw, &p); err != nil {
 		return nil, err

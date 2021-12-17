@@ -119,6 +119,7 @@ func parseRequest(r http.Request) (*admissionv1.AdmissionReview, error) {
 		return nil, fmt.Errorf("admission request body is empty")
 	}
 
+	// https://pkg.go.dev/k8s.io/api/admission/v1#AdmissionReview
 	var a admissionv1.AdmissionReview
 
 	if err := json.Unmarshal(body, &a); err != nil {

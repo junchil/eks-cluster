@@ -1,6 +1,8 @@
 package validation
 
 import (
+	"fmt"
+
 	"github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 )
@@ -39,9 +41,18 @@ func (v *Validator) ValidatePod(pod *corev1.Pod) (validation, error) {
 	log := logrus.WithField("pod_name", podName)
 	log.Print("delete me")
 
+	if len(pod.Labels) == 0 {
+		return validation{Valid: false, Reason: "invalid pod, no labels"}, nil
+	} else {
+		var podlabels map[string]string
+		podlabels = pod.Labels
+		fmt.Println(podlabels)
+	}
+
 	// list of all validations to be applied to the pod
 	validations := []podValidator{
 		nameValidator{v.Logger},
+		labelsValidator{v.Logger},
 	}
 
 	// apply all validations
