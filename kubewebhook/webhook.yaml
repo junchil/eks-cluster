@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubewebhook
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apps
+  labels:
+    admission-webhook: enabled
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubewebhook
+  namespace: kubewebhook
+  labels:
+    app: kubewebhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubewebhook
+  template:
+    metadata:
+      labels:
+        app: kubewebhook
+    spec:
+      containers:
+      - name: kubewebhook
+        image: localhost:5000/my-image
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubewebhook
+  namespace: kubewebhook
+spec:
+  selector:
+    app: kubewebhook
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 443
