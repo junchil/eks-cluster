@@ -1,7 +1,7 @@
 #
 # Build go project
 #
-FROM golang:1.16-alpine as go-builder
+FROM golang:1.17-alpine as go-builder
 
 WORKDIR /go/src/github.com/junchil/eks-cluster/mutatingwebhook
 
