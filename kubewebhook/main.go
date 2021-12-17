@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/junchil/eks-cluster/kubewebhook/pkg/admission"
 	"github.com/sirupsen/logrus"
 	admissionv1 "k8s.io/api/admission/v1"
 )
@@ -25,7 +26,7 @@ func main() {
 	setLogger()
 
 	// setup certs
-	fmt.Printf("Initializing certificates...\n")
+	logrus.Print("Initializing certificates...\n")
 	serverTLSConf, clientTLSConf, caPEM, err := certsetup()
 	if err != nil {
 		panic(err)
@@ -41,7 +42,7 @@ func main() {
 		handler := http.NewServeMux()
 
 		handler.HandleFunc("/ca.pem", s.getCA)
-		fmt.Printf("Starting localhost http server on :8080 with ca.pem endpoint\n")
+		logrus.Print("Starting localhost http server on :8080 with ca.pem endpoint\n")
 		err = http.ListenAndServe("localhost:8080", handler)
 
 		if err != nil {
@@ -50,17 +51,18 @@ func main() {
 	}()
 
 	// start TLS server
-	fmt.Printf("Starting TLS server on :8443\n")
 	handler := http.NewServeMux()
-	handler.HandleFunc("/webhook", s.ServeHealth)
+	handler.HandleFunc("/health", s.ServeHealth)
+	http.HandleFunc("/validate-pods", s.ServeValidatePods)
 
 	https := &http.Server{
-		Addr:      ":8443",
+		Addr:      ":443",
 		TLSConfig: serverTLSConf,
 		Handler:   handler,
 	}
 
-	log.Fatal(https.ListenAndServeTLS("", ""))
+	logrus.Print("Listening on port 443...")
+	logrus.Fatal(https.ListenAndServeTLS("", ""))
 }
 
 func (s Server) getCA(w http.ResponseWriter, req *http.Request) {
@@ -83,6 +85,46 @@ func (s Server) getCA(w http.ResponseWriter, req *http.Request) {
 func (s Server) ServeHealth(w http.ResponseWriter, r *http.Request) {
 	logrus.WithField("uri", r.RequestURI).Debug("healthy")
 	fmt.Fprint(w, "OK")
+}
+
+// ServeValidatePods validates an admission request and then writes an admission
+// review to `w`
+func (s Server) ServeValidatePods(w http.ResponseWriter, r *http.Request) {
+	logger := logrus.WithField("uri", r.RequestURI)
+	logger.Debug("received validation request")
+
+	in, err := parseRequest(*r)
+	if err != nil {
+		logger.Error(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	adm := admission.Admitter{
+		Logger:  logger,
+		Request: in.Request,
+	}
+
+	out, err := adm.ValidatePodReview()
+	if err != nil {
+		e := fmt.Sprintf("could not generate admission response: %v", err)
+		logger.Error(e)
+		http.Error(w, e, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	jout, err := json.Marshal(out)
+	if err != nil {
+		e := fmt.Sprintf("could not parse admission response: %v", err)
+		logger.Error(e)
+		http.Error(w, e, http.StatusInternalServerError)
+		return
+	}
+
+	logger.Debug("sending response")
+	logger.Debugf("%s", jout)
+	fmt.Fprintf(w, "%s", jout)
 }
 
 // setLogger sets the logger using env vars, it defaults to text logs on

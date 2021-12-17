@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/sirupsen/logrus v1.8.1
 	k8s.io/api v0.23.1
+	k8s.io/apimachinery v0.23.1
 )
 
 require (
@@ -20,7 +21,6 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	k8s.io/apimachinery v0.23.1 // indirect
 	k8s.io/klog/v2 v2.30.0 // indirect
 	k8s.io/utils v0.0.0-20210930125809-cb0fa318a74b // indirect
 	sigs.k8s.io/json v0.0.0-20211020170558-c049b76a60c6 // indirect
