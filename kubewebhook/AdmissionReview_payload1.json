@@ -1,0 +1,153 @@
+{
+    "kind": "AdmissionReview",
+    "apiVersion": "admission.k8s.io/v1",
+    "request": {
+      "uid": "ad576559-3518-4d3b-95c0-5855b6ddb971",
+      "kind": {
+        "group": "",
+        "version": "v1",
+        "kind": "Pod"
+      },
+      "resource": {
+        "group": "",
+        "version": "v1",
+        "resource": "pods"
+      },
+      "requestKind": {
+        "group": "",
+        "version": "v1",
+        "kind": "Pod"
+      },
+      "requestResource": {
+        "group": "",
+        "version": "v1",
+        "resource": "pods"
+      },
+      "name": "offensive-pod",
+      "namespace": "apps",
+      "operation": "CREATE",
+      "userInfo": {
+        "username": "docker-for-desktop",
+        "groups": [
+          "system:masters",
+          "system:authenticated"
+        ]
+      },
+      "object": {
+        "kind": "Pod",
+        "apiVersion": "v1",
+        "metadata": {
+          "name": "offensive-pod",
+          "namespace": "apps",
+          "uid": "c055f639-dc66-472c-ad83-66b38ca72751",
+          "creationTimestamp": "2021-12-17T05:04:38Z",
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"offensive-pod\",\"namespace\":\"apps\"},\"spec\":{\"containers\":[{\"args\":[\"sleep\",\"3600\"],\"image\":\"busybox\",\"name\":\"lifespan-offensive\"}],\"restartPolicy\":\"Always\"}}\n"
+          },
+          "managedFields": [
+            {
+              "manager": "kubectl-client-side-apply",
+              "operation": "Update",
+              "apiVersion": "v1",
+              "time": "2021-12-17T05:04:38Z",
+              "fieldsType": "FieldsV1",
+              "fieldsV1": {
+                "f:metadata": {
+                  "f:annotations": {
+                    ".": {},
+                    "f:kubectl.kubernetes.io/last-applied-configuration": {}
+                  }
+                },
+                "f:spec": {
+                  "f:containers": {
+                    "k:{\"name\":\"lifespan-offensive\"}": {
+                      ".": {},
+                      "f:args": {},
+                      "f:image": {},
+                      "f:imagePullPolicy": {},
+                      "f:name": {},
+                      "f:resources": {},
+                      "f:terminationMessagePath": {},
+                      "f:terminationMessagePolicy": {}
+                    }
+                  },
+                  "f:dnsPolicy": {},
+                  "f:enableServiceLinks": {},
+                  "f:restartPolicy": {},
+                  "f:schedulerName": {},
+                  "f:securityContext": {},
+                  "f:terminationGracePeriodSeconds": {}
+                }
+              }
+            }
+          ]
+        },
+        "spec": {
+          "volumes": [
+            {
+              "name": "default-token-tzkks",
+              "secret": {
+                "secretName": "default-token-tzkks"
+              }
+            }
+          ],
+          "containers": [
+            {
+              "name": "lifespan-offensive",
+              "image": "busybox",
+              "args": [
+                "sleep",
+                "3600"
+              ],
+              "resources": {},
+              "volumeMounts": [
+                {
+                  "name": "default-token-tzkks",
+                  "readOnly": true,
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+                }
+              ],
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "imagePullPolicy": "Always"
+            }
+          ],
+          "restartPolicy": "Always",
+          "terminationGracePeriodSeconds": 30,
+          "dnsPolicy": "ClusterFirst",
+          "serviceAccountName": "default",
+          "serviceAccount": "default",
+          "securityContext": {},
+          "schedulerName": "default-scheduler",
+          "tolerations": [
+            {
+              "key": "node.kubernetes.io/not-ready",
+              "operator": "Exists",
+              "effect": "NoExecute",
+              "tolerationSeconds": 300
+            },
+            {
+              "key": "node.kubernetes.io/unreachable",
+              "operator": "Exists",
+              "effect": "NoExecute",
+              "tolerationSeconds": 300
+            }
+          ],
+          "priority": 0,
+          "enableServiceLinks": true,
+          "preemptionPolicy": "PreemptLowerPriority"
+        },
+        "status": {
+          "phase": "Pending",
+          "qosClass": "BestEffort"
+        }
+      },
+      "oldObject": null,
+      "dryRun": false,
+      "options": {
+        "kind": "CreateOptions",
+        "apiVersion": "meta.k8s.io/v1",
+        "fieldManager": "kubectl-client-side-apply"
+      }
+    }
+  }

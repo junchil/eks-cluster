@@ -157,6 +157,8 @@ func parseRequest(r http.Request) (*admissionv1.AdmissionReview, error) {
 	bodybuf.ReadFrom(r.Body)
 	body := bodybuf.Bytes()
 
+	fmt.Println(string(body))
+
 	if len(body) == 0 {
 		return nil, fmt.Errorf("admission request body is empty")
 	}
