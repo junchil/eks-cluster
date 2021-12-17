@@ -32,7 +32,7 @@ spec:
         image: localhost:5000/my-image
         imagePullPolicy: Never
         ports:
-        - containerPort: 443
+        - containerPort: 8443
 ---
 apiVersion: v1
 kind: Service
@@ -45,4 +45,4 @@ spec:
   ports:
     - protocol: TCP
       port: 443
-      targetPort: 443
+      targetPort: 8443

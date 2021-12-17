@@ -53,15 +53,15 @@ func main() {
 	// start TLS server
 	handler := http.NewServeMux()
 	handler.HandleFunc("/health", s.ServeHealth)
-	http.HandleFunc("/validate-pods", s.ServeValidatePods)
+	handler.HandleFunc("/validate-pods", s.ServeValidatePods)
 
 	https := &http.Server{
-		Addr:      ":443",
+		Addr:      ":8443",
 		TLSConfig: serverTLSConf,
 		Handler:   handler,
 	}
 
-	logrus.Print("Listening on port 443...")
+	logrus.Print("Listening on port 8443...")
 	logrus.Fatal(https.ListenAndServeTLS("", ""))
 }
 
