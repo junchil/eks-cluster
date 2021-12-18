@@ -23,7 +23,11 @@ func (n labelsValidator) Name() string {
 // Validate inspects the labels of a given pod and returns validation.
 // The returned validation is only valid if the pod labels contain managedby: steve
 func (n labelsValidator) Validate(pod *corev1.Pod) (validation, error) {
-	if _, ok := pod.Labels["managedby"]; !ok {
+	const (
+		validateLabel      = "managedby"
+		validateLabelValue = "steve"
+	)
+	if _, ok := pod.Labels[validateLabel]; !ok {
 		v := validation{
 			Valid:  false,
 			Reason: fmt.Sprintf("pod labels does not contain managedby label"),
@@ -31,8 +35,8 @@ func (n labelsValidator) Validate(pod *corev1.Pod) (validation, error) {
 		return v, nil
 	}
 
-	if val, ok := pod.Labels["managedby"]; ok {
-		if val != "steve" {
+	if val, ok := pod.Labels[validateLabel]; ok {
+		if val != validateLabelValue {
 			v := validation{
 				Valid:  false,
 				Reason: fmt.Sprintf("pod managedby label's value is not equal to steve"),

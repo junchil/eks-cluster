@@ -83,6 +83,46 @@ func (s Server) ServeValidatePods(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%s", jout)
 }
 
+// ServeMutatePods returns an admission review with pod mutations as a json patch
+// in the review response
+func (s Server) ServeMutatePods(w http.ResponseWriter, r *http.Request) {
+	logger := logrus.WithField("uri", r.RequestURI)
+	logger.Debug("received mutation request")
+
+	in, err := parseRequest(*r)
+	if err != nil {
+		logger.Error(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	adm := admission.Admitter{
+		Logger:  logger,
+		Request: in.Request,
+	}
+
+	out, err := adm.MutatePodReview()
+	if err != nil {
+		e := fmt.Sprintf("could not generate admission response: %v", err)
+		logger.Error(e)
+		http.Error(w, e, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	jout, err := json.Marshal(out)
+	if err != nil {
+		e := fmt.Sprintf("could not parse admission response: %v", err)
+		logger.Error(e)
+		http.Error(w, e, http.StatusInternalServerError)
+		return
+	}
+
+	logger.Debug("sending response")
+	logger.Debugf("%s", jout)
+	fmt.Fprintf(w, "%s", jout)
+}
+
 // setLogger sets the logger using env vars, it defaults to text logs on
 // debug level unless otherwise specified
 func setLogger() {

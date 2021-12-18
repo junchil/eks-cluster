@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/sirupsen/logrus v1.8.1
+	github.com/wI2L/jsondiff v0.1.1
 	k8s.io/api v0.23.1
 	k8s.io/apimachinery v0.23.1
 )

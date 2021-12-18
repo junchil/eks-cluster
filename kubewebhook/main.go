@@ -39,6 +39,7 @@ func main() {
 	handler := http.NewServeMux()
 	handler.HandleFunc("/health", s.ServeHealth)
 	handler.HandleFunc("/validate-pods", s.ServeValidatePods)
+	handler.HandleFunc("/mutate-pods", s.ServeMutatePods)
 
 	https := &http.Server{
 		Addr:      ":8443",

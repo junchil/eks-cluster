@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/junchil/eks-cluster/kubewebhook/pkg/mutation"
 	"github.com/junchil/eks-cluster/kubewebhook/pkg/validation"
 	"github.com/sirupsen/logrus"
 	admissionv1 "k8s.io/api/admission/v1"
@@ -42,6 +43,25 @@ func (a Admitter) ValidatePodReview() (*admissionv1.AdmissionReview, error) {
 	return reviewResponse(a.Request.UID, true, http.StatusAccepted, "valid pod"), nil
 }
 
+// MutatePodReview takes an admission request and mutates the pod within,
+// it returns an admission review with mutations as a json patch (if any)
+func (a Admitter) MutatePodReview() (*admissionv1.AdmissionReview, error) {
+	pod, err := a.Pod()
+	if err != nil {
+		e := fmt.Sprintf("could not parse pod in admission review request: %v", err)
+		return reviewResponse(a.Request.UID, false, http.StatusBadRequest, e), err
+	}
+
+	m := mutation.NewMutator(a.Logger)
+	patch, err := m.MutatePodPatch(pod)
+	if err != nil {
+		e := fmt.Sprintf("could not mutate pod: %v", err)
+		return reviewResponse(a.Request.UID, false, http.StatusBadRequest, e), err
+	}
+
+	return patchReviewResponse(a.Request.UID, patch)
+}
+
 // Pod extracts a pod from an admission request
 func (a Admitter) Pod() (*corev1.Pod, error) {
 	if a.Request.Kind.Kind != "Pod" {
@@ -73,4 +93,22 @@ func reviewResponse(uid types.UID, allowed bool, httpCode int32,
 			},
 		},
 	}
+}
+
+// patchReviewResponse builds an admission review with given json patch
+func patchReviewResponse(uid types.UID, patch []byte) (*admissionv1.AdmissionReview, error) {
+	patchType := admissionv1.PatchTypeJSONPatch
+
+	return &admissionv1.AdmissionReview{
+		TypeMeta: metav1.TypeMeta{
+			Kind:       "AdmissionReview",
+			APIVersion: "admission.k8s.io/v1",
+		},
+		Response: &admissionv1.AdmissionResponse{
+			UID:       uid,
+			Allowed:   true,
+			PatchType: &patchType,
+			Patch:     patch,
+		},
+	}, nil
 }

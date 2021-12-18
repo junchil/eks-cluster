@@ -4,7 +4,6 @@ metadata:
   name: mypod
   namespace: apps
   labels:
-    test: hkjl
     managedby: steve
 spec:
   containers:
