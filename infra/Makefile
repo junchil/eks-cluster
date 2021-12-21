@@ -102,7 +102,7 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
 	helm repo add eks https://aws.github.io/eks-charts && \
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
-	kubectl create ns prometheus && \
+	kubectl create ns prometheus || true && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
 	kubectl delete --all pods --namespace=app
 
