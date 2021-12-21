@@ -69,4 +69,5 @@ externaldns:
 certificateArn: ""
 
 prometheus:
-  enabled: false
+  enabled: true
+  namespaceOverride: "prometheus"

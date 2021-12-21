@@ -39,6 +39,6 @@ dependencies:
   condition: postgresql.enabled
 
 - name: kube-prometheus-stack
-  version: 18.0.1
+  version: 25.0.0
   repository: https://prometheus-community.github.io/helm-charts
   condition: prometheus.enabled
