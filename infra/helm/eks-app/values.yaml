@@ -53,19 +53,6 @@ externaldns:
   rbac:
     create: true
 
-nginx:
-  enabled: true
-  controller:
-    config:
-      use-forwarded-headers: "true"
-    service:
-      type: NodePort
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
-      targetPorts:
-        http: 80
-        https: 80
-
 certificateArn: ""
 
 prometheus:
@@ -77,3 +64,19 @@ prometheus:
     namespaceOverride: "prometheus"
   kube-state-metrics:
     namespaceOverride: "prometheus"
+
+# nginx:
+#   enabled: true
+#   controller:
+#     config:
+#       use-forwarded-headers: "true"
+#     service:
+#       type: NodePort
+#       annotations:
+#         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+#       targetPorts:
+#         http: 80
+#         https: 80
+#     scope:
+#       enabled: true
+#       namespace: "prometheus"
