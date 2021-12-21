@@ -57,26 +57,23 @@ certificateArn: ""
 
 prometheus:
   enabled: true
-  namespaceOverride: "prometheus"
+  namespaceOverride: ""
   grafana:
-    namespaceOverride: "prometheus"
+    namespaceOverride: ""
   prometheus-node-exporter:
-    namespaceOverride: "prometheus"
+    namespaceOverride: ""
   kube-state-metrics:
-    namespaceOverride: "prometheus"
+    namespaceOverride: ""
 
-# nginx:
-#   enabled: true
-#   controller:
-#     config:
-#       use-forwarded-headers: "true"
-#     service:
-#       type: NodePort
-#       annotations:
-#         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
-#       targetPorts:
-#         http: 80
-#         https: 80
-#     scope:
-#       enabled: true
-#       namespace: "prometheus"
+nginx:
+  enabled: false
+  controller:
+    config:
+      use-forwarded-headers: "true"
+    service:
+      type: NodePort
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      targetPorts:
+        http: 80
+        https: 80
