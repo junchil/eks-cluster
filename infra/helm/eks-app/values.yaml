@@ -56,14 +56,14 @@ externaldns:
 certificateArn: ""
 
 prometheus:
-  enabled: false
-  namespaceOverride: ""
+  enabled: true
+  namespaceOverride: "app"
   grafana:
-    namespaceOverride: ""
+    namespaceOverride: "app"
   prometheus-node-exporter:
-    namespaceOverride: ""
+    namespaceOverride: "app"
   kube-state-metrics:
-    namespaceOverride: ""
+    namespaceOverride: "app"
 
 nginx:
   enabled: false
