@@ -65,7 +65,6 @@ prometheus:
   kube-state-metrics:
     namespaceOverride: ""
 
-
 nginx:
   enabled: false
   controller:
