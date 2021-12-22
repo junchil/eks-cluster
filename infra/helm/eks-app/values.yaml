@@ -56,7 +56,7 @@ externaldns:
 certificateArn: ""
 
 prometheus:
-  enabled: true
+  enabled: false
   namespaceOverride: ""
   grafana:
     namespaceOverride: ""
