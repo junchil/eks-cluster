@@ -1,0 +1,22 @@
+{{- if and (.Values.prometheus.enabled) -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}-grafana
+  labels:
+    app: {{ .Release.Name }}-grafana
+spec:
+  gateways:
+  - {{ .Release.Name }}-grafana-gateway
+  hosts:
+  - "web.stevejcliu.com"
+  http:
+  - match:
+    - uri:
+        prefix: /grafana
+    rewrite:
+        uri: "/"
+    route:
+    - destination:
+        host: {{ .Release.Name }}-grafana
+{{- end -}}

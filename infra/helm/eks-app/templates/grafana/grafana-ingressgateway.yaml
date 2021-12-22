@@ -1,0 +1,16 @@
+{{- if and (.Values.prometheus.enabled) -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ .Release.Name }}-grafana
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 3000
+      name: http
+      protocol: HTTP
+    hosts:
+    - "web.stevejcliu.com"
+{{- end -}}
