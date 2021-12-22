@@ -92,7 +92,6 @@ deploy-istio-charts:
 	kubectl get po -n istio-system && \
 	kubectl create namespace app || true && \
 	kubectl label namespace app istio-injection=enabled --overwrite && \
-	kubectl label namespace default istio-injection=enabled --overwrite && \
 	kubectl apply -f samples/addons
 
 deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
