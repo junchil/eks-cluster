@@ -57,13 +57,13 @@ certificateArn: ""
 
 prometheus:
   enabled: true
-  namespaceOverride: "app"
+  namespaceOverride: ""
   grafana:
-    namespaceOverride: "app"
+    namespaceOverride: ""
   prometheus-node-exporter:
-    namespaceOverride: "app"
+    namespaceOverride: ""
   kube-state-metrics:
-    namespaceOverride: "app"
+    namespaceOverride: ""
 
 nginx:
   enabled: false
