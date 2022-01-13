@@ -160,7 +160,7 @@ func (r *GolangappoperatorReconciler) deploymentForGolangappoperatored(m *appste
 						Name:  "golangappoperator",
 						Ports: []corev1.ContainerPort{{
 							ContainerPort: 8081,
-							Name:          "golangappoperatored",
+							Name:          "golangappoper",
 						}},
 					}},
 				},

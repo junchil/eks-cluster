@@ -5,3 +5,12 @@ metadata:
 spec:
   # Add fields here
   size: 3
+  image: "675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app:v1"
+  postgresqldb: false
+  dbservers:
+    - xxxx.xxxx.mongodb.net:27017
+    - xxxx.xxxx.mongodb.net:27017
+    - xxxx.xxxx.mongodb.net:27017
+  database: contents_db
+  dbuser: xxxx
+  dbpass: xxxx
