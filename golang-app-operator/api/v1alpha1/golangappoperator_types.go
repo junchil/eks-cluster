@@ -28,14 +28,13 @@ type GolangappoperatorSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Size      int32    `json:"size"`
-	Image     string   `json:"image"`
-	Response  string   `json:"response"`
-	MongoDB   bool     `json:"mongodb"`
-	DBservers []string `json:"dbservers,omitempty"`
-	Database  string   `json:"database"`
-	DBuser    string   `json:"dbuser"`
-	DBpass    string   `json:"dbpass"`
+	Size         int32    `json:"size"`
+	Image        string   `json:"image"`
+	PostgresqlDB bool     `json:"postgresqldb"`
+	DBservers    []string `json:"dbservers,omitempty"`
+	Database     string   `json:"database"`
+	DBuser       string   `json:"dbuser"`
+	DBpass       string   `json:"dbpass"`
 }
 
 // GolangappoperatorStatus defines the observed state of Golangappoperator

@@ -48,10 +48,8 @@ spec:
                 type: string
               image:
                 type: string
-              mongodb:
+              postgresqldb:
                 type: boolean
-              response:
-                type: string
               size:
                 format: int32
                 type: integer
@@ -60,8 +58,7 @@ spec:
             - dbpass
             - dbuser
             - image
-            - mongodb
-            - response
+            - postgresqldb
             - size
             type: object
           status:
