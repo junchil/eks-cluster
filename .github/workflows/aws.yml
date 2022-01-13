@@ -150,7 +150,7 @@ jobs:
         ./build.sh
 
   aws-deploy:
-    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build]
+    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build, golang-app-operator-build]
     name: AWS Deploy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdeploy'
@@ -176,7 +176,7 @@ jobs:
         make deploy
 
   aws-destroy:
-    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build]
+    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build, golang-app-operator-build]
     name: AWS Destroy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdestroy'
@@ -203,3 +203,4 @@ jobs:
         aws ecr delete-repository --repository-name eks-cluster/golang-app --force
         aws ecr delete-repository --repository-name eks-cluster/python-app --force
         aws ecr delete-repository --repository-name eks-cluster/testbox --force
+        aws ecr delete-repository --repository-name eks-cluster/golang-app-operator --force
