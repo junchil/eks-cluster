@@ -1,0 +1,24 @@
+# permissions for end users to edit golangappoperators.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: golangappoperator-editor-role
+rules:
+- apiGroups:
+  - app.stevejcliu.io.stevejcliu.com
+  resources:
+  - golangappoperators
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - app.stevejcliu.io.stevejcliu.com
+  resources:
+  - golangappoperators/status
+  verbs:
+  - get

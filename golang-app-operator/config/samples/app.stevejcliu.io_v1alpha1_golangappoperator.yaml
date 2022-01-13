@@ -1,0 +1,6 @@
+apiVersion: app.stevejcliu.io.stevejcliu.com/v1alpha1
+kind: Golangappoperator
+metadata:
+  name: golangappoperator-sample
+spec:
+  # Add fields here
