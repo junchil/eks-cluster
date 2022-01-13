@@ -7,13 +7,13 @@ on:
       - main
 
 jobs:
-  # cancel:
-  #   name: 'Cancel Previous Runs'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: styfle/cancel-workflow-action@0.9.0
-  #       with:
-  #         access_token: ${{ github.token }}
+  cancel:
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
 
   python-app-build:
     name: Python App Build
@@ -177,7 +177,6 @@ jobs:
         make deploy
 
   aws-destroy:
-    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build, golang-app-operator-build]
     name: AWS Destroy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdestroy'
