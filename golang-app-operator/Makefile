@@ -36,7 +36,7 @@ IMAGE_TAG_BASE ?= stevejcliu.com/golang-app-operator
 BUNDLE_IMG ?= $(IMAGE_TAG_BASE)-bundle:v$(VERSION)
 
 # Image URL to use all building/pushing image targets
-IMG ?= 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app-operatortroller:latest
+IMG ?= 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app-operator:latest
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.22
 
