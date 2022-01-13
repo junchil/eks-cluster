@@ -126,6 +126,7 @@ jobs:
   golang-app-operator-build:
     name: Golang App Operator Build
     runs-on: ubuntu-latest
+    if: github.event.head_commit.message == 'awsdeploy'
 
     steps:
     - name: Checkout
