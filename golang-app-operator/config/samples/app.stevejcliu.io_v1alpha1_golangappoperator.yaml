@@ -4,3 +4,4 @@ metadata:
   name: golangappoperator-sample
 spec:
   # Add fields here
+  size: 3
