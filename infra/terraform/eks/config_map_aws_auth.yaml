@@ -1,13 +1,25 @@
 
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: aws-auth
-  namespace: kube-system
-data:
-  mapRoles: |
-    - rolearn: arn:aws:iam::675617749633:role/anycluster-ap-southeast-2-worker-nodes-role
-      username: system:node:{{EC2PrivateDNSName}}
-      groups:
-        - system:bootstrappers
-        - system:nodes
+clusters:
+- cluster:
+    server: https://CF565354FC6E8B028262F4C1A30639C2.sk1.ap-southeast-2.eks.amazonaws.com
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1USXhNVEl5TlRnek1Wb1hEVE15TVRJd09ESXlOVGd6TVZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHVvCjB3dEhTV2RXc2ZEc29hTHBDbHl3QklJOGN5TVhGZHNoeDBCQTVldGkxTmpiQXBKRHpWaFNueGZIUDhkdlRYU3UKRmtVcWVVVytSbnJ4MEk4bkZheTN3dmdnWFZlVUV5bTBvVVNHMy9pL3g5TVA5MVBRVzhXQ2szR2x6SkZyQ2loSgp6L2NrWUVKWTZuY3MwSUE4UTN5eGJ2VjQ5cmt5d011dnViZFNBM2swZlM4U1VOck1UT0Jxbk8yeE1RVnU3M3hGCjVWMDlNMGM4MW9zcFhBY21NZW5EQ2hrOFNUcFNKRTA2a1JDSXlHN2VpZ3RCa0ZUUkFjWlF6OWkwZXQxYi9oVkMKd3p5MENaSkNxL2RHVGZXOGtBd1dycmRxZVlZZnhQZFpwY0NUQjc4VVk0T29jeVdmbllTOXRoaEw3c1Z4dzYvdQprZlZLL0w5Z0ZpcWszVmN6VUNFQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZBMkpSTzd6T2M2R0UrYTZuRjNnd0h2b1c3ZVdNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFCM2tCbXJXWGduYlduNjNIa2pYeUNIZVo1cXRncmhBa1Q2OHdzb0lWM3VMelFTVGltZAozdG5HN01xeTJ2M1JJZWIvOWV6S1VSUTZkOWhmMDFZK2hZajE1L3hsZGxCdzhsUGRVek4yZkg5bE5RdE80VXpnClZ4cFRzbHNvOTR6MVcraHhTb0V3dHI5WUpWL21sOUlQeU9hUllaMjR3ZkJvU2xnc0Ftd1FyMDVWSzYycHZRZmYKclV5R00zcHVKUm9xckpWbncwOVZMVk1uTkpQN1UrWjNlSUVvSXRLa2RUL3NFdExlWDhrdXNjS2hPZHl1OThWYwoxeEFpcDgxS2ljWFRsTFF5b1BTYzFYUlkrT1VEWVlKVVRCV2JkNjVEa2g4NWFOOTdPRkh0YnlIejRjNktjbzFlCjgwTnhxZGRZem44M3M2aUtKNGFkZVBENHp0UCtic0tTOGlyNQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: aws
+  name: aws
+current-context: aws
+kind: Config
+preferences: {}
+users:
+- name: aws
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+        - "token"
+        - "-i"
+        - "anycluster"
