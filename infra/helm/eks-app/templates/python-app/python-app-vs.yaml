@@ -2,7 +2,6 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: {{ .Release.Name }}-python-app
-  namespace: app
   labels:
     app: {{ .Release.Name }}-python-app
 spec:

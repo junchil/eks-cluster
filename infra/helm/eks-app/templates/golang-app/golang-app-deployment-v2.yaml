@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-golang-app-v2
-  namespace: app
 spec:
   replicas: {{ .Values.golangApp.replicas }}
   selector:

@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-testbox
-  namespace: app
 spec:
   replicas: {{ .Values.testBox.replicas }}
   selector:
