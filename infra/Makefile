@@ -90,7 +90,6 @@ deploy-istio-charts:
 	helm upgrade istiod manifests/charts/istio-control/istio-discovery -n istio-system --install && \
 	helm upgrade istio-ingress manifests/charts/gateways/istio-ingress -n istio-system --set gateways.istio-ingressgateway.type=NodePort --install && \
 	kubectl get po -n istio-system && \
-	kubectl create namespace app || true && \
 	kubectl label namespace app istio-injection=enabled --overwrite && \
 	kubectl apply -f samples/addons
 
@@ -103,7 +102,7 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
 	helm dependency update $(CHART_PATH) && \
 	echo "Deploying rea app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
-	kubectl delete --all pods --namespace=app
+	kubectl delete --all pods
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
