@@ -204,4 +204,3 @@ jobs:
         aws ecr delete-repository --repository-name eks-cluster/python-app --force
         aws ecr delete-repository --repository-name eks-cluster/testbox --force
         aws ecr delete-repository --repository-name eks-cluster/golang-app-operator --force
-        
