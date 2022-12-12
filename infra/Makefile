@@ -43,7 +43,7 @@ depend-helm-client: depend-kubernetes-client
 
 depend-aws-iam-authenticator:
 	@echo "Installing aws-iam-authenticator"
-	$(CURL) https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator && \
+	$(CURL) aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64 && \
 	chmod +x aws-iam-authenticator && \
 	sudo mv aws-iam-authenticator /usr/local/bin/
 
