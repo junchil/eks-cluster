@@ -150,8 +150,35 @@ jobs:
         sudo chmod +x build.sh
         ./build.sh
 
+  goprometheus-build:
+    name: Golang prometheus App Build
+    runs-on: ubuntu-latest
+    if: github.event.head_commit.message == 'awsdeploy'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      working-directory: ./goprometheus
+      run: |
+        sudo chmod +x build.sh
+        ./build.sh
+
   aws-deploy:
-    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build, golang-app-operator-build]
+    needs: [python-app-build, golang-app-v1-build, golang-app-v2-build, testbox-build, golang-app-operator-build, goprometheus-build]
     name: AWS Deploy
     runs-on: ubuntu-latest
     if: github.event.head_commit.message == 'awsdeploy'
@@ -204,3 +231,4 @@ jobs:
         aws ecr delete-repository --repository-name eks-cluster/python-app --force
         aws ecr delete-repository --repository-name eks-cluster/testbox --force
         aws ecr delete-repository --repository-name eks-cluster/golang-app-operator --force
+        aws ecr delete-repository --repository-name eks-cluster/goprometheus --force

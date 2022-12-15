@@ -55,3 +55,9 @@ dependencies:
   repository: https://helm.influxdata.com/
   alias: telegraf
   condition: telegraf.enabled
+
+- name: vector
+  version: 0.18.0
+  repository: https://helm.vector.dev
+  alias: vector
+  condition: vector.enabled

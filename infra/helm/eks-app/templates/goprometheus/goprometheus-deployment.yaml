@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-goprometheus
+spec:
+  replicas: {{ .Values.goprometheus.replicas }}
+  selector:
+    matchLabels:
+      app: goprometheus
+  template:
+    metadata:
+      labels:
+        app: goprometheus
+    spec:
+      containers:
+      - image: "{{ .Values.goprometheus.image.repository }}:{{ .Values.goprometheus.image.tag }}"
+        imagePullPolicy: {{ .Values.goprometheus.image.pullPolicy }}
+        stdin: true               # required to stop early exit
+        name: goprometheus
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 50m
+          requests:
+            cpu: 20m
