@@ -1,6 +1,6 @@
 module github.com/junchil/eks-cluster/golang-app-operator
 
-go 1.16
+go 1.21
 
 require (
 	github.com/onsi/ginkgo v1.16.4
