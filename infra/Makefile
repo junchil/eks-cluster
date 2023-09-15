@@ -62,6 +62,8 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
+deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-kube-metrics-server
+
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
 	cd $(TF_FOLDER) && \
@@ -93,14 +95,15 @@ deploy-istio-charts:
 	kubectl label namespace app istio-injection=enabled --overwrite && \
 	kubectl apply -f samples/addons
 
-deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
+#deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
+deploy-app-charts:
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm repo add eks https://aws.github.io/eks-charts && \
 	helm dependency update $(CHART_PATH) && \
-	echo "Deploying rea app chart" && \
+	echo "Deploying eks app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
 	kubectl delete --all pods
 
@@ -112,8 +115,6 @@ deploy-kube-dashboard:
 deploy-kube-metrics-server:
 	@echo Deploying cluster metrics server
 	kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-	
-deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-kube-metrics-server
 
 destroy-iam-serviceaccount-aws-alb: 
 	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller
