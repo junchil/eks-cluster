@@ -30,7 +30,7 @@ golangApp:
   replicas: 1
 
 postgresql:
-  enabled: true
+  enabled: false
   postgresqlUsername: postgres
   postgresqlPassword: "changeme"
   persistence:
@@ -86,7 +86,7 @@ nginx:
         https: 80
 
 telegraf:
-  enabled: true
+  enabled: false
   ## Default values.yaml for Telegraf
   ## This is a YAML-formatted file.
   ## ref: https://hub.docker.com/r/library/telegraf/tags/
@@ -291,7 +291,7 @@ telegraf:
     # maxUnavailable: 1
 
 vector:
-  enabled: true
+  enabled: false
   # Default values for Vector
   # See Vector helm documentation to learn more:
   # https://vector.dev/docs/setup/installation/package-managers/helm/
