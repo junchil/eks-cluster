@@ -128,3 +128,4 @@ ip-10-0-238-13.ap-southeast-2.compute.internal    Ready    <none>   61m   v1.20.
 NAME            PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
 gp2 (default)   kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  65m
 ```
+
