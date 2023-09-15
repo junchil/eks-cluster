@@ -73,7 +73,7 @@ prometheus:
     namespaceOverride: ""
 
 nginx:
-  enabled: false
+  enabled: true
   controller:
     config:
       use-forwarded-headers: "true"
