@@ -38,7 +38,7 @@ postgresql:
     storageClass: "standard"
     
 albcontroller:
-  enabled: true
+  enabled: false
   replicaCount: 1
   clusterName: "anycluster"
   serviceAccount:
@@ -47,8 +47,21 @@ albcontroller:
   vpcId: ""
   region: "ap-southeast-2"
 
+nginx:
+  enabled: false
+  controller:
+    config:
+      use-forwarded-headers: "true"
+    service:
+      type: NodePort
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      targetPorts:
+        http: 80
+        https: 80
+
 externaldns:
-  enabled: true
+  enabled: false
   sources:
     - service
     - ingress
@@ -71,19 +84,6 @@ prometheus:
     namespaceOverride: ""
   kube-state-metrics:
     namespaceOverride: ""
-
-nginx:
-  enabled: true
-  controller:
-    config:
-      use-forwarded-headers: "true"
-    service:
-      type: NodePort
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
-      targetPorts:
-        http: 80
-        https: 80
 
 telegraf:
   enabled: false
