@@ -22,13 +22,13 @@ appVersion: 1.16.0
 
 dependencies:
 - name: aws-load-balancer-controller
-  version: 1.2.6
+  version: 1.6.1
   repository: https://aws.github.io/eks-charts
   alias: albcontroller
   condition: albcontroller.enabled
 
 - name: external-dns
-  version: 6.12.1
+  version: 6.26.1
   repository: https://charts.bitnami.com/bitnami
   alias: externaldns
   condition: externaldns.enabled
@@ -44,9 +44,9 @@ dependencies:
   condition: prometheus.enabled
   alias: prometheus
 
-- name: nginx-ingress
-  version: 1.41.3
-  repository: https://charts.helm.sh/stable/
+- name: ingress-nginx
+  version: 4.8.0-beta.0
+  repository: https://kubernetes.github.io/ingress-nginx
   alias: nginx
   condition: nginx.enabled
 
