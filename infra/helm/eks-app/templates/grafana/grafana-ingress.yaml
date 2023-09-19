@@ -1,4 +1,5 @@
 {{- if and (.Values.prometheus.enabled) -}}
+{{- if .Values.istio.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -19,4 +20,5 @@ spec:
     route:
     - destination:
         host: {{ .Release.Name }}-grafana
+{{- end -}}
 {{- end -}}

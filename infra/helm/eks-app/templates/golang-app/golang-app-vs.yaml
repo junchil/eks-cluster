@@ -1,3 +1,4 @@
+{{- if .Values.istio.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -29,7 +30,9 @@ spec:
         host: {{ .Release.Name }}-golang-app-service
         subset: v2
       weight: 10
+{{- end -}}
 ---
+{{- if .Values.istio.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
@@ -53,3 +56,4 @@ spec:
       connectionPool:
         tcp:
           maxConnections: 100
+{{- end -}}
