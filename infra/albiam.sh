@@ -6,4 +6,4 @@
 # aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json
 
 # It will create cfn eksctl-anycluster-addon-iamserviceaccount-default-aws-load-balancer-controller
-eksctl create iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::675617749633:policy/AWSLoadBalancerControllerIAMPolicy --approve  --override-existing-serviceaccounts
+eksctl create iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::675617749633:policy/AWSLoadBalancerControllerIAMPolicy --namespace=default --approve  --override-existing-serviceaccounts
