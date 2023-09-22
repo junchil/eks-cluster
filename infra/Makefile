@@ -13,7 +13,7 @@ ISTIO_VERSION		= 1.11.1
 
 KUBECONFIG         = $(shell readlink -f kubeconfig.yaml)
 KUBECONFIGMAP      = $(shell readlink -f config_map_aws_auth.yaml)
-HELM_VALUES        = $(shell readlink -f helm_values.$(ENVIRONMENT_NAME).yaml)
+HELM_VALUES        = $(shell readlink -f helm_values.yaml)
 
 # export as env-variable
 export KUBECONFIG
