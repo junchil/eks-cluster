@@ -15,4 +15,4 @@ spec:
           service:
             name: {{ .Release.Name }}-golang-app-service
             port:
-              number: 3000
+              number: 8081
