@@ -96,13 +96,16 @@ deploy-istio-charts:
 	kubectl apply -f samples/addons
 
 #deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
-deploy-app-charts:
+#https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
+deploy-app-charts: deploy-iam-serviceaccount-aws-alb
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
+	helm repo add nginx https://kubernetes.github.io/ingress-nginx && \
 	helm repo add eks https://aws.github.io/eks-charts && \
 	helm dependency update $(CHART_PATH) && \
+	kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master" && \
 	echo "Deploying eks app chart" && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
 	kubectl delete --all pods
