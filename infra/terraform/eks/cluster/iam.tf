@@ -339,7 +339,8 @@ resource "aws_iam_policy" "eks-alb-controller-iam-policy" {
                 "elasticloadbalancing:DescribeTargetGroups",
                 "elasticloadbalancing:DescribeTargetGroupAttributes",
                 "elasticloadbalancing:DescribeTargetHealth",
-                "elasticloadbalancing:DescribeTags"
+                "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:AddTags"
             ],
             "Resource": "*"
         },
