@@ -13,3 +13,4 @@ spec:
   type: NodePort
   selector:
     app: {{ .Release.Name }}-golang-app
+    
