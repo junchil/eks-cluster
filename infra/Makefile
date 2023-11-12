@@ -71,8 +71,8 @@ deploy-terraform: copy-ssh-public-key
 	terraform fmt -check && \
 	terraform init && \
 	terraform validate && \
-	terraform plan && \
-	terraform apply -auto-approve && \
+	terraform plan -out planfile && \
+	terraform apply -parallelism=1 -auto-approve planfile && \
 	terraform output -raw kubeconfig > "$(KUBECONFIG)" && \
 	terraform output -raw config_map_aws_auth > "$(KUBECONFIGMAP)" && \
 	terraform output -raw helm_values > "$(HELM_VALUES)" && \
