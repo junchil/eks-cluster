@@ -10,3 +10,4 @@
     - https://aws.amazon.com/premiumsupport/knowledge-center/eks-metrics-server-pod-autoscaler/
     - https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
     
+    
