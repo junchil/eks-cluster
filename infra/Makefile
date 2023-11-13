@@ -107,8 +107,7 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb
 	helm dependency update $(CHART_PATH) && \
 	kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master" && \
 	echo "Deploying eks app chart" && \
-	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES) && \
-	kubectl delete --all pods
+	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard

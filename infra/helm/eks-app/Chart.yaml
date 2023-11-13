@@ -22,7 +22,7 @@ appVersion: 1.16.0
 
 dependencies:
 - name: aws-load-balancer-controller
-  version: 1.6.1
+  version: 1.6.2
   repository: https://aws.github.io/eks-charts
   alias: albcontroller
   condition: albcontroller.enabled
