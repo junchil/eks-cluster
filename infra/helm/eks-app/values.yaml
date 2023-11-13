@@ -88,6 +88,8 @@ prometheus:
     namespaceOverride: ""
   kube-state-metrics:
     namespaceOverride: ""
+  crds:
+    enabled: true
 
 telegraf:
   enabled: false
