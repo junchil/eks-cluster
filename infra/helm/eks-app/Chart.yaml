@@ -28,7 +28,7 @@ dependencies:
   condition: albcontroller.enabled
 
 - name: external-dns
-  version: 6.26.1
+  version: 6.28.4
   repository: https://charts.bitnami.com/bitnami
   alias: externaldns
   condition: externaldns.enabled
