@@ -1,24 +1,20 @@
 {{- if and (.Values.prometheus.enabled) -}}
-{{- if .Values.istio.enabled -}}
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: {{ .Release.Name }}-grafana
-  labels:
-    app: {{ .Release.Name }}-grafana
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  gateways:
-  - {{ .Release.Name }}-grafana-gateway
-  hosts:
-  - "web.stevejcliu.com"
-  http:
-  - match:
-    - uri:
-        prefix: /grafana
-    rewrite:
-        uri: "/(.*)"
-    route:
-    - destination:
-        host: {{ .Release.Name }}-grafana
-{{- end -}}
+  rules:
+  - http:
+      paths:
+      - path: /grafana
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-grafana
+            port:
+              number: 80
 {{- end -}}
