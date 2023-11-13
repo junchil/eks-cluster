@@ -80,7 +80,7 @@ istio:
   enabled: false
 
 prometheus:
-  enabled: false
+  enabled: true
   namespaceOverride: ""
   grafana:
     namespaceOverride: ""
