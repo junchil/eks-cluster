@@ -84,6 +84,7 @@ prometheus:
   namespaceOverride: ""
   grafana:
     namespaceOverride: ""
+    adminPassword: admin
   prometheus-node-exporter:
     namespaceOverride: ""
   kube-state-metrics:
