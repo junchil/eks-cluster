@@ -114,8 +114,8 @@ prometheus:
           target_label: __address__
           regex: ([^:]+)(?::\d+)?;(\d+)
           replacement: $1:$2
-        - action: labelmap
-          regex: __meta_kubernetes_service_label_(.+)
+        # - action: labelmap
+        #   regex: __meta_kubernetes_service_label_(.+)
 
 telegraf:
   enabled: false
