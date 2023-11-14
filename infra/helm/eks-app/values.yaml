@@ -91,6 +91,8 @@ prometheus:
     namespaceOverride: ""
   crds:
     enabled: true
+  prometheus:
+    enabled: true
 
 telegraf:
   enabled: false
