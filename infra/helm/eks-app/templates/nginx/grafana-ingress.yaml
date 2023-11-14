@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "{{ .Release.Name }}-grafana-ingress"
+  name: "{{ .Release.Name }}-grafana-nginx-ingress"
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     external-dns.alpha.kubernetes.io/hostname: grafana.stevejcliu.com
