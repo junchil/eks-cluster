@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: web.stevejcliu.com
+  - host: grafana.stevejcliu.com
     http:
       paths:
       - path: /
