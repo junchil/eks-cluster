@@ -1,4 +1,5 @@
 {{- if .Values.nginx.enabled -}}
+{{- if and (.Values.prometheus.enabled) -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -22,4 +23,5 @@ spec:
             name: {{ .Release.Name }}-nginx-controller
             port:
               number: 80
+{{- end -}}
 {{- end -}}

@@ -1,18 +1,19 @@
-# {{- if and (.Values.prometheus.enabled) -}}
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: {{ .Release.Name }}-grafana
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#   - http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: {{ .Release.Name }}-grafana
-#             port:
-#               number: 80
-# {{- end -}}
+{{- if and (.Values.prometheus.enabled) -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-grafana
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: web.stevejcliu.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-grafana
+            port:
+              number: 80
+{{- end -}}

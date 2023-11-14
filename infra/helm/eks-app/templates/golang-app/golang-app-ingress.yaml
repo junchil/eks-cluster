@@ -1,3 +1,4 @@
+{{- if .Values.nginx.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -17,3 +18,4 @@ spec:
             name: {{ .Release.Name }}-golang-app-service
             port:
               number: 8081
+{{- end -}}
