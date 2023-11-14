@@ -19,7 +19,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Release.Name }}-grafana
+            name: {{ .Release.Name }}-nginx-controller
             port:
               number: 80
 {{- end -}}
