@@ -11,8 +11,8 @@ spec:
   - host: web.stevejcliu.com
     http:
       paths:
-      - path: /golang
-        pathType: Prefix
+      - path: /golang(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{ .Release.Name }}-golang-app-service
