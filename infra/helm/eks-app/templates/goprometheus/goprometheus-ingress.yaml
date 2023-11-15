@@ -12,7 +12,7 @@ spec:
     http:
       paths:
       - path: /goprometheus(/|$)(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{ .Release.Name }}-goprometheus
