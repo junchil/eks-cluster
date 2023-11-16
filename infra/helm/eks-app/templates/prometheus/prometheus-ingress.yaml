@@ -1,0 +1,19 @@
+{{- if and (.Values.prometheus.enabled) -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-prometheus
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: prometheus.stevejcliu.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-prometheus-prometheus
+            port:
+              number: 9090
+{{- end -}}
