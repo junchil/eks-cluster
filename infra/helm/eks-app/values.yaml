@@ -50,6 +50,7 @@ albcontroller:
 nginx:
   enabled: true
   controller:
+    replicaCount: 2
     config:
       use-forwarded-headers: "true"
     service:
