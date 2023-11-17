@@ -94,6 +94,8 @@ prometheus:
   prometheus:
     enabled: true
     prometheusSpec:
+      scrapeInterval: 30s
+      scrape_timeout: 10s
       additionalScrapeConfigs:
       - job_name: 'goprometheus'
         kubernetes_sd_configs:
