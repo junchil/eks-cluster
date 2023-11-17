@@ -27,7 +27,7 @@ golangApp:
     repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app
     tag: latest
     pullPolicy: Always
-  replicas: 1
+  replicas: 2
 
 postgresql:
   enabled: false
@@ -54,7 +54,7 @@ nginx:
     config:
       use-forwarded-headers: "true"
     service:
-      type: LoadBalancer
+      type: NodePort
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
       targetPorts:
