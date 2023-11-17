@@ -53,7 +53,7 @@ nginx:
     config:
       use-forwarded-headers: "true"
     service:
-      type: ClusterIP
+      type: NodePort
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
       targetPorts:
