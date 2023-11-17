@@ -27,7 +27,7 @@ golangApp:
     repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app
     tag: latest
     pullPolicy: Always
-  replicas: 2
+  replicas: 1
 
 postgresql:
   enabled: false
@@ -50,15 +50,14 @@ albcontroller:
 nginx:
   enabled: true
   controller:
-    replicaCount: 2
+    replicaCount: 1
     config:
       use-forwarded-headers: "true"
     service:
       type: LoadBalancer
       # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
-        #service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
       targetPorts:
         http: 80
         https: 80
