@@ -8,6 +8,6 @@ spec:
       port: 5000
       targetPort: 5000
       protocol: TCP
-  type: NodePort
+  type: ClusterIP
   selector:
     app: python-app
