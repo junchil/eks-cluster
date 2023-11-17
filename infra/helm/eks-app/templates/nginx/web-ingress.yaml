@@ -12,9 +12,10 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/certificate-arn: {{ .Values.certificateArn | quote }}
 spec:
-  ingressClassName: alb
+  controller: ingress.k8s.aws/alb
   rules:
-  - http:
+  - host: web.stevejcliu.com
+    http:
       paths:
       - path: /
         pathType: Prefix
