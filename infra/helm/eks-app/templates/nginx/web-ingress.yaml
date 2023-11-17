@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: "{{ .Release.Name }}-web-nginx-ingress"
   annotations:
+    # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/
     alb.ingress.kubernetes.io/scheme: internet-facing
     external-dns.alpha.kubernetes.io/hostname: web.stevejcliu.com
     kubernetes.io/ingress.class: alb
