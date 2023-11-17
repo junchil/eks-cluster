@@ -54,7 +54,7 @@ nginx:
     config:
       use-forwarded-headers: "true"
     service:
-      type: LoadBalancer
+      type: NodePort
       # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
