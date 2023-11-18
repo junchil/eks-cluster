@@ -13,6 +13,7 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/certificate-arn: {{ .Values.certificateArn | quote }}
 spec:
+  ingressClassName: alb
   rules:
   - host: prometheus.stevejcliu.com
     http:
