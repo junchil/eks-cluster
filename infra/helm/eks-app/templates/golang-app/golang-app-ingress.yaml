@@ -8,7 +8,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
+  - host: web.stevejcliu.com
+    http:
       paths:
       - path: /golang(/|$)(.*)
         pathType: ImplementationSpecific
