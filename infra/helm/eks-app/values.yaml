@@ -74,7 +74,6 @@ externaldns:
   rbac:
     create: true
 
-
 certificateArn: ""
 
 istio:
