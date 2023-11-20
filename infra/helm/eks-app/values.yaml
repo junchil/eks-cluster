@@ -65,7 +65,6 @@ nginx:
 externaldns:
   enabled: true
   sources:
-    - service
     - ingress
   provider: aws
   domainFilters:
