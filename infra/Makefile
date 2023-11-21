@@ -4,7 +4,7 @@ TF_FOLDER           = terraform/eks
 SSH_FOLDER          = terraform/ssh-key
 APPS                = terraform kubectl helm aws aws-iam-authenticator eksctl
 
-TF_VERS            ?= 0.15.3
+TF_VERS            ?= 1.5.5
 KUBECTL_VERS       ?= 1.28.2
 HELM_VERS          ?= 3.13.2
 LOCAL_BIN          ?= $(HOME)/bin
