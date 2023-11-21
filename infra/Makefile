@@ -6,7 +6,7 @@ APPS                = terraform kubectl helm aws aws-iam-authenticator eksctl
 
 TF_VERS            ?= 0.15.3
 KUBECTL_VERS       ?= 1.28.2
-HELM_VERS          ?= 3.13.0
+HELM_VERS          ?= 3.13.2
 LOCAL_BIN          ?= $(HOME)/bin
 CURL               = curl -fSOL
 ISTIO_VERSION		= 1.11.1
