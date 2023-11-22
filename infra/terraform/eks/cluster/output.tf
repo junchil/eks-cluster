@@ -59,6 +59,11 @@ output "cluster_name" {
   value = aws_eks_cluster.eks-cluster.name
 }
 
+output "oidc_provider_arn" {
+  description = "The ARN of the OIDC Provider if `enable_irsa = true`"
+  value       = try(aws_iam_openid_connect_provider.default[0].arn, null)
+}
+
 # - rolearn: ${aws_iam_role.this_fargate.arn}
 #   username: system:node:{{SessionName}}
 #   groups:
