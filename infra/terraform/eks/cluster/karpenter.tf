@@ -1,11 +1,3 @@
-data "aws_partition" "current" {}
-data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
-locals {
-  account_id             = data.aws_caller_identity.current.account_id
-  irsa_oidc_provider_url = replace(module.eks.oidc_provider_arn, "/^(.*provider/)/", "")
-}
-
 #EKS Karpenter Node IAM Role
 resource "aws_iam_role" "karpenter_node_role" {
   name = "${var.cluster_name}-karpenter-node-role"
@@ -53,7 +45,7 @@ data "aws_iam_policy_document" "irsa_assume_role" {
 
     principals {
       type        = "Federated"
-      identifiers = [module.eks.oidc_provider_arn]
+      identifiers = [aws_iam_openid_connect_provider.default[0].arn]
     }
 
     condition {

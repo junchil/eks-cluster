@@ -1,5 +1,6 @@
-data "aws_region" "current" {
-}
+data "aws_partition" "current" {}
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
 locals {
   name_prefix  = "${var.cluster_name}-${data.aws_region.current.name}"
@@ -11,6 +12,8 @@ locals {
     # "tf_module_url" = lookup(data.external.git_release.result, "url", "unknown")
     # "tf_module_sha" = lookup(data.external.git_release.result, "sha", "unknown")
   }
+  account_id             = data.aws_caller_identity.current.account_id
+  irsa_oidc_provider_url = replace(aws_iam_openid_connect_provider.default[0].arn, "/^(.*provider/)/", "")
 }
 
 data "external" "git_release" {
