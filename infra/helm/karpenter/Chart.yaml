@@ -23,6 +23,6 @@ appVersion: 1.16.0
 dependencies:
 - name: karpenter
   version: 0.32.1
-  repository: https://charts.karpenter.sh
+  repository: "oci://public.ecr.aws/karpenter/karpenter"
   alias: karpenter
   condition: karpenter.enabled
