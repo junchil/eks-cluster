@@ -122,7 +122,8 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb
 deploy-karpenter:
 	@echo Deploying helm charts
 	@cd helm && \
-	kubectl create namespace istio-system || true && \
+	helm repo add karpenter https://charts.karpenter.sh && \
+	kubectl create namespace karpenter || true && \
 	helm dependency update karpenter && \
 	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
 
