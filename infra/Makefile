@@ -62,7 +62,7 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
-deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter
+deploy: deploy-terraform deploy-iam-serviceaccount-aws-alb deploy-app-charts deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
@@ -97,7 +97,7 @@ deploy-istio-charts:
 
 #deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
 #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
-deploy-app-charts: deploy-iam-serviceaccount-aws-alb
+deploy-app-charts:
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
@@ -123,7 +123,12 @@ deploy-karpenter:
 	@echo Deploying helm charts
 	@cd helm && \
 	kubectl create namespace karpenter || true && \
-	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
+	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_provisioners.yaml && \
+	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml && \
+	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
+	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
+	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
+	kubectl create -f helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
