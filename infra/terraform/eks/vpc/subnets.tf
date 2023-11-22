@@ -26,6 +26,7 @@ resource "aws_subnet" "private_subnet" {
       Name                                        = "Private_${element(data.aws_availability_zones.available.names, count.index)}"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
       "kubernetes.io/role/internal-elb"           = "1"
+      "karpenter.sh/discovery"                    = var.cluster_name
     },
   )
 }

@@ -2,8 +2,8 @@ data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 locals {
-    account_id = data.aws_caller_identity.current.account_id
-    irsa_oidc_provider_url = replace(module.eks.oidc_provider_arn, "/^(.*provider/)/", "")
+  account_id             = data.aws_caller_identity.current.account_id
+  irsa_oidc_provider_url = replace(module.eks.oidc_provider_arn, "/^(.*provider/)/", "")
 }
 
 #EKS Karpenter Node IAM Role
@@ -57,11 +57,13 @@ data "aws_iam_policy_document" "irsa_assume_role" {
     }
 
     condition {
+      test     = "StringEquals"
       variable = "${local.irsa_oidc_provider_url}:sub"
       values   = ["system:serviceaccount:karpenter:karpenter"]
     }
 
     condition {
+      test     = "StringEquals"
       variable = "${local.irsa_oidc_provider_url}:aud"
       values   = ["sts.amazonaws.com"]
     }
@@ -69,22 +71,23 @@ data "aws_iam_policy_document" "irsa_assume_role" {
 }
 
 resource "aws_iam_role" "karpenter_controller_role" {
-  name = "${var.cluster_name}-karpenter-controller-role"
-  assume_role_policy    = data.aws_iam_policy_document.irsa_assume_role.json
+  name               = "${var.cluster_name}-karpenter-controller-role"
+  assume_role_policy = data.aws_iam_policy_document.irsa_assume_role.json
 }
 
 
 data "template_file" "karpenter_controller_policy" {
-  template = "${file("${path.module}/karpenter_policy.json")}"
+  template = file("${path.module}/karpenter_policy.json")
   vars = {
-    AWS_PARTITION = data.aws_partition.current.id
+    AWS_PARTITION  = data.aws_partition.current.id
     AWS_ACCOUNT_ID = local.account_id
-    CLUSTER_NAME = var.cluster_name
+    AWS_REGION     = data.aws_region.current.name
+    CLUSTER_NAME   = var.cluster_name
   }
 }
 
 resource "aws_iam_role_policy" "karpenter_controller_policy" {
-  name = "${var.cluster_name}-karpenter-controller-policy"
-  policy = data.template_file.karpenter_controller_policy
-  role = aws_iam_role.karpenter_controller_role
+  name   = "${var.cluster_name}-karpenter-controller-policy"
+  policy = data.template_file.karpenter_controller_policy.rendered
+  role   = aws_iam_role.karpenter_controller_role.id
 }
