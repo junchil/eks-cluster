@@ -1,3 +1,8 @@
 karpenter:
   enabled: true
-  
+  settings:
+    clusterName: "anycluster"
+    clusterEndpoint: ""
+  serviceAccount:
+    annotations: 
+      eks.amazonaws.com/role-arn: ""
