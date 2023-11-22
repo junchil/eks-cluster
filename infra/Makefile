@@ -119,6 +119,13 @@ deploy-app-charts: deploy-iam-serviceaccount-aws-alb
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml && \
 	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
 
+deploy-karpenter:
+	@echo Deploying helm charts
+	@cd helm && \
+	kubectl create namespace istio-system || true && \
+	helm dependency update karpenter && \
+	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
+
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.5/aio/deploy/recommended.yaml
