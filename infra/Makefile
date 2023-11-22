@@ -80,10 +80,6 @@ deploy-terraform: copy-ssh-public-key
 	) || exit 1;
 	kubectl apply -f $(KUBECONFIGMAP)
 
-deploy-iam-serviceaccount-aws-alb: 
-	sudo chmod +x albiam.sh
-	./albiam.sh
-
 deploy-istio-charts:
 	curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$(ISTIO_VERSION) TARGET_ARCH=x86_64 sh - && \
 	cd istio-$(ISTIO_VERSION) && \
@@ -95,7 +91,7 @@ deploy-istio-charts:
 	kubectl label namespace app istio-injection=enabled --overwrite && \
 	kubectl apply -f samples/addons
 
-#deploy-app-charts: deploy-iam-serviceaccount-aws-alb deploy-istio-charts
+#deploy-app-charts: deploy-istio-charts
 #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
 deploy-app-charts:
 	@echo Deploying helm charts
@@ -128,7 +124,7 @@ deploy-karpenter:
 	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
 	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
 	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
-	kubectl create -f helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
+	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard

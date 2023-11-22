@@ -527,7 +527,7 @@ EOF
 resource "aws_iam_role" "alb_ingress_controller_role" {
   name               = "AmazonEKSLoadBalancerControllerRole"
   description        = "AWS EKS Load Balancer Controller Role"
-  assume_role_policy = templatefile("${path.module}/load-balancer-role-trust-policy.tftpl", { "account_id" = "${data.aws_caller_identity.current.account_id}", "oidc_provider" = "${aws_iam_openid_connect_provider.default[0].arn}", "namespace" = "default", "service_account_name" = "aws-load-balancer-controller" })
+  assume_role_policy = templatefile("${path.module}/load-balancer-role-trust-policy.tftpl", { "account_id" = "${data.aws_caller_identity.current.account_id}", "oidc_provider" = "${local.irsa_oidc_provider_url}", "namespace" = "default", "service_account_name" = "aws-load-balancer-controller" })
 }
 
 resource "aws_iam_role_policy_attachment" "alb_ingress_controller_role_policy" {
