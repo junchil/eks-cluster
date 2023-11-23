@@ -276,7 +276,7 @@ resource "aws_iam_role_policy_attachment" "worker-node-resource_tagging_for_eks"
 
 resource "aws_iam_instance_profile" "worker-node" {
   name = "${local.name_prefix}-eks-worker-node-profile"
-  role = aws_iam_role.worker_node_role.name
+  role = aws_iam_role.karpenter_node_role.name
 }
 
 #EKS ClusterIAM Role
