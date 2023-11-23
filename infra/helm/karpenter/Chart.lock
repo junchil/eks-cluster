@@ -1,6 +1,6 @@
 dependencies:
 - name: karpenter
-  repository: https://charts.karpenter.sh
-  version: 0.16.3
-digest: sha256:7096c7d308aaf1274bd099b12fdd289df640b28ae1ac067d71af23d148d3d0e1
-generated: "2023-11-22T16:12:48.785069+11:00"
+  repository: oci://public.ecr.aws/karpenter
+  version: v0.32.1
+digest: sha256:22449f9ea827a0571a952b6f9e7b4c294a7b48e0865df7425b058b130dbdde76
+generated: "2023-11-23T11:49:31.494596+11:00"

@@ -124,6 +124,8 @@ deploy-karpenter:
 	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
+	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws && \
+	helm dependency update karpenter && \
 	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
 
 deploy-kube-dashboard:
