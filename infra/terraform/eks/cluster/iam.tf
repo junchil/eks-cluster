@@ -201,6 +201,11 @@ data "aws_iam_policy_document" "worker_node_policy" {
   }
 }
 
+resource "aws_iam_role_policy_attachment" "worker-node-AmazonSSMManagedInstanceCore" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  role       = aws_iam_role.worker_node_role.name
+}
+
 resource "aws_iam_policy" "worker_node_policy" {
   name        = "${local.name_prefix}-worker_node_policy"
   description = "Allow EKS worker nodes to use various AWS APIs"
