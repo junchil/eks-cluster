@@ -57,7 +57,8 @@ resource "aws_security_group" "worker_node_sg" {
     local.common_tags,
     {
       "Name"                                        = "${local.name_prefix}-worker-node"
-      "kubernetes.io/cluster/${local.cluster_name}" = "owned"
+      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+      "karpenter.sh/discovery"                      = var.cluster_name
     },
   )
 }
