@@ -48,5 +48,4 @@ override.tf.json
 /app/godbwed
 /app/dist/
 /infra/charts/local-ecr/
-*.tgz
 /infra/terraform/eks/kubeconfig.yaml
