@@ -1,5 +1,4 @@
 karpenter:
-  enabled: true
   settings:
     clusterName: "anycluster"
     clusterEndpoint: ""

@@ -25,4 +25,3 @@ dependencies:
   version: v0.32.1
   repository: "file://./charts/karpenter-v0.32.1.tgz"
   alias: karpenter
-  condition: karpenter.enabled
