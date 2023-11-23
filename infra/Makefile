@@ -119,11 +119,11 @@ deploy-karpenter:
 	@echo Deploying helm charts
 	@cd helm && \
 	kubectl create namespace karpenter || true && \
-	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_provisioners.yaml && \
-	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml && \
-	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
-	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
-	kubectl create -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
+	kubectl create --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_provisioners.yaml && \
+	kubectl create --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml && \
+	kubectl create --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
+	kubectl create --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
+	kubectl create --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
 	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
 
 deploy-kube-dashboard:
