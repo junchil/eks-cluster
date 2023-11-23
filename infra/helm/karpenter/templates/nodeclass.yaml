@@ -8,6 +8,6 @@ spec:
   subnetSelectorTerms:
     - tags:
         karpenter.sh/discovery: "anycluster" # replace with your cluster name
-  securityGroupSelectorTerms:
-    - tags:
-        karpenter.sh/discovery: "anycluster" # replace with your cluster name
+#   securityGroupSelectorTerms:
+#     - tags:
+#         karpenter.sh/discovery: "anycluster" # replace with your cluster name

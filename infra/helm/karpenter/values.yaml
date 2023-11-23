@@ -1,4 +1,5 @@
 karpenter:
+  replicas: 1
   settings:
     clusterName: "anycluster"
     clusterEndpoint: ""
