@@ -5,4 +5,4 @@ karpenter:
     clusterEndpoint: ""
   serviceAccount:
     annotations: 
-      eks.amazonaws.com/role-arn: ""
+      eks.amazonaws.com/role-arn: "arn:aws:iam::675617749633:role/karpenter-controller-role-anycluster"

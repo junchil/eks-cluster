@@ -140,8 +140,9 @@ deploy-kube-metrics-server:
 destroy-iam-serviceaccount-aws-alb: 
 	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller
 	
-destroy-app-charts: destroy-iam-serviceaccount-aws-alb
+destroy-charts: destroy-iam-serviceaccount-aws-alb
 	helm uninstall $(RELEASE_NAME) || true && \
+	helm uninstall eksapp-karpenter -n karpenter || true && \
 	echo "Helm changes are destroyed successfully"
 
 destroy-terraform:
@@ -153,4 +154,4 @@ destroy-terraform:
 		echo "Terraform changes are destroyed successfully" \
 	)
 
-destroy: destroy-app-charts destroy-terraform
+destroy: destroy-charts destroy-terraform
