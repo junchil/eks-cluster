@@ -37,7 +37,7 @@
         {
             "Effect": "Allow",
             "Action": "iam:PassRole",
-            "Resource": "arn:${AWS_PARTITION}:iam::${AWS_ACCOUNT_ID}:role/KarpenterNodeRole-${CLUSTER_NAME}",
+            "Resource": "arn:${AWS_PARTITION}:iam::${AWS_ACCOUNT_ID}:role/anycluster-karpenter-node-role",
             "Sid": "PassNodeIAMRole"
         },
         {

@@ -56,9 +56,9 @@ resource "aws_security_group" "worker_node_sg" {
   tags = merge(
     local.common_tags,
     {
-      "Name"                                        = "${local.name_prefix}-worker-node"
+      "Name"                                      = "${local.name_prefix}-worker-node"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-      "karpenter.sh/discovery"                      = var.cluster_name
+      "karpenter.sh/discovery"                    = var.cluster_name
     },
   )
 }
