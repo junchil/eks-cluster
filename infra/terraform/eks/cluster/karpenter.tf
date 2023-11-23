@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "irsa_assume_role" {
     condition {
       test     = "StringEquals"
       variable = "${local.irsa_oidc_provider_url}:sub"
-      values   = ["system:serviceaccount:karpenter:karpenter"]
+      values   = ["system:serviceaccount:karpenter:eksapp-karpenter"]
     }
 
     condition {
