@@ -119,7 +119,7 @@ deploy-monitoring-chart:
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml && \
-	helm update $(RELEASE_NAME)-monitoring monitoring --install -f $(HELM_VALUES) -n monitoring
+	helm upgrade $(RELEASE_NAME)-monitoring monitoring --install -f $(HELM_VALUES) -n monitoring
 
 deploy-karpenter-chart:
 	@echo Deploying helm charts
