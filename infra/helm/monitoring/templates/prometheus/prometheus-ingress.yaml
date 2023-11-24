@@ -13,7 +13,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Release.Name }}-prometheus-prometheus
+            name: eksapp-monitoring-promethe-prometheus
             port:
               number: 9090
 {{- end -}}
