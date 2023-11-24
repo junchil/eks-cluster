@@ -1,0 +1,80 @@
+environment: Default
+
+testBox:
+  enabled: true
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/testbox
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+pythonApp:
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/python-app
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+goprometheus:
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/goprometheus
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+golangApp:
+  image:
+    repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/golang-app
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+
+postgresql:
+  enabled: false
+  postgresqlUsername: postgres
+  postgresqlPassword: "changeme"
+  persistence:
+    enabled: false
+    storageClass: "standard"
+    
+albcontroller:
+  enabled: true
+  replicaCount: 1
+  clusterName: "anycluster"
+  serviceAccount:
+    create: false
+    name: "aws-load-balancer-controller"
+  vpcId: ""
+  region: "ap-southeast-2"
+
+nginx:
+  enabled: true
+  controller:
+    replicaCount: 1
+    config:
+      use-forwarded-headers: "true"
+    service:
+      type: NodePort
+      # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+      targetPorts:
+        http: 80
+        https: 80
+
+externaldns:
+  enabled: true
+  sources:
+    - ingress
+  provider: aws
+  domainFilters:
+    # List of the domains that external-dns has to watch, Route 53 should be prepared before setting this up
+    - stevejcliu.com
+  policy: sync
+  rbac:
+    create: true
+
+certificateArn: ""
+
+istio:
+  enabled: false

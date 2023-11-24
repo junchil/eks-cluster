@@ -1,5 +1,5 @@
 RELEASE_NAME   		= eksapp
-CHART_PATH          = eks-app
+CHART_PATH          = eksapp
 TF_FOLDER           = terraform/eks
 SSH_FOLDER          = terraform/ssh-key
 APPS                = terraform kubectl helm aws aws-iam-authenticator eksctl
@@ -17,7 +17,6 @@ HELM_VALUES        = $(shell readlink -f helm_values.yaml)
 
 # export as env-variable
 export KUBECONFIG
-
 depend-terraform:
 	@echo "Installing terraform"
 	@if terraform version > /dev/null && [ "`terraform version | head -1`" = "Terraform v$(TF_VERS)" ]; \
@@ -62,7 +61,7 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
-deploy: deploy-terraform deploy-app-charts deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter
+deploy: deploy-terraform deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-chart
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
@@ -96,13 +95,20 @@ deploy-istio-charts:
 deploy-app-charts:
 	@echo Deploying helm charts
 	@cd helm && \
-	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm repo add nginx https://kubernetes.github.io/ingress-nginx && \
 	helm repo add eks https://aws.github.io/eks-charts && \
 	helm dependency update $(CHART_PATH) && \
 	kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master" && \
 	echo "Deploying eks app chart" && \
+	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
+
+deploy-monitoring-chart:
+	@echo Deploying helm charts
+	@cd helm && \
+	kubectl create namespace monitoring || true && \
+	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
+	helm dependency update monitoring && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml && \
@@ -113,9 +119,9 @@ deploy-app-charts:
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml && \
-	helm upgrade $(RELEASE_NAME) $(CHART_PATH) --install -f $(HELM_VALUES)
+	helm update $(RELEASE_NAME)-monitoring monitoring --install -f $(HELM_VALUES) -n monitoring
 
-deploy-karpenter:
+deploy-karpenter-chart:
 	@echo Deploying helm charts
 	@cd helm && \
 	kubectl create namespace karpenter || true && \
@@ -142,7 +148,8 @@ destroy-iam-serviceaccount-aws-alb:
 	
 destroy-charts: destroy-iam-serviceaccount-aws-alb
 	helm uninstall $(RELEASE_NAME) || true && \
-	helm uninstall eksapp-karpenter -n karpenter || true && \
+	helm uninstall $(RELEASE_NAME)-monitoring -n monitoring || true && \
+	helm uninstall $(RELEASE_NAME)-karpenter -n karpenter || true && \
 	echo "Helm changes are destroyed successfully"
 
 destroy-terraform:

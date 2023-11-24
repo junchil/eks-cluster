@@ -1,6 +1,6 @@
 apiVersion: v2
 description: A Helm chart for Kubernetes
-name: eksapp-karpenter
+name: eksapp-monitoring
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,7 +21,20 @@ version: 0.1.0
 appVersion: 1.16.0
 
 dependencies:
-- name: karpenter
-  version: v0.32.1
-  repository: "file://./charts/karpenter-v0.32.1.tgz"
-  alias: karpenter
+- name: kube-prometheus-stack
+  version: 53.0.0
+  repository: https://prometheus-community.github.io/helm-charts
+  condition: prometheus.enabled
+  alias: prometheus
+
+- name: telegraf
+  version: 1.8.23
+  repository: https://helm.influxdata.com/
+  alias: telegraf
+  condition: telegraf.enabled
+
+- name: vector
+  version: 0.18.0
+  repository: https://helm.vector.dev
+  alias: vector
+  condition: vector.enabled
