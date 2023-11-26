@@ -1,6 +1,6 @@
 apiVersion: v2
 description: A Helm chart for Kubernetes
-name: eksapp
+name: eksapp-nginx
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,19 +21,8 @@ version: 0.1.0
 appVersion: 1.16.0
 
 dependencies:
-- name: aws-load-balancer-controller
-  version: 1.6.2
-  repository: https://aws.github.io/eks-charts
-  alias: albcontroller
-  condition: albcontroller.enabled
-
-- name: external-dns
-  version: 6.28.4
-  repository: https://charts.bitnami.com/bitnami
-  alias: externaldns
-  condition: externaldns.enabled
-
-- name: postgresql
-  version: 13.2.11
-  repository: https://charts.bitnami.com/bitnami
-  condition: postgresql.enabled
+- name: ingress-nginx
+  version: 4.8.3
+  repository: https://kubernetes.github.io/ingress-nginx
+  alias: nginx
+  condition: nginx.enabled

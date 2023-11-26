@@ -61,7 +61,7 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
-deploy: deploy-terraform deploy-istio-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-chart
+deploy: deploy-terraform deploy-istio-charts deploy-nginx-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-chart
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
@@ -87,6 +87,13 @@ deploy-istio-charts:
 	helm dependency update istio && \
 	helm upgrade $(RELEASE_NAME)-istio istio --install -f $(HELM_VALUES) -n istio-system && \
 	kubectl label namespace default istio-injection=enabled --overwrite
+
+deploy-nginx-charts:
+	@echo Deploying helm charts
+	@cd helm && \
+	kubectl create namespace nginx || true && \
+	helm dependency update nginx && \
+	helm upgrade $(RELEASE_NAME)-nginx nginx --install -f $(HELM_VALUES) -n nginx
 
 #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
 deploy-app-charts: 
