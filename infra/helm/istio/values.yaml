@@ -1,0 +1,3 @@
+istiogateway:
+  service:
+    type: ClusterIP
