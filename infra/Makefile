@@ -85,7 +85,7 @@ deploy-istio-charts:
 	kubectl create namespace istio-system || true && \
 	helm repo add istio https://istio-release.storage.googleapis.com/charts && \
 	helm dependency update istio && \
-	helm upgrade $(RELEASE_NAME)istio istio --install -f $(HELM_VALUES) -n istio-system && \
+	helm upgrade $(RELEASE_NAME)-istio istio --install -f $(HELM_VALUES) -n istio-system && \
 	kubectl label namespace default istio-injection=enabled --overwrite
 
 deploy-nginx-charts:
@@ -93,7 +93,7 @@ deploy-nginx-charts:
 	@cd helm && \
 	kubectl create namespace nginx || true && \
 	helm dependency update nginx && \
-	helm upgrade $(RELEASE_NAME)nginx nginx --install -f $(HELM_VALUES) -n nginx
+	helm upgrade $(RELEASE_NAME)-nginx nginx --install -f $(HELM_VALUES) -n nginx
 
 #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
 deploy-app-charts: 
@@ -123,7 +123,7 @@ deploy-monitoring-chart:
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml && \
-	helm upgrade $(RELEASE_NAME)monitoring monitoring --install -f $(HELM_VALUES) -n monitoring
+	helm upgrade $(RELEASE_NAME)-monitoring monitoring --install -f $(HELM_VALUES) -n monitoring
 
 deploy-karpenter-chart:
 	@echo Deploying helm charts
@@ -134,7 +134,7 @@ deploy-karpenter-chart:
 	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
 	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
-	helm upgrade  $(RELEASE_NAME)karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
+	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
 # aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws && \
 # helm dependency update karpenter && \
 
@@ -151,11 +151,11 @@ destroy-iam-serviceaccount-aws-alb:
 	eksctl delete iamserviceaccount --cluster=anycluster --name=aws-load-balancer-controller
 	
 destroy-charts: destroy-iam-serviceaccount-aws-alb
+	helm uninstall $(RELEASE_NAME)-monitoring -n monitoring || true && \
+	helm uninstall $(RELEASE_NAME)-karpenter -n karpenter || true && \
 	helm uninstall $(RELEASE_NAME) || true && \
-	helm uninstall $(RELEASE_NAME)nginx -n nginx || true && \
-	helm uninstall $(RELEASE_NAME)istio -n istio || true && \
-	helm uninstall $(RELEASE_NAME)monitoring -n monitoring || true && \
-	helm uninstall $(RELEASE_NAME)karpenter -n karpenter || true && \
+	helm uninstall $(RELEASE_NAME)-nginx -n nginx || true && \
+	helm uninstall $(RELEASE_NAME)-istio -n istio || true && \
 	echo "Helm changes are destroyed successfully"
 
 destroy-terraform:
