@@ -85,9 +85,8 @@ deploy-istio-charts:
 	kubectl create namespace istio-system || true && \
 	helm repo add istio https://istio-release.storage.googleapis.com/charts && \
 	helm dependency update istio && \
-	helm upgrade $(RELEASE_NAME)-istio istio --install -f $(HELM_VALUES) -n istio-system
-#kubectl label namespace app istio-injection=enabled --overwrite && \
-kubectl apply -f samples/addons
+	helm upgrade $(RELEASE_NAME)-istio istio --install -f $(HELM_VALUES) -n istio-system && \
+	kubectl label namespace default istio-injection=enabled --overwrite
 
 #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
 deploy-app-charts: 
