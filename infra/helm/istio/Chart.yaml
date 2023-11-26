@@ -24,4 +24,9 @@ dependencies:
 - name: base
   version: 1.20.0
   repository: https://istio-release.storage.googleapis.com/charts
-  alias: istio
+  alias: istiobase
+
+- name: istiod
+  version: 1.20.0
+  repository: https://istio-release.storage.googleapis.com/charts
+  alias: istiod
