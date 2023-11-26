@@ -9,7 +9,7 @@ KUBECTL_VERS       ?= 1.28.2
 HELM_VERS          ?= 3.13.2
 LOCAL_BIN          ?= $(HOME)/bin
 CURL               = curl -fSOL
-ISTIO_VERSION		= 1.11.1
+ISTIO_VERSION		= 1.20.0
 
 KUBECONFIG         = $(shell readlink -f kubeconfig.yaml)
 KUBECONFIGMAP      = $(shell readlink -f config_map_aws_auth.yaml)
@@ -61,7 +61,7 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
-deploy: deploy-terraform deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-chart
+deploy: deploy-terraform deploy-istio-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-chart
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
@@ -80,19 +80,15 @@ deploy-terraform: copy-ssh-public-key
 	kubectl apply -f $(KUBECONFIGMAP)
 
 deploy-istio-charts:
-	curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$(ISTIO_VERSION) TARGET_ARCH=x86_64 sh - && \
-	cd istio-$(ISTIO_VERSION) && \
+	@echo Deploying helm charts
+	@cd helm && \
 	kubectl create namespace istio-system || true && \
-	helm upgrade istio-base manifests/charts/base -n istio-system --install && \
-	helm upgrade istiod manifests/charts/istio-control/istio-discovery -n istio-system --install && \
-	helm upgrade istio-ingress manifests/charts/gateways/istio-ingress -n istio-system --set gateways.istio-ingressgateway.type=NodePort --install && \
-	kubectl get po -n istio-system && \
-	kubectl label namespace app istio-injection=enabled --overwrite && \
-	kubectl apply -f samples/addons
+	helm upgrade $(RELEASE_NAME)-istio istio --install -f $(HELM_VALUES) -n istio-system
+#kubectl label namespace app istio-injection=enabled --overwrite && \
+kubectl apply -f samples/addons
 
-#deploy-app-charts: deploy-istio-charts
 #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/2551
-deploy-app-charts:
+deploy-app-charts: 
 	@echo Deploying helm charts
 	@cd helm && \
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
@@ -161,4 +157,4 @@ destroy-terraform:
 		echo "Terraform changes are destroyed successfully" \
 	)
 
-destroy: destroy-charts destroy-terraform
+destroy: deploy-terraform destroy-charts destroy-terraform
