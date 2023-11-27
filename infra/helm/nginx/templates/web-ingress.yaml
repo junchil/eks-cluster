@@ -21,6 +21,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: eksapp-nginx-controller.nginx.svc.cluster.local
+            name: eksapp-nginx-controller
             port:
               number: 80

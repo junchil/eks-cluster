@@ -12,3 +12,16 @@ nginx:
       targetPorts:
         http: 80
         https: 80
+
+externaldns:
+  enabled: true
+  sources:
+    - ingress
+  provider: aws
+  domainFilters:
+    # List of the domains that external-dns has to watch, Route 53 should be prepared before setting this up
+    - stevejcliu.com
+  policy: sync
+  rbac:
+    create: true
+  logLevel: debug

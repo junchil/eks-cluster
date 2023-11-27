@@ -26,3 +26,9 @@ dependencies:
   repository: https://kubernetes.github.io/ingress-nginx
   alias: nginx
   condition: nginx.enabled
+  
+- name: external-dns
+  version: 6.28.4
+  repository: https://charts.bitnami.com/bitnami
+  alias: externaldns
+  condition: externaldns.enabled
