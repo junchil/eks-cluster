@@ -58,6 +58,7 @@ externaldns:
   policy: sync
   rbac:
     create: true
+  logLevel: debug
 
 certificateArn: ""
 
