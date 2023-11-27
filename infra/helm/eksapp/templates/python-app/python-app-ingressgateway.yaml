@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-python-app-gateway
 spec:
   selector:
-    istio: ingressgateway # use Istio default gateway implementation
+    istio: eksapp-istio # use Istio default gateway implementation
   servers:
   - port:
       number: 80
