@@ -1,4 +1,3 @@
-{{- if .Values.istio.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -9,14 +8,13 @@ spec:
   gateways:
   - {{ .Release.Name }}-python-app-gateway
   hosts:
-  - "web.stevejcliu.com"
+  - "python.stevejcliu.com"
   http:
   - match:
     - uri:
-        prefix: /python
+        prefix: /
     rewrite:
         uri: "/"
     route:
     - destination:
         host: {{ .Release.Name }}-python-app
-{{- end -}}
