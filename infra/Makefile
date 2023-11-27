@@ -156,7 +156,7 @@ destroy-charts: destroy-iam-serviceaccount-aws-alb
 	helm uninstall $(RELEASE_NAME)-karpenter -n karpenter || true && \
 	helm uninstall $(RELEASE_NAME) || true && \
 	helm uninstall $(RELEASE_NAME)-nginx -n nginx || true && \
-	helm uninstall $(RELEASE_NAME)-istio -n istio || true && \
+	helm uninstall $(RELEASE_NAME)-istio -n istio-system || true && \
 	echo "Helm changes are destroyed successfully"
 
 destroy-terraform:
