@@ -86,7 +86,8 @@ deploy-istio-charts:
 	helm repo add istio https://istio-release.storage.googleapis.com/charts && \
 	helm dependency update istio && \
 	helm upgrade $(RELEASE_NAME)-istio istio --install -f $(HELM_VALUES) -n istio-system && \
-	kubectl label namespace default istio-injection=enabled --overwrite
+	kubectl label namespace default istio-injection=enabled --overwrite && \
+	kubectl delete --all pods --namespace=istio-system
 
 deploy-nginx-charts:
 	@echo Deploying helm charts
