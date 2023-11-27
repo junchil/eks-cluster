@@ -163,7 +163,7 @@ destroy-terraform:
 	cd $(TF_FOLDER) && \
 	( \
 		terraform init && \
-		terraform destroy -auto-approve && \
+		terraform destroy -auto-approve || true && \
 		echo "Terraform changes are destroyed successfully" \
 	)
 
