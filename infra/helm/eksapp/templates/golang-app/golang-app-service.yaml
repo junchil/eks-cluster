@@ -14,3 +14,4 @@ spec:
   selector:
     app: {{ .Release.Name }}-golang-app
     
+    
