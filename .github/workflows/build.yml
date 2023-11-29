@@ -1,0 +1,179 @@
+on:
+    push:
+        branches:
+        - main
+    pull_request:
+        branches: 
+        - main
+
+jobs:
+    cancel:
+      name: 'Cancel Previous Runs'
+      runs-on: ubuntu-latest
+      steps:
+        - uses: styfle/cancel-workflow-action@0.9.0
+          with:
+            access_token: ${{ github.token }}
+  
+    python-app-build:
+      name: Python App Build
+      runs-on: ubuntu-latest
+      if: github.event.head_commit.message == 'awsbuild'
+  
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        working-directory: ./python-app
+        run: |
+          sudo chmod +x build.sh
+          ./build.sh
+
+    golang-app-v1-build:
+      name: Golang App V1 Build
+      runs-on: ubuntu-latest
+      if: github.event.head_commit.message == 'awsbuild'
+  
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        working-directory: ./golang-app-v1
+        run: |
+          sudo chmod +x build.sh
+          ./build.sh
+  
+    golang-app-v2-build:
+      name: Golang App V2 Build
+      runs-on: ubuntu-latest
+      if: github.event.head_commit.message == 'awsbuild'
+  
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        working-directory: ./golang-app-v2
+        run: |
+          sudo chmod +x build.sh
+          ./build.sh
+  
+    testbox-build:
+      name: Testbox Build
+      runs-on: ubuntu-latest
+      if: github.event.head_commit.message == 'awsbuild'
+  
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        working-directory: ./testbox
+        run: |
+          sudo chmod +x build.sh
+          ./build.sh
+  
+    golang-app-operator-build:
+      name: Golang App Operator Build
+      runs-on: ubuntu-latest
+      if: github.event.head_commit.message == 'awsbuild'
+  
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        working-directory: ./golang-app-operator
+        run: |
+          sudo chmod +x build.sh
+          ./build.sh
+  
+    goprometheus-build:
+      name: Golang prometheus App Build
+      runs-on: ubuntu-latest
+      if: github.event.head_commit.message == 'awsbuild'
+  
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+  
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+  
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        working-directory: ./goprometheus
+        run: |
+          sudo chmod +x build.sh
+          ./build.sh
+  
