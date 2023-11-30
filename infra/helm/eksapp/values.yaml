@@ -61,6 +61,3 @@ externaldns:
   logLevel: debug
 
 certificateArn: ""
-
-istio:
-  enabled: false

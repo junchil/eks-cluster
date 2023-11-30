@@ -1,16 +1,14 @@
-{{- if .Values.istio.enabled -}}
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: {{ .Release.Name }}-goprometheus-gateway
-spec:
-  selector:
-    istio: ingressgateway # use Istio default gateway implementation
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - "web.stevejcliu.com"
-{{- end -}}
+# apiVersion: networking.istio.io/v1alpha3
+# kind: Gateway
+# metadata:
+#   name: {{ .Release.Name }}-goprometheus-gateway
+# spec:
+#   selector:
+#     istio: ingressgateway # use Istio default gateway implementation
+#   servers:
+#   - port:
+#       number: 80
+#       name: http
+#       protocol: HTTP
+#     hosts:
+#     - "web.stevejcliu.com"
