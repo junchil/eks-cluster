@@ -16,3 +16,7 @@ data:
     sources:
       kubernetes_logs:
       type: kubernetes_logs
+    sinks:
+      stdout:
+        type: console
+        input: [kubernetes_logs]
