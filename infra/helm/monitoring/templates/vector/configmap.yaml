@@ -15,7 +15,7 @@ data:
       playground: false
     sources:
       kubernetes_logs:
-      type: kubernetes_logs
+        type: kubernetes_logs
     sinks:
       stdout:
         type: console
