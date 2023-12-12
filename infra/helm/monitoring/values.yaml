@@ -245,7 +245,7 @@ telegraf:
     # maxUnavailable: 1
 
 vector:
-  enabled: false
+  enabled: true
   # Default values for Vector
   # See Vector helm documentation to learn more:
   # https://vector.dev/docs/setup/installation/package-managers/helm/
@@ -528,41 +528,7 @@ vector:
   # customConfig -- Override Vector's default configs, if used **all** options need to be specified. This section supports
   # using helm templates to populate dynamic values. See Vector's [configuration documentation](https://vector.dev/docs/reference/configuration/)
   # for all options.
-  customConfig:
-    # data_dir: /vector-data-dir
-    # api:
-    #   enabled: true
-    #   address: 127.0.0.1:8686
-    #   playground: false
-    # sources:
-    #   vector:
-    #     address: 0.0.0.0:6000
-    #     type: vector
-    #     version: "2"
-    # sinks:
-    #   stdout:
-    #     type: console
-    #     inputs: [vector]
-    #     encoding:
-    #       codec: json
-    data_dir: /vector-data-dir
-    api:
-      enabled: true
-      address: 127.0.0.1:8686
-      playground: false
-    sources:
-      # vector:
-      #   address: 0.0.0.0:6000
-      #   type: vector
-      #   version: "2"
-      kubernetes_logs:
-        type: kubernetes_logs
-    sinks:
-      stdout:
-        type: console
-        inputs: [kubernetes_logs]
-        encoding:
-          codec: json
+  customConfig: {}
 
   # extraVolumes -- Additional Volumes to use with Vector Pods.
   extraVolumes: []
