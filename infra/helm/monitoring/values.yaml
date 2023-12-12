@@ -790,3 +790,4 @@ vector:
     # haproxy.affinity -- Configure [affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
     # rules for HAProxy Pods.
     affinity: {}
+    

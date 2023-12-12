@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-vector-config
+  name: {{ .Release.Name }}-vector
 data:
   vector.yaml: |
     # Set global options
