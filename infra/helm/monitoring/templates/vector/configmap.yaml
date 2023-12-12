@@ -19,6 +19,6 @@ data:
     sinks:
       stdout:
         type: console
-        input: [kubernetes_logs]
+        inputs: [kubernetes_logs]
         encoding:
           codec: json
