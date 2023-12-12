@@ -1,18 +1,18 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: vector-config
+  name: {{ .Release.Name }}-vector-config
 data:
   vector.yaml: |
     # Set global options
-    data_dir: "/var/lib/vector"
+    data_dir: /vector-data-dir
 
     # Vector's API (disabled by default)
     # Enable and try it out with the `vector top` command
     api:
-    enabled: false
-    # address = "127.0.0.1:8686"
-    # Ingest data by tailing one or more files
+      enabled: true
+      address: 127.0.0.1:8686
+      playground: false
     sources:
       kubernetes_logs:
       type: kubernetes_logs
@@ -20,3 +20,5 @@ data:
       stdout:
         type: console
         input: [kubernetes_logs]
+        encoding:
+          codec: json
