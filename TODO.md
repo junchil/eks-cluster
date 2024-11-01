@@ -12,3 +12,4 @@
     
 5. Admission controller
 6. Grafana Alloy
+7. helmfile deployment
