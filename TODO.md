@@ -11,3 +11,4 @@
     - https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
     
 5. Admission controller
+6. Grafana Alloy
