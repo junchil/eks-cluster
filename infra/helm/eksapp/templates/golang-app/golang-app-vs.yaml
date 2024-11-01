@@ -24,11 +24,11 @@ spec:
     - destination:
         host: {{ .Release.Name }}-golang-app-service
         subset: v1
-      weight: 50
+      weight: 55
     - destination:
         host: {{ .Release.Name }}-golang-app-service
         subset: v2
-      weight: 50
+      weight: 45
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
