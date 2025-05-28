@@ -523,7 +523,7 @@ vector:
   existingConfigMaps: [vector]
 
   # dataDir -- Specify the path for Vector's data, only used when existingConfigMaps are used.
-  dataDir: ""
+  dataDir: "/vector-data-dir"
 
   # customConfig -- Override Vector's default configs, if used **all** options need to be specified. This section supports
   # using helm templates to populate dynamic values. See Vector's [configuration documentation](https://vector.dev/docs/reference/configuration/)
