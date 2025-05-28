@@ -67,14 +67,14 @@ deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
 	cd $(TF_FOLDER) && \
 	( \
-	terraform fmt -check && \
-	terraform init && \
-	terraform validate && \
-	terraform plan -out planfile && \
-	terraform apply -parallelism=1 -auto-approve planfile && \
-	terraform output -raw kubeconfig > "$(KUBECONFIG)" && \
-	terraform output -raw config_map_aws_auth > "$(KUBECONFIGMAP)" && \
-	terraform output -raw helm_values > "$(HELM_VALUES)" && \
+	$(HOME)/bin/terraform fmt -check && \
+	$(HOME)/bin/terraform init && \
+	$(HOME)/bin/terraform validate && \
+	$(HOME)/bin/terraform plan -out planfile && \
+	$(HOME)/bin/terraform apply -parallelism=1 -auto-approve planfile && \
+	$(HOME)/bin/terraform output -raw kubeconfig > "$(KUBECONFIG)" && \
+	$(HOME)/bin/terraform output -raw config_map_aws_auth > "$(KUBECONFIGMAP)" && \
+	$(HOME)/bin/terraform output -raw helm_values > "$(HELM_VALUES)" && \
 	echo "Terraform changes are applied successfully" \
 	) || exit 1;
 	kubectl apply -f $(KUBECONFIGMAP)
