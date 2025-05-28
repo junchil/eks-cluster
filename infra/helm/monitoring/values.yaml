@@ -409,16 +409,19 @@ vector:
     #     name: vector
 
   # containerPorts -- Manually define Vector's containerPorts, overriding automated generation of containerPorts.
-  containerPorts: []
+  containerPorts:
+    - name: api
+      protocol: TCP
+      containerPort: 8686
 
   # resources -- Set Vector resource requests and limits.
-  resources: {}
-    # requests:
-    #   cpu: 200m
-    #   memory: 256Mi
-    # limits:
-    #   cpu: 200m
-    #   memory: 256Mi
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
 
   # lifecycle -- Set lifecycle hooks for Vector containers.
   lifecycle: {}
