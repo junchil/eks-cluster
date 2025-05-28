@@ -163,8 +163,8 @@ destroy-terraform:
 	@echo Destroying all resources created by terraform
 	cd $(TF_FOLDER) && \
 	( \
-		terraform init && \
-		terraform destroy -auto-approve || true && \
+		$(LOCAL_BIN)/terraform init && \
+		$(LOCAL_BIN)/terraform destroy -auto-approve || true && \
 		echo "Terraform changes are destroyed successfully" \
 	)
 
