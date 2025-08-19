@@ -464,7 +464,7 @@ vector:
   # Configuration for Vector's Service.
   service:
     # service.enabled -- If true, create and provide a Service resource for Vector.
-    enabled: true
+    enabled: false
     # service.type -- Set the type for Vector's Service.
     type: "ClusterIP"
     # service.annotations -- Set annotations on Vector's Service.
