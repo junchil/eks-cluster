@@ -3,10 +3,14 @@
 
 Cluster external endpoints:
 
-* https://web.stevejcliu.com/python
+* https://golang.stevejcliu.com
+* https://python.stevejcliu.com
+* https://grafana.stevejcliu.com
+* https://prometheus.stevejcliu.com
+
 ![diagram](doc/pythonapi.png)
 
-* https://web.stevejcliu.com/golang
+* https://golang.stevejcliu.com
 
 ![diagram](doc/golanghello.png)
 
