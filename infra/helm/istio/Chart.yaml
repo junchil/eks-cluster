@@ -22,16 +22,16 @@ appVersion: 1.16.0
 
 dependencies:
 - name: base
-  version: 1.23.2
+  version: 1.24.3
   repository: https://istio-release.storage.googleapis.com/charts
   alias: base
 
 - name: istiod
-  version: 1.23.2
+  version: 1.24.3
   repository: https://istio-release.storage.googleapis.com/charts
   alias: istiod
 
 - name: gateway
-  version: 1.23.2
+  version: 1.24.3
   repository: https://istio-release.storage.googleapis.com/charts
   alias: gateway
