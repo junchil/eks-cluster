@@ -1,6 +1,6 @@
 apiVersion: v2
 description: A Helm chart for Kubernetes
-name: eksapp-karpenter
+name: eksapp-karpenter-crd
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -21,7 +21,7 @@ version: 0.1.0
 appVersion: 1.6.2
 
 dependencies:
-- name: karpenter
+- name: karpenter-crd
   version: 1.6.2
   repository: oci://public.ecr.aws/karpenter
-  alias: karpenter
+  alias: karpenter-crd

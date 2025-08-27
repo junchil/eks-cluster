@@ -6,7 +6,7 @@ APPS                = terraform kubectl helm aws aws-iam-authenticator eksctl
 
 TF_VERS            ?= 1.5.5
 KUBECTL_VERS       ?= 1.28.2
-HELM_VERS          ?= 3.13.2
+HELM_VERS          ?= 3.18.4
 LOCAL_BIN          ?= $(HOME)/bin
 CURL               = curl -fSOL
 ISTIO_VERSION		= 1.20.0
@@ -61,7 +61,7 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
-deploy: deploy-terraform deploy-istio-charts deploy-nginx-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-chart
+deploy: deploy-terraform deploy-istio-charts deploy-nginx-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-crd-chart deploy-karpenter-chart
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
@@ -126,18 +126,17 @@ deploy-monitoring-chart:
 	kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.69.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml && \
 	helm upgrade $(RELEASE_NAME)-monitoring monitoring --install -f $(HELM_VALUES) -n monitoring
 
+deploy-karpenter-crd-chart:
+	@echo Deploying helm charts
+	@cd helm && \
+	kubectl create namespace karpenter || true && \
+	helm upgrade  $(RELEASE_NAME)-karpenter-crd karpenter-crd --install -f $(HELM_VALUES) -n karpenter
+
 deploy-karpenter-chart:
 	@echo Deploying helm charts
 	@cd helm && \
 	kubectl create namespace karpenter || true && \
-	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_provisioners.yaml && \
-	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_awsnodetemplates.yaml && \
-	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_machines.yaml && \
-	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.sh_nodepools.yaml && \
-	kubectl apply --server-side -f https://raw.githubusercontent.com/aws/karpenter/v0.32.1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml && \
 	helm upgrade  $(RELEASE_NAME)-karpenter karpenter --install -f $(HELM_VALUES) -n karpenter
-# aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws && \
-# helm dependency update karpenter && \
 
 deploy-kube-dashboard:
 	@echo Deploying cluster dashboard
@@ -154,6 +153,7 @@ destroy-iam-serviceaccount-aws-alb:
 destroy-charts: destroy-iam-serviceaccount-aws-alb
 	helm uninstall $(RELEASE_NAME)-monitoring -n monitoring || true && \
 	helm uninstall $(RELEASE_NAME)-karpenter -n karpenter || true && \
+	helm uninstall $(RELEASE_NAME)-karpenter-crd -n karpenter || true && \
 	helm uninstall $(RELEASE_NAME) || true && \
 	helm uninstall $(RELEASE_NAME)-nginx -n nginx || true && \
 	helm uninstall $(RELEASE_NAME)-istio -n istio-system || true && \
