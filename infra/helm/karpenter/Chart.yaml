@@ -22,6 +22,6 @@ appVersion: 1.16.0
 
 dependencies:
 - name: karpenter
-  version: v0.32.1
-  repository: "file://./charts/karpenter-v0.32.1.tgz"
+  version: 1.6.2
+  repository: oci://public.ecr.aws/karpenter
   alias: karpenter
