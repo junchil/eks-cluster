@@ -4,7 +4,7 @@ metadata:
   name: default
 spec:
   amiSelectorTerms:
-    - alias: "al2"
+    - alias: "al2@1.28"
   role: "anycluster-karpenter-node-role" # replace with your cluster name
   subnetSelectorTerms:
     - tags:
