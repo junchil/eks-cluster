@@ -29,4 +29,4 @@ spec:
     cpu: 1000
   disruption:
     consolidationPolicy: WhenUnderutilized
-    expireAfter: 720h # 30 * 24h = 720h
+    consolidateAfter: 720h # 30 * 24h = 720h
