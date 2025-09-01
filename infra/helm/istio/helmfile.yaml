@@ -1,0 +1,9 @@
+repositories:
+  - name: stable
+    url: https://charts.helm.sh/stable
+---
+releases:
+  - name: istio
+    namespace: istio-system
+    chart: .
+    installed: true
