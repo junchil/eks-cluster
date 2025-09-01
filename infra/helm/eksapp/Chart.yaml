@@ -27,12 +27,6 @@ dependencies:
   alias: albcontroller
   condition: albcontroller.enabled
 
-- name: external-dns
-  version: 6.28.4
-  repository: https://charts.bitnami.com/bitnami
-  alias: externaldns
-  condition: externaldns.enabled
-
 - name: postgresql
   version: 13.2.11
   repository: https://charts.bitnami.com/bitnami

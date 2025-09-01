@@ -61,7 +61,7 @@ copy-ssh-public-key:
 	sudo mkdir ~/.ssh && \
 	sudo mv stevejc-ec2-test-key-pair.pub ~/.ssh/stevejc-ec2-test-key-pair.pub	
 
-deploy: deploy-terraform deploy-nginx-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-crd-chart deploy-karpenter-chart
+deploy: deploy-terraform deploy-istio-charts deploy-nginx-charts deploy-app-charts deploy-monitoring-chart deploy-kube-dashboard deploy-kube-metrics-server deploy-karpenter-crd-chart deploy-karpenter-chart
 
 deploy-terraform: copy-ssh-public-key
 	@echo Deploying cluster
