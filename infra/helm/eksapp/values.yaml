@@ -36,15 +36,5 @@ postgresql:
   persistence:
     enabled: false
     storageClass: "standard"
-    
-albcontroller:
-  enabled: true
-  replicaCount: 1
-  clusterName: "anycluster"
-  serviceAccount:
-    create: false
-    name: "aws-load-balancer-controller"
-  vpcId: ""
-  region: "ap-southeast-2"
 
 certificateArn: ""

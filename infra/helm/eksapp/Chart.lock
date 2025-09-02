@@ -1,12 +1,6 @@
 dependencies:
-- name: aws-load-balancer-controller
-  repository: https://aws.github.io/eks-charts
-  version: 1.6.2
-- name: external-dns
-  repository: https://charts.bitnami.com/bitnami
-  version: 6.28.4
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 13.2.11
-digest: sha256:0fe67c9259378bf7dbef0fdaab66bfc019dce822acb91e1c13357937d8e25bdc
-generated: "2025-09-01T13:26:26.31938+10:00"
+digest: sha256:3ca05ead49eb1e727a43551a21a0d6fbcc554574b0be47032defe2ad1bac842d
+generated: "2025-09-02T09:44:54.073297+10:00"
