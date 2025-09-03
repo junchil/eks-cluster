@@ -3,8 +3,7 @@ repositories:
     url: https://charts.helm.sh/stable
 ---
 releases:
-  - name: eksapp-istio
-    namespace: istio-system
+  - name: eksapp
     chart: .
     installed: true
-    createNamespace: true
+    namespace: default

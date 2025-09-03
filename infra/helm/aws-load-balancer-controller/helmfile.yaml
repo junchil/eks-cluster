@@ -1,9 +1,17 @@
 repositories:
-  - name: stable
-    url: https://charts.helm.sh/stable
+- name: eks
+  url: https://aws.github.io/eks-charts
 ---
 releases:
-  - name: aws-load-balancer-controller
+  - name: eksapp-aws-load-balancer-controller
     namespace: aws-load-balancer-controller
     chart: .
     installed: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: kubectl
+        args:
+          - apply
+          - -k
+          - "github.com/aws/eks-charts/stable/aws-load-balancer-controller/crds?ref=master"

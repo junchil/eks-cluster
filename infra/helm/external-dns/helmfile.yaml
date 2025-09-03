@@ -3,8 +3,8 @@ repositories:
     url: https://charts.helm.sh/stable
 ---
 releases:
-  - name: eksapp-istio
-    namespace: istio-system
+  - name: eksapp-external-dns
     chart: .
     installed: true
+    namespace: external-dns
     createNamespace: true

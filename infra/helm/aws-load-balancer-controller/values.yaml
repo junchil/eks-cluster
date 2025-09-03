@@ -4,6 +4,6 @@ albcontroller:
   clusterName: "anycluster"
   serviceAccount:
     create: false
-    name: "aws-load-balancer-controller"
+    name: "eksapp-aws-load-balancer-controller"
   vpcId: ""
   region: "ap-southeast-2"

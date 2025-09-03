@@ -4,7 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/component: controller
     app.kubernetes.io/name: aws-load-balancer-controller
-  name: aws-load-balancer-controller
-  namespace: default
+  name: eksapp-aws-load-balancer-controller
+  namespace: aws-load-balancer-controller
   annotations:
     eks.amazonaws.com/role-arn: "arn:aws:iam::675617749633:role/AmazonEKSLoadBalancerControllerRole"

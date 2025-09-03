@@ -3,7 +3,7 @@ repositories:
     url: https://charts.helm.sh/stable
 ---
 releases:
-  - name: nginx
+  - name: eksapp-nginx
     chart: .
     installed: true
     namespace: nginx
