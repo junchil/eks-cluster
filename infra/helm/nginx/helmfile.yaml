@@ -7,3 +7,4 @@ releases:
     chart: .
     installed: true
     namespace: nginx
+    createNamespace: true

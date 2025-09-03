@@ -7,3 +7,4 @@ releases:
     namespace: istio-system
     chart: .
     installed: true
+    createNamespace: true
