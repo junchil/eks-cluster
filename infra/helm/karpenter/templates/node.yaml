@@ -31,4 +31,4 @@ spec:
     cpu: 1000
   disruption:
     consolidationPolicy: WhenEmptyOrUnderutilized
-    consolidateAfter: 720h # 30 * 24h = 720h
+    consolidateAfter: 60s

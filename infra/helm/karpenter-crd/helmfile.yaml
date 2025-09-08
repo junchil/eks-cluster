@@ -1,0 +1,19 @@
+repositories:
+  - name: stable
+    url: https://charts.helm.sh/stable
+---
+releases:
+  - name: eksapp-karpenter-crd
+    chart: .
+    installed: true
+    namespace: karpenter
+    createNamespace: true
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: sh
+        args:
+          - -c
+          - |
+            aws ecr-public get-login-password --region us-east-1 | \
+              helm registry login --username AWS --password-stdin public.ecr.aws
