@@ -3,20 +3,20 @@ name: eksapp-istio
 description: A Helm chart for Kubernetes
 type: application
 version: 0.1.0
-appVersion: 1.27.0
+appVersion: 1.27.1
 
 dependencies:
 - name: base
-  version: 1.27.0
+  version: 1.27.1
   repository: https://istio-release.storage.googleapis.com/charts
   alias: base
 
 - name: istiod
-  version: 1.27.0
+  version: 1.27.1
   repository: https://istio-release.storage.googleapis.com/charts
   alias: istiod
 
 - name: gateway
-  version: 1.27.0
+  version: 1.27.1
   repository: https://istio-release.storage.googleapis.com/charts
   alias: gateway
