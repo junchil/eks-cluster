@@ -11,6 +11,16 @@ spec:
         resources:
           kinds:
             - Pod
+      exclude:
+        resources:
+          names:
+            - "kyverno-admission-controller-*"
+            - "kyverno-background-controller-*"
+            - "kyverno-policy-reporter-*"
+            - "kyverno-cleanup-controller-*"
+            - "eksapp-karpenter-*"
+            - "eksapp-istio-*"
+            - "eksapp-nginx-controller-*"
       validate:
         message: "CPU and memory requests and limits are required for every container."
         pattern:

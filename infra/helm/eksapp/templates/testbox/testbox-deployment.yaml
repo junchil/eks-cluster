@@ -19,4 +19,11 @@ spec:
         imagePullPolicy: {{ .Values.testBox.image.pullPolicy }}
         command: ["/bin/bash"]    # required to stop early exit
         stdin: true               # required to stop early exit
+        resources:
+          limits:
+            cpu: 50m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
 {{- end -}}
