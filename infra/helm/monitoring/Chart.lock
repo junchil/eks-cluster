@@ -5,8 +5,5 @@ dependencies:
 - name: telegraf
   repository: https://helm.influxdata.com/
   version: 1.8.23
-- name: vector
-  repository: https://helm.vector.dev
-  version: 0.29.0
-digest: sha256:6e837765954b1e20c31872b0d156e6e6d88faea0fa4d326c19c103176054189b
-generated: "2025-09-01T13:28:00.130174+10:00"
+digest: sha256:7cdd0e2ce640bf55699180fd181685e765f0ab3aa0e5569ef9808a3f601b3b72
+generated: "2025-09-15T16:55:52.932516+10:00"
