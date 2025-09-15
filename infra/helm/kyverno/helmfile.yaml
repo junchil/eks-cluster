@@ -1,0 +1,10 @@
+repositories:
+  - name: kyverno
+    url: https://kyverno.github.io/kyverno/
+---
+releases:
+  - name: eksapp-kyverno
+    chart: .
+    installed: true
+    namespace: kyverno
+    createNamespace: true

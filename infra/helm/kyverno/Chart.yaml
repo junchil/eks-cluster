@@ -1,0 +1,12 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: eksapp-kyverno
+type: application
+version: 0.1.0
+appVersion: v1.13.4
+
+dependencies:
+- name: kyverno
+  version: 3.3.7
+  repository: https://kyverno.github.io/kyverno/
+  alias: kyverno
