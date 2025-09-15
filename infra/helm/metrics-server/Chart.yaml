@@ -1,0 +1,12 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: eksapp-metrics-server
+type: application
+version: 0.1.0
+appVersion: 0.8.0
+
+dependencies:
+- name: metrics-server
+  version: 3.13.0
+  repository: https://kubernetes-sigs.github.io/metrics-server/
+  alias: metricsserver

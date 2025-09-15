@@ -1,0 +1,10 @@
+repositories:
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server/
+---
+releases:
+  - name: eksapp-metrics-server
+    chart: .
+    installed: true
+    namespace: monitoring
+    createNamespace: true
