@@ -1,0 +1,12 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: eksapp-hdx-oss-v2
+type: application
+version: 0.1.0
+appVersion: 2.4.0
+
+dependencies:
+- name: hdx-oss-v2
+  version: 0.7.2
+  repository: https://hyperdxio.github.io/helm-charts
+  alias: hdx-oss-v2

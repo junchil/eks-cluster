@@ -1,0 +1,3 @@
+hdx-oss-v2:  
+  global:
+    storageClassName: "gp2"

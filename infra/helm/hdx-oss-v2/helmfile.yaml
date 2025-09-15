@@ -1,0 +1,10 @@
+repositories:
+  - name: hyperdx
+    url: https://hyperdxio.github.io/helm-charts/
+---
+releases:
+  - name: eksapp-hdx-oss-v2
+    chart: .
+    installed: true
+    namespace: clickhouse
+    createNamespace: true
