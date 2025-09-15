@@ -1,0 +1,10 @@
+repositories:
+  - name: aws-ebs-csi-driver
+    url: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+---
+releases:
+  - name: eksapp-aws-ebs-csi-driver
+    chart: .
+    installed: true
+    namespace: kube-system
+    createNamespace: true
