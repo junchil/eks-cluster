@@ -1,3 +1,5 @@
+certificateArn: ""
+
 nginx:
   enabled: true
   controller:
