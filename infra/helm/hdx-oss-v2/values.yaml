@@ -3,3 +3,10 @@ certificateArn: ""
 hdx-oss-v2:  
   global:
     storageClassName: "gp2"
+
+  hyperdx:
+    env:
+    - name: HYPERDX_APP_URL
+      value: "https://clickhouse.stevejcliu.com"
+    - name: FRONTEND_URL
+      value: "https://clickhouse.stevejcliu.com"

@@ -6,6 +6,8 @@ nginx:
     replicaCount: 1
     config:
       use-forwarded-headers: "true"
+      # https://github.com/kubernetes/ingress-nginx/issues/12648
+      annotations-risk-level: "Critical"
     service:
       type: NodePort
       # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/service/annotations/
@@ -14,3 +16,5 @@ nginx:
       targetPorts:
         http: 80
         https: 80
+    allowSnippetAnnotations: true
+
