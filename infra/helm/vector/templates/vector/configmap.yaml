@@ -22,3 +22,16 @@ data:
         inputs: [kubernetes_logs]
         encoding:
           codec: json
+      # my_opentelemetry_sink:
+      #   type: opentelemetry
+      #   inputs:
+      #     - kubernetes_logs
+      #   protocol:
+      #     type: "http"
+      #     uri: "http://eksapp-hdx-oss-v2-otel-collector.clickhouse.svc.cluster.local:4318/v1/logs"
+      #     compression: "gzip"
+      #     request:
+      #       headers: 
+      #         authorization: "32d8c7c0-56e9-4fe9-a3fa-e04f29f67897"
+      #     encoding:
+      #       codec: json

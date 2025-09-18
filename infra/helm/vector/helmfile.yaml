@@ -1,0 +1,10 @@
+repositories:
+  - name: vector
+    url: https://helm.vector.dev
+---
+releases:
+  - name: eksapp-vector
+    chart: .
+    installed: true
+    namespace: monitoring
+    createNamespace: true
