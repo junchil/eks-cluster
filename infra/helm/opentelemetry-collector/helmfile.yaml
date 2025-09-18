@@ -1,0 +1,10 @@
+repositories:
+  - name: opentelemetry-collector
+    url: https://open-telemetry.github.io/opentelemetry-helm-charts
+---
+releases:
+  - name: eksapp-opentelemetry-collector
+    chart: .
+    installed: true
+    namespace: monitoring
+    createNamespace: true

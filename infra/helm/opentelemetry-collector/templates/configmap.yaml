@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-config-vars
+  namespace: monitoring
+data:
+  OTEL_COLLECTOR_ENDPOINT: http://eksapp-hdx-oss-v2-otel-collector.clickhouse.svc.cluster.local:4318

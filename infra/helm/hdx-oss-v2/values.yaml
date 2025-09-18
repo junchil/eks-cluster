@@ -10,4 +10,3 @@ hdx-oss-v2:
       value: "https://clickhouse.stevejcliu.com"
     - name: FRONTEND_URL
       value: "https://clickhouse.stevejcliu.com"
-
