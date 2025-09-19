@@ -1,6 +1,9 @@
 opentelemetry-collector-daemonset:
   # daemonset.yaml
   mode: daemonset
+  image:
+    repository: otel/opentelemetry-collector-contrib
+    tag: 0.135.0
 
   # Required to use the kubeletstats cpu/memory utilization metrics
   clusterRole:
@@ -100,6 +103,9 @@ opentelemetry-collector-daemonset:
 opentelemetry-collector-deployment:
   # deployment.yaml
   mode: deployment
+  image:
+    repository: otel/opentelemetry-collector-contrib
+    tag: 0.135.0
   # We only want one of these collectors - any more and we'd produce duplicate data
   replicaCount: 1
   
