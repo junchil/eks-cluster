@@ -3,7 +3,7 @@ variable "cluster_name" {
 
 variable "cluster_version" {
   description = "EKS cluster version. E.g. 1.27, 1.28"
-  default     = "1.31"
+  default     = "1.32"
 }
 
 variable "vpc_id" {

@@ -5,7 +5,7 @@ metadata:
 spec:
   amiFamily: AL2
   amiSelectorTerms:
-    - name: "amazon-eks-node-1.31-v20250904"
+    - name: "amazon-eks-node-1.32-v20250904"
   role: "anycluster-karpenter-node-role" # replace with your cluster name
   subnetSelectorTerms:
     - tags:
