@@ -1,0 +1,12 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: eksapp-argo-cd
+type: application
+version: 0.1.0
+appVersion: v3.1.6
+
+dependencies:
+- name: argo-cd
+  version: 8.5.4
+  repository: https://argoproj.github.io/argo-helm
+  alias: argocd

@@ -1,0 +1,10 @@
+repositories:
+  - name: argo-cd
+    url: https://argoproj.github.io/argo-helm
+---
+releases:
+  - name: eksapp-argo-cd
+    chart: .
+    installed: true
+    namespace: argocd
+    createNamespace: true
