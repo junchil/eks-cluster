@@ -1,19 +1,18 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: eksapp
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/junchil/eks-cluster.git
-    targetRevision: main
-    path: infra/helm/eksapp
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: eksapp
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/junchil/eks-cluster.git
+#     targetRevision: main
+#     path: infra/helm/eksapp
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
