@@ -13,7 +13,7 @@ pythonApp:
     repository: 675617749633.dkr.ecr.ap-southeast-2.amazonaws.com/eks-cluster/python-app
     tag: latest
     pullPolicy: Always
-  replicas: 10
+  replicas: 1
 
 goprometheus:
   image:
