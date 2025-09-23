@@ -1,0 +1,6 @@
+releases:
+  - name: eksapp-argo-cd-app
+    chart: .
+    installed: true
+    namespace: argocd
+    createNamespace: true
