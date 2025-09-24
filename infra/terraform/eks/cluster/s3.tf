@@ -53,3 +53,8 @@ resource "aws_s3_bucket" "mimir_ruler" {
   bucket = "${var.cluster_name}-mimir-ruler"
   force_destroy = true
 }
+
+resource "aws_s3_bucket" "mimir" {
+  bucket = "${var.cluster_name}-mimir"
+  force_destroy = true
+}

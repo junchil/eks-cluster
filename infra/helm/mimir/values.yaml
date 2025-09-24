@@ -2,6 +2,16 @@ mimir-distributed:
   enterprise:
     enabled: false
   
+  mimir:
+    # https://grafana.com/docs/mimir/latest/configure/configuration-parameters/
+    structuredConfig:
+      common:
+        storage:
+          backend: s3
+          s3:
+            bucket_name: "${BUCKET_NAME}"
+            endpoint: "${BUCKET_HOST}:${BUCKET_PORT}"
+  
   alertmanager:
     enabled: true
     persistentVolume:
