@@ -45,7 +45,7 @@ resource "aws_s3_bucket" "mimir_alertmanager" {
 }
 
 resource "aws_s3_bucket" "mimir_tsdb" {
-  bucket = ${var.cluster_name}-"mimir-tsdb"
+  bucket = "${var.cluster_name}-mimir-tsdb"
   force_destroy = true
 }
 
