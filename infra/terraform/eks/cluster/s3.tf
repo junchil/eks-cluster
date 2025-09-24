@@ -34,23 +34,22 @@ resource "aws_s3_bucket" "westfarmers" {
   }
 }
 
-
 resource "aws_s3_bucket" "mimir_admin" {
-  bucket = "mimir-admin"
+  bucket = "${var.cluster_name}-mimir-admin"
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "mimir_alertmanager" {
-  bucket = "mimir-alertmanager"
+  bucket = "${var.cluster_name}-mimir-alertmanager"
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "mimir_tsdb" {
-  bucket = "mimir-tsdb"
+  bucket = ${var.cluster_name}-"mimir-tsdb"
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "mimir_ruler" {
-  bucket = "mimir-ruler"
+  bucket = "${var.cluster_name}-mimir-ruler"
   force_destroy = true
 }
