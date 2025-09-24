@@ -186,3 +186,10 @@ mimir-distributed:
       requests:
         cpu: 1
         memory: 512Mi
+    ingress:
+      enabled: false
+      ingressClassName: nginx
+      hosts:
+        - host: "mimir.stevejcliu.com"
+          paths:
+            - path: /
