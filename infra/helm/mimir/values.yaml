@@ -9,13 +9,29 @@ mimir-distributed:
         storage:
           backend: s3
           s3:
-            bucket_name: "${BUCKET_NAME}"
-            endpoint: "${BUCKET_HOST}:${BUCKET_PORT}"
+            bucket_name: "anycluster-mimir"
+            endpoint: "s3.ap-southeast-2.amazonaws.com"
+      alertmanager_storage:
+        backend: s3
+        s3:
+          bucket_name: "anycluster-mimir-alertmanager"
+          endpoint: "s3.ap-southeast-2.amazonaws.com"
+      blocks_storage:
+        backend: s3
+        s3:
+          bucket_name: "anycluster-mimir-tsdb"
+          endpoint: "s3.ap-southeast-2.amazonaws.com"
+      ruler_storage:
+        backend: s3
+        s3:
+          bucket_name: "anycluster-mimir-ruler"
+          endpoint: "s3.ap-southeast-2.amazonaws.com"
   
   alertmanager:
     enabled: true
     persistentVolume:
       enabled: true
+      storageClass: gp2
     replicas: 1
     resources:
       limits:
@@ -27,9 +43,18 @@ mimir-distributed:
     statefulSet:
       enabled: true
 
+  kafka:
+    # -- Enable Kafka for ingest-storage architecture
+    enabled: true
+    persistence:
+      enabled: true
+      size: 5Gi
+      storageClassName: gp2
+
   compactor:
     persistentVolume:
       size: 10Gi
+      storageClass: gp2
     resources:
       limits:
         memory: 1Gi
@@ -49,6 +74,7 @@ mimir-distributed:
   ingester:
     persistentVolume:
       size: 10Gi
+      storageClass: gp2
     replicas: 1
     resources:
       limits:
@@ -83,9 +109,17 @@ mimir-distributed:
   admin-cache:
     enabled: true
     replicas: 1
+
   chunks-cache:
     enabled: true
     replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
 
   index-cache:
     enabled: true
@@ -145,6 +179,7 @@ mimir-distributed:
   store_gateway:
     persistentVolume:
       size: 10Gi
+      storageClass: gp2
     replicas: 1
     resources:
       limits:
@@ -196,10 +231,11 @@ mimir-distributed:
       requests:
         cpu: 1
         memory: 512Mi
-    ingress:
-      enabled: false
-      ingressClassName: nginx
-      hosts:
-        - host: "mimir.stevejcliu.com"
-          paths:
-            - path: /
+
+  # ingress:
+  #   enabled: true
+  #   ingressClassName: nginx
+  #   hosts:
+  #     - host: "mimir.stevejcliu.com"
+  #       paths:
+  #         - path: /
