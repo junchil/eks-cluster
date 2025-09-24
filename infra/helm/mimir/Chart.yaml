@@ -1,0 +1,12 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+name: eksapp-mimir
+type: application
+version: 0.1.0
+appVersion: r361
+
+dependencies:
+- name: mimir-distributed
+  version: 5.9.0-weekly.361
+  repository: https://grafana.github.io/helm-charts
+  alias: mimir-distributed

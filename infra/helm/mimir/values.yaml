@@ -1,0 +1,188 @@
+mimir-distributed:
+  enterprise:
+    enabled: false
+  
+  alertmanager:
+    enabled: true
+    persistentVolume:
+      enabled: true
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+    statefulSet:
+      enabled: true
+
+  compactor:
+    persistentVolume:
+      size: 10Gi
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+
+  distributor:
+    replicas: 1
+    resources:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+
+  ingester:
+    persistentVolume:
+      size: 10Gi
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+    topologySpreadConstraints: {}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: target # support for enterprise.legacyLabels
+                  operator: In
+                  values:
+                    - ingester
+            topologyKey: "kubernetes.io/hostname"
+
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                    - ingester
+            topologyKey: "kubernetes.io/hostname"
+
+    zoneAwareReplication:
+      topologyKey: "kubernetes.io/hostname"
+
+  admin-cache:
+    enabled: true
+    replicas: 1
+  chunks-cache:
+    enabled: true
+    replicas: 1
+
+  index-cache:
+    enabled: true
+    replicas: 1
+
+  metadata-cache:
+    enabled: true
+    replicas: 1
+
+  results-cache:
+    enabled: true
+    replicas: 1
+
+  minio:
+    enabled: false
+
+  overrides_exporter:
+    replicas: 1
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  querier:
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+
+  query_frontend:
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+
+  ruler:
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+
+  store_gateway:
+    persistentVolume:
+      size: 10Gi
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 1
+        memory: 1Gi
+    topologySpreadConstraints: {}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: target # support for enterprise.legacyLabels
+                  operator: In
+                  values:
+                    - store-gateway
+            topologyKey: "kubernetes.io/hostname"
+
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                    - store-gateway
+            topologyKey: "kubernetes.io/hostname"
+    zoneAwareReplication:
+      topologyKey: "kubernetes.io/hostname"
+
+  nginx:
+    enabled: false
+
+  # Grafana Enterprise Metrics feature related
+  admin_api:
+    replicas: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
+
+  gateway:
+    replicas: 1
+    resources:
+      limits:
+        memory: 731Mi
+      requests:
+        cpu: 1
+        memory: 512Mi

@@ -1,0 +1,10 @@
+repositories:
+  - name: mimir
+    url: https://grafana.github.io/helm-charts
+---
+releases:
+  - name: eksapp-mimir
+    chart: .
+    installed: true
+    namespace: mimir
+    createNamespace: true

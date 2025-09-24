@@ -4,6 +4,11 @@ prometheus:
       enabled: true
       storageClass: gp2 
       size: 10Gi
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - prometheus.stevejcliu.com
   
   alertmanager:
     enabled: false
