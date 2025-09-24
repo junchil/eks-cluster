@@ -1,0 +1,10 @@
+prometheus:
+  server:
+    persistentVolume:
+      enabled: true
+      storageClass: gp2 
+      size: 10Gi
+  
+  alertmanager:
+    enabled: false
+
