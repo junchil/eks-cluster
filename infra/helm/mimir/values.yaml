@@ -232,10 +232,11 @@ mimir-distributed:
         cpu: 1
         memory: 512Mi
 
-  # ingress:
-  #   enabled: true
-  #   ingressClassName: nginx
-  #   hosts:
-  #     - host: "mimir.stevejcliu.com"
-  #       paths:
-  #         - path: /
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: mimir.stevejcliu.com
+        paths:
+          - path: /
+            pathType: Prefix
